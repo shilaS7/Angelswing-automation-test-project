@@ -1,0 +1,86 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VSlam Page >> should validate the 360 vslam filter is selected
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:84:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByTestId('photo-collection-filter-item-all').filter({ hasText: 'All' })
+
+    at VSlamPage.PhotofilterAll (D:\Angelswing_QA\angelswing-automation-test\pages\VSlamPage.ts:48:97)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:88:25
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 | import { HelperBase } from './HelperBase';
+   3 | import { BasePage } from './BasePage';
+   4 |
+   5 | export class VSlamPage extends BasePage {
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         super(page);
+   9 |     }
+  10 |
+  11 |     async photoAlbumPage() {
+  12 |         await this.page.getByTestId('tab-btn-photo').click();
+  13 |     }
+  14 |
+  15 |     async getHeaderText() {
+  16 |         await this.page.getByTestId('photo-gallery').waitFor({ state: 'visible' });
+  17 |         return await this.page.getByTestId('photo-gallery').textContent();
+  18 |     }
+  19 |     // click on Timeline tab
+  20 |     async clickOnTimelineTab() {
+  21 |         await this.page.getByTestId('photo-album-tab-timeline').filter({ hasText: 'Timeline' }).click();
+  22 |     }
+  23 |     //Click on Location tab
+  24 |     async clickOnLocationTab() {
+  25 |         await this.page.getByTestId('photo-album-tab-location').filter({ hasText: 'Location' }).click();
+  26 |     }
+  27 |     //Click on Album tab
+  28 |     async clickOnAlbumTab() {
+  29 |         await this.page.getByTestId('photo-album-tab-album').filter({ hasText: 'Album' }).click();
+  30 |     }
+  31 |     
+  32 |     async isTimelineTabShownAsSelected() {
+  33 |         return await this.isTabShownAsSelected('photo-album-tab-timeline');
+  34 |     }
+  35 |     async isLocationTabShownAsSelected() {
+  36 |         return await this.isTabShownAsSelected('photo-album-tab-location');
+  37 |     }
+  38 |     async isAlbumTabShownAsSelected(){
+  39 |         return await this.isTabShownAsSelected('photo-album-tab-album');
+  40 |     }
+  41 |
+  42 |     private async isTabShownAsSelected(tabName: string) {
+  43 |         const isSelected = await this.page.getByTestId(`${tabName}`).getAttribute('data-selected');
+  44 |         return isSelected === 'true';
+  45 |     }
+  46 |
+  47 |     async PhotofilterAll() {
+> 48 |         await this.page.getByTestId('photo-collection-filter-item-all').filter({hasText:'All'}).click();
+     |                                                                                                 ^ TimeoutError: locator.click: Timeout 15000ms exceeded.
+  49 |     }
+  50 |     async isPhotoFilterShownAsSelected() {
+  51 |         return await this.isTabShownAsSelected('photo-collection-filter-item-all');
+  52 |     }
+  53 |      async PhotoFilter360Video() {
+  54 |         await this.page.getByTestId('photo-collection-filter-item-three_sixty_video').filter({hasText:'360° VSLAM Videos'}).click();
+  55 |      }
+  56 |      async isPhotoFilter360VideoShownAsSelected() {
+  57 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_video');
+  58 |      }
+  59 |     }
+```

@@ -1,0 +1,4 @@
+all filter is selected
+all option is selected
+flight video filter is selected
+filter dropdown is closed by clicking body element

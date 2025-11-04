@@ -1,0 +1,26 @@
+{
+    "data": {
+        "id": 7,
+        "name": "Kunde and Sons",
+        "logoUrl": null,
+        "industry": "survey",
+        "country": "Malta",
+        "contactName": null,
+        "contactEmail": null,
+        "contactPhone": null,
+        "createdAt": "2025-06-27T19:58:03.989+09:00",
+        "updatedAt": "2025-06-30T18:20:19.788+09:00",
+        "currentPlan": {
+            "id": 3,
+            "name": "Trial",
+            "userSeatLimit": 2,
+            "projectLimit": 5,
+            "sourceProcessingLimit": 2,
+            "status": "active",
+            "startDate": "2025-07-01",
+            "endDate": "2025-07-31"
+        },
+        "role": "admin",
+        "projectSubscriptions": []
+    }
+}

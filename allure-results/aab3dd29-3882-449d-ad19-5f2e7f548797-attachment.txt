@@ -1,0 +1,5 @@
+✅ Token created with UUID: 5b4c18e2-0ea0-4561-9aec-40380c511c24
+Selecting role: Project Member
+Entering email: 5b4c18e2-0ea0-4561-9aec-40380c511c24@emailhook.site
+Invitation success message: The invitations have been sent.
+🗑️  Token 5b4c18e2-0ea0-4561-9aec-40380c511c24 deleted successfully

@@ -1,0 +1,150 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the 360 indoor on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:476:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="vslam-photo-inspection-list-item-360-223"]>div+div+div>button')
+
+    at PhotoGallery.clickPhoto360Indoor (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:346:119)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:504:33
+```
+
+# Test source
+
+```ts
+  246 |     async clickFilterAlbum360Photos(){
+  247 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty').click();
+  248 |     }
+  249 |     async clickFilterAlbum360SourcePhoto(){
+  250 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_source').click();
+  251 |     }
+  252 |     async clickFilterAlbum360StitchedPhotos(){
+  253 |         return await this.page.getByTestId('photo-album-collection-filter-item-stitched').click();
+  254 |     }
+  255 |     async clickFilterAlbum360PanoramaImages(){
+  256 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_panorama_album').click();
+  257 |     }
+  258 |     async clickFilterAlbum360Indoor(){
+  259 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_vslam_album').click();
+  260 |     }
+  261 |     async clickFilterAlbumRequestedPhotos(){
+  262 |         return await this.page.getByTestId('photo-album-collection-filter-item-viewpoint').click();
+  263 |     }
+  264 |     
+  265 |
+  266 |     async clickOnPhoto(){
+  267 |         return await this.page.locator('[data-testid="photo-album-item-185002"]>div').first().click();
+  268 |     }
+  269 |
+  270 |     async clickOnPhotoVideo(){
+  271 |         return await this.page.locator('[data-testid="photo-album-item-306"]').dblclick();
+  272 |     }
+  273 |
+  274 |     async clickOnPhotoInspection(){
+  275 |         return await this.page.locator('[data-testid="photo-album-item-185005"]').first().click();
+  276 |     }
+  277 |     async clickOnPhotoSource(){
+  278 |         return await this.page.locator('[data-testid="photo-album-item-175985"]').first().click();
+  279 |     }
+  280 |     async clickOnPhotoVslam(){
+  281 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  282 |     }
+  283 |     // async isPhotoSelected(){
+  284 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().getAttribute('data-selected');
+  285 |     // }  
+  286 |     async  uploadPhotoFromGallery(){
+  287 |         return await this.page.getByTestId('photo-upoload-button').click();
+  288 |     }
+  289 |      async clickonUploadButtonFileChooser(){
+  290 |         return await this.page.locator('[data-testid="popup"]>div>div>div>div>label').click();
+  291 |      }
+  292 |      async clickonUploadButtonPopup(){
+  293 |         return await this.page.getByTestId('upload-popup-confirm-button').click();
+  294 |      }
+  295 |      async isCloseButtonShown(){
+  296 |         return await this.page.locator('[data-testid="popup"] > div>div>div>button').click();
+  297 |      }
+  298 |      async isPhotoSelected(){
+  299 |         return await this.page.locator('[data-testid="selected-text-element"]').textContent();
+  300 |      }
+  301 |
+  302 |      async getSelectedItemsCount(){
+  303 |         const selectedText = await this.isPhotoSelected();
+  304 |         if (!selectedText) return 0;
+  305 |         
+  306 |         // Extract number from text like "1 item selected" or "3 items selected"
+  307 |         const match = selectedText.match(/(\d+)\s+items?\s+selected/);
+  308 |         return match ? parseInt(match[1], 10) : 0;
+  309 |      }
+  310 |
+  311 |      async isAnyPhotoSelected(){
+  312 |         const selectedText = await this.isPhotoSelected();
+  313 |         return selectedText !== null && selectedText.includes('selected');
+  314 |      }
+  315 |
+  316 |      async uploadSuccessMessage(){
+  317 |         return await this.page.locator('[data-testid="popup"]>div>div>p').textContent();
+  318 |      }
+  319 |
+  320 |      async clickPhotoInspectionAlbum(){
+  321 |         return await this.page.locator('[data-testid="photo-album-185005"]').click();
+  322 |         // return await this.page.locator('[data-testid^="photo-album-"]').first().click();
+  323 |      }
+  324 |     
+  325 |      async clickPhotoSourceAlbum(){
+  326 |         return await this.page.locator('[data-testid="photos-root-component"]').first().click();
+  327 |      }
+  328 |
+  329 |      async clickPhoto360SourceAlbum(){
+  330 |         return await this.page.locator('[data-testid="photo-album-175949"]').click();
+  331 |      }
+  332 |
+  333 |      async clickPhoto360Source(){
+  334 |         return await this.page.locator('[data-testid="photo-album-item-175949"]').first().click();
+  335 |      }
+  336 |
+  337 |      async clickPhoto360PanoramaImagesAlbum(){
+  338 |         return await this.page.locator('[data-testid="photo-album-175947"]').click();
+  339 |      }
+  340 |
+  341 |      async clickPhoto360IndoorAlbum(){
+  342 |         return await this.page.locator('[data-testid="photo-album-223"]').click();
+  343 |      }
+  344 |
+  345 |      async clickPhoto360Indoor(){
+> 346 |         return await this.page.locator('[data-testid="vslam-photo-inspection-list-item-360-223"]>div+div+div>button').click();
+      |                                                                                                                       ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  347 |      }
+  348 |     
+  349 |
+  350 |     //  async clickPhoto360Indoor(){
+  351 |     //     return await this.page.locator('[data-testid="photos-root-component"]>div>button').first().click();
+  352 |     //  }
+  353 |
+  354 |      async slidetoggleIndoor(){
+  355 |         return await this.page.locator('[data-testid="sidebar-toggle-button"]').click();
+  356 |      }
+  357 |
+  358 |      async getHeaderTextIndoor() {
+  359 |         return await this.page.getByTestId('indoor-floors-list-title').textContent();
+  360 |     }
+  361 |
+  362 |
+  363 |      async clickPhotoAlbum(){
+  364 |         return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div>div').click();
+  365 |      }
+  366 |     
+  367 |     }
+  368 |     
+```

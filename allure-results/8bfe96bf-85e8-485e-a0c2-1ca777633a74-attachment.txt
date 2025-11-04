@@ -1,0 +1,32 @@
+✅ Token created with UUID: e11babfe-f42d-4d77-b351-04943f7215dd
+Selecting role: Member
+Entering email: e11babfe-f42d-4d77-b351-04943f7215dd@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: e11babfe-f42d-4d77-b351-04943f7215dd@emailhook.site
+Search completed
+No collaborators found for "e11babfe-f42d-4d77-b351-04943f7215dd@emailhook.site"
+Searching for: e11babfe-f42d-4d77-b351-04943f7215dd@emailhook.site
+Search completed
+Row Cell Text: e11babfe-f42d-4d77-b351-04943f7215dd@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=e11babfe-f42d-4d77-b351-04943f7215dd%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Malika
+Entering Last Name: Jacobs
+Selecting Organization: Klocko and Sons
+Entering Phone Number: +12414515651
+Selecting purpose: Construction
+Selecting country: Burundi
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/v5iPfwaE9L198Suf4XKnIA?email=e11babfe-f42d-4d77-b351-04943f7215dd%40emailhook.site
+🗑️  Token e11babfe-f42d-4d77-b351-04943f7215dd deleted successfully

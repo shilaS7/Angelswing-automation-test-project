@@ -1,0 +1,146 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Measurement Page Test >> Location E2E Test >> Should create group, Location and validate x, y coordinates and elevation on map and side bar @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:349:13
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:22:19
+```
+
+# Test source
+
+```ts
+   1 | import { BrowserContext, Page } from '@playwright/test';
+   2 | import { HelperBase } from '../../pages/HelperBase';
+   3 | import { MeasurementPage } from '../../pages/MeasurementPage';
+   4 | import { PageManager } from '../../pages/PageManager';
+   5 | import { test, expect } from '../../test-options';
+   6 | import { faker } from '@faker-js/faker';
+   7 |
+   8 | test.describe('Measurement Page Test', () => {
+   9 |
+   10 |     let pageManager: PageManager;
+   11 |     let context: BrowserContext;
+   12 |     let page: Page;
+   13 |     let measurementPage: MeasurementPage;
+   14 |     let xStart: number;
+   15 |     let yStart: number;
+   16 |     let helper: HelperBase;
+   17 |     const newName = faker.string.alpha(10);
+   18 |
+   19 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+   20 |
+   21 |     test.beforeAll(async ({ browser }, testInfo) => {
+>  22 |         context = await browser.newContext({
+      |                   ^ Error: Error reading storage state from playwright/.auth/user.json:
+   23 |             recordVideo: {
+   24 |                 dir: testInfo.outputPath('videos'),
+   25 |                 size: {
+   26 |                     width: 1920,
+   27 |                     height: 1080
+   28 |                 }
+   29 |             }
+   30 |         });
+   31 |         page = await context.newPage();
+   32 |         pageManager = new PageManager(page);
+   33 |         helper = new HelperBase(pageManager.getPage());
+   34 |         await pageManager.onLoginPage().openLoginPage();
+   35 |         await pageManager.onDashboardPage().closeReadUserGuidePopUp();
+   36 |         await pageManager.onDashboardPage().openProject(projectTitle);
+   37 |         await pageManager.onDashboardPage().verifyLoadingBehavior();
+   38 |         await pageManager.navigateTo.measurementPage();
+   39 |         await expect(pageManager.getPage()).toHaveURL(/.*measurement*/);
+   40 |
+   41 |         measurementPage = pageManager.onMeasurementPage;
+   42 |     });
+   43 |
+   44 |     test.beforeEach(async () => {
+   45 |         ({ xStart, yStart } = await setupLocationCoordinates());
+   46 |     });
+   47 |
+   48 |     test.afterAll(async ({ }, testInfo) => {
+   49 |         // await deleteAllGroups(measurementPage);
+   50 |         const videoPath = testInfo.outputPath('my-video.webm');
+   51 |         await Promise.all([
+   52 |             page.video()?.saveAs(videoPath),
+   53 |             page.close()
+   54 |         ]);
+   55 |         testInfo.attachments.push({
+   56 |             name: 'video',
+   57 |             path: videoPath,
+   58 |             contentType: 'video/webm'
+   59 |         });
+   60 |         await context.close();
+   61 |     });
+   62 |
+   63 |     async function deleteAllGroups(measurementPage: MeasurementPage) {
+   64 |         await measurementPage.deleteAllGroups();
+   65 |         await measurementPage.validateNewGroupForOpenSpaceIsCreated();
+   66 |     }
+   67 |
+   68 |     async function setupMeasurementGroup(measurementPage: MeasurementPage) {
+   69 |         await measurementPage.createGroup();
+   70 |         const groupId = await measurementPage.getGroupId();
+   71 |         return groupId;
+   72 |     }
+   73 |
+   74 |     async function setupLocationCoordinates() {
+   75 |         const mapPage = pageManager.onMapPage;
+   76 |         const boundingBox = await mapPage.getMapBoundingBox();
+   77 |         if (!boundingBox) throw new Error('Bounding box not found');
+   78 |         const { xStart, yStart } = await mapPage.getStaringPosition(boundingBox, 3);
+   79 |         await mapPage.clickOnZoomInButton(faker.number.int({ min: 200, max: 300 }));
+   80 |         return { xStart, yStart };
+   81 |     }
+   82 |
+   83 |     async function markLocationOnMap(measurementPage: MeasurementPage, xStart: number, yStart: number) {
+   84 |         const value = { min: 1, max: 200 };
+   85 |         const randomX = Math.floor(faker.number.int({ min: value.min, max: value.max }) / 5) * 5;
+   86 |         const randomY = Math.floor(faker.number.int({ min: value.min, max: value.max }) / 5) * 5;
+   87 |         await pageManager.onMapPage.moveMouseToCenter(xStart + randomX, yStart + randomY);
+   88 |         await helper.waitForNumberOfSeconds(1);
+   89 |         await pageManager.onMapPage.moveMouseToCenter(xStart + randomX, yStart + randomY);
+   90 |
+   91 |         const expectedYCoordinate = await measurementPage.getValueOfYCoordinate();
+   92 |         const expectedXCoordinate = await measurementPage.getValueOfXCoordinate();
+   93 |
+   94 |         await measurementPage.createNewMeasurementItem(xStart + randomX, yStart + randomY);
+   95 |         return { expectedYCoordinate, expectedXCoordinate };
+   96 |     }
+   97 |
+   98 |     async function hoverAndGetValueFromMap(measurementPage: MeasurementPage, LocationTitle: string) {
+   99 |         await measurementPage.hoverOverMeasurementItemInMap(LocationTitle);
+  100 |         const { y: yCoordinateOnMap, x: xCoordinateOnMap } = await measurementPage.getYXValueFromMap();
+  101 |         await helper.waitForNumberOfSeconds(1);
+  102 |         const expectedElevation = await measurementPage.getElevationValueFromMap();
+  103 |         return { yCoordinateOnMap, xCoordinateOnMap, expectedElevation };
+  104 |     }
+  105 |
+  106 |     async function getLocationValueFromSideBar(measurementPage: MeasurementPage, locationId: string) {
+  107 |         const yCoordinateOnSideBar = await measurementPage.getValueOfYFromSideBar(locationId);
+  108 |         const xCoordinateOnSideBar = await measurementPage.getValueOfXFromSideBar(locationId);
+  109 |         const elevationOnSideBar = await measurementPage.getElevationValueFromSideBar(locationId);
+  110 |         return { yCoordinateOnSideBar, xCoordinateOnSideBar, elevationOnSideBar };
+  111 |     }
+  112 |
+  113 |     async function assertLocationValuesOnMapAndSideBarWithExpectedValues(yCoordinateOnMap: string, xCoordinateOnMap: string, yCoordinateOnSideBar: string, xCoordinateOnSideBar: string, elevationOnSideBar: string, expectedYCoordinate: string, expectedXCoordinate: string, expectedElevation: string) {
+  114 |         expect(yCoordinateOnMap, 'Y Coordinate on map is not equal to expected Y Coordinate').toBe(expectedYCoordinate);
+  115 |         expect(xCoordinateOnMap, 'X Coordinate on map is not equal to expected X Coordinate').toBe(expectedXCoordinate);
+  116 |         expect(yCoordinateOnSideBar, 'Y Coordinate on side bar is not equal to expected Y Coordinate').toBe(expectedYCoordinate);
+  117 |         expect(xCoordinateOnSideBar, 'X Coordinate on side bar is not equal to expected X Coordinate').toBe(expectedXCoordinate);
+  118 |         expect(elevationOnSideBar, 'Elevation on side bar is not equal to expected Elevation').toBe(expectedElevation);
+  119 |     }
+  120 |
+  121 |     async function assertLocationResponseValuesWithExpectedValues(location: any, expectedYCoordinate: string, expectedXCoordinate: string) {
+  122 |         expect(location, 'Location coordinates are missing in response').toBeDefined();
+```

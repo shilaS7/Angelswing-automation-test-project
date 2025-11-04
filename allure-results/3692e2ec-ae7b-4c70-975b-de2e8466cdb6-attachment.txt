@@ -1,0 +1,15 @@
+Entering Email: shanie.dicki@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Shanie
+Entering Last Name: Dicki
+Selecting Organization: Ziemann - Turner
+Organization input validated: "Ziemann - Turner"
+Entering Phone Number: +16676481408
+Selecting purpose: Disaster Response
+Selecting country: Mali
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/AI6feIQtI71oqeSA9k4VkA?email=shanie.dicki%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/AI6feIQtI71oqeSA9k4VkA?email=shanie.dicki%40j87bh0xv.mailosaur.net
+Expected Email in URL: shanie.dicki%40j87bh0xv.mailosaur.net
+Verification email test completed

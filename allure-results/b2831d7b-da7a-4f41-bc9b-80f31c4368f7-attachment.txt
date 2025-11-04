@@ -1,0 +1,15 @@
+Total Groups: 9
+Deleting group 1 of 9
+Delete button click timed out, trying to toggle show/hide folder and retry
+Deleting group 2 of 9
+Deleting group 3 of 9
+Deleting group 4 of 9
+Deleting group 5 of 9
+Delete button click timed out, trying to toggle show/hide folder and retry
+Deleting group 6 of 9
+Deleting group 7 of 9
+Deleting group 8 of 9
+Delete button click timed out, trying to toggle show/hide folder and retry
+Deleting group 9 of 9
+Delete button click timed out, trying to toggle show/hide folder and retry
+One group created successfully

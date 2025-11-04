@@ -1,0 +1,33 @@
+✅ Token created with UUID: d848fc75-d972-4c2b-badc-057a61eef516
+Selecting role: Admin
+Entering email: d848fc75-d972-4c2b-badc-057a61eef516@emailhook.site
+Searching for: d848fc75-d972-4c2b-badc-057a61eef516@emailhook.site
+Search completed
+No collaborators found for "d848fc75-d972-4c2b-badc-057a61eef516@emailhook.site"
+Searching for: d848fc75-d972-4c2b-badc-057a61eef516@emailhook.site
+Search completed
+Row Cell Text: d848fc75-d972-4c2b-badc-057a61eef516@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=d848fc75-d972-4c2b-badc-057a61eef516%40emailhook.site
+🗑️  All Requests for Token d848fc75-d972-4c2b-badc-057a61eef516 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Shakira
+Entering Last Name: Bergstrom
+Selecting Organization: Kovacek - Carroll
+Organization input validated: "Kovacek - Carroll"
+Entering Phone Number: +15238948701
+Selecting purpose: Survey
+Selecting country: Colombia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/So0LUdMZDLFhud8ReUf2uw?email=d848fc75-d972-4c2b-badc-057a61eef516%40emailhook.site
+🗑️  Token d848fc75-d972-4c2b-badc-057a61eef516 deleted successfully

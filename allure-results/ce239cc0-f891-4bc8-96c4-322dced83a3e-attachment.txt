@@ -1,0 +1,32 @@
+✅ Token created with UUID: ff0e680e-6791-48b6-99b8-4d81ac5ffa13
+Selecting role: Admin
+Entering email: ff0e680e-6791-48b6-99b8-4d81ac5ffa13@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: ff0e680e-6791-48b6-99b8-4d81ac5ffa13@emailhook.site
+Search completed
+No collaborators found for "ff0e680e-6791-48b6-99b8-4d81ac5ffa13@emailhook.site"
+Searching for: ff0e680e-6791-48b6-99b8-4d81ac5ffa13@emailhook.site
+Search completed
+Row Cell Text: ff0e680e-6791-48b6-99b8-4d81ac5ffa13@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=ff0e680e-6791-48b6-99b8-4d81ac5ffa13%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Ulices
+Entering Last Name: Bahringer
+Selecting Organization: Grady, Smitham and Okuneva
+Entering Phone Number: +14427927437
+Selecting purpose: Urban Planning
+Selecting country: Montenegro
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/IUWzL9th0mM1JOvgs22BAA?email=ff0e680e-6791-48b6-99b8-4d81ac5ffa13%40emailhook.site
+🗑️  Token ff0e680e-6791-48b6-99b8-4d81ac5ffa13 deleted successfully

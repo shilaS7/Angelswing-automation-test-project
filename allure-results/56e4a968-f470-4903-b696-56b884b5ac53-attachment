@@ -1,0 +1,99 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Sign Up Functionality >> Should invite user to the project by existing user
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\Shila_signUp.spec.ts:381:9
+
+# Error details
+
+```
+Error: locator.scrollIntoViewIfNeeded: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('div').filter({ hasText: 'Project 1' }).last()
+
+    at ProjectPage.clickOnThreeDotsMenuOfProject (D:\Angelswing_QA\angelswing-automation-test\pages\ProjectPage.ts:37:23)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\Shila_signUp.spec.ts:386:43
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 |
+   3 | export class ProjectPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |
+  11 |     async openProject(projectTitle: string) {
+  12 |         await this.page.locator('h3', { hasText: projectTitle }).click();
+  13 |     }
+  14 |
+  15 |     async verifyLoadingBehavior() {
+  16 |         const loading = this.page.getByTestId('loading-wrapper');
+  17 |         const isVisible = await loading.isVisible({ timeout: 300 });
+  18 |         expect(isVisible).toBe(true);
+  19 |         await expect(loading).toBeHidden({ timeout: 10000 });
+  20 |     }
+  21 |     async userguidepopupclose() {
+  22 |         await this.page.getByTestId('popup-close').click();
+  23 |     }
+  24 |
+  25 |     async isAddProjectButtonVisible() {
+  26 |         const addProjectButton = this.page.getByRole('button', { name: 'Add Project' });
+  27 |         const isVisible = await addProjectButton.isVisible();
+  28 |         return isVisible;
+  29 |     }
+  30 |
+  31 |     async clickOnDashboardMenu() {
+  32 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText('Dashboard').click();
+  33 |     }
+  34 |
+  35 |     async clickOnThreeDotsMenuOfProject(projectTitle: string) {
+  36 |         const project = this.page.locator('div', { hasText: projectTitle }).last();
+> 37 |         await project.scrollIntoViewIfNeeded();
+     |                       ^ Error: locator.scrollIntoViewIfNeeded: Target page, context or browser has been closed
+  38 |         await project.locator('..').locator('button svg').click();
+  39 |     }
+  40 |
+  41 |     async clickOnProjectSettings() {
+  42 |         await this.page.getByRole('button', { name: 'Project Setting' }).last().click();
+  43 |     }
+  44 |
+  45 |     async clickOnAddButton() {
+  46 |         await this.page.getByRole('button', { name: 'Add' }).click();
+  47 |     }
+  48 |
+  49 |     async validatePopUpIsVisible() {
+  50 |         const popUp = this.page.getByTestId('popup');
+  51 |         const isVisible = await popUp.isVisible();
+  52 |         expect(isVisible).toBe(true);
+  53 |     }
+  54 |
+  55 |     // ! This is not working as expected as the button is disabled but the test is failing
+  56 |     async validateInviteButtonIsDisabled() {
+  57 |         const inviteButton = this.page.getByTestId('popup').locator('button').nth(1);
+  58 |         const isDisabled = await inviteButton.isDisabled();
+  59 |         expect(isDisabled).toBe(true);
+  60 |     }
+  61 |
+  62 |     async enterEmailOfNewTeamMember(email: string) {
+  63 |         await this.page.locator('input[type="text"]').fill(email);
+  64 |     }
+  65 |
+  66 |
+  67 |     async clickOnInviteButton() {
+  68 |         await this.page.getByTestId('popup').locator('button').nth(1).click();
+  69 |     }
+  70 |
+  71 | }
+  72 |
+```

@@ -1,0 +1,4 @@
+✅ Token created with UUID: 91cbe969-7eec-4797-b715-59cc8d41e16d
+Selecting role: Org Admin
+Entering email: 91cbe969-7eec-4797-b715-59cc8d41e16d@emailhook.site, another-91cbe969-7eec-4797-b715-59cc8d41e16d@emailhook.site
+🗑️  Token 91cbe969-7eec-4797-b715-59cc8d41e16d deleted successfully

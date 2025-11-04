@@ -1,0 +1,229 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Measurement Page Test >> Group Context Menu E2E Test @poc >> should create a group and delete it using context menu delete in the measurement page
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:605:13
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="open-space-group-65854"]')
+
+    at MeasurementPage.performRightClickAction (D:\Angelswing_QA\angelswing-automation-test\pages\MeasurementPage.ts:293:23)
+    at MeasurementPage.toggleShowHideGroupFolder (D:\Angelswing_QA\angelswing-automation-test\pages\MeasurementPage.ts:50:20)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:608:35
+```
+
+# Test source
+
+```ts
+  193 |     async getMeasurementItemPostResponse(): Promise<any> {
+  194 |         const response = await this.page.waitForResponse(response =>
+  195 |             response.url().includes(`/v2/projects/${process.env.PROJECT_ID}/contents`) && response.status() === 201 && response.request().method() === 'POST',
+  196 |             { timeout: 10000 }
+  197 |         );
+  198 |         const status = response.status();
+  199 |         const body = await response.json();
+  200 |         console.log(`Response: ${JSON.stringify(body)}`);
+  201 |         console.log(`Status: ${status}`);
+  202 |         return body;
+  203 |     }
+  204 |
+  205 |     async deleteMeasurementItem(measurementItemId: string) {
+  206 |         await this.performRightClickAction(`[data-ctxsort-key="${measurementItemId}"]`, 'Delete');
+  207 |         await this.page.getByTestId('popup').getByRole('button', { name: 'Delete' }).click();
+  208 |         console.log(`Deleted Measurement Item with ID: ${measurementItemId}`);
+  209 |
+  210 |     }
+  211 |
+  212 |     async verifyMeasurementItemDeleted(measurementItemId: string) {
+  213 |         return await this.verifyDeletion(`/v2/contents/${measurementItemId}`);
+  214 |     }
+  215 |
+  216 |     async validateMeasurementItemIsNotDisplayedInUI(measurementItemId: string) {
+  217 |         const newMeasurementItem = this.page.locator(`[data-ctxsort-key="${measurementItemId}"]`);
+  218 |         await expect(newMeasurementItem).toBeHidden();
+  219 |         await expect(this.page.locator(`[data-ctxsort-key="${measurementItemId}"]`)).toHaveCount(0);
+  220 |     }
+  221 |
+  222 |     async validateMeasurementItemIsShownInMap(measurementItemId: string) {
+  223 |         const newMeasurementItem = this.page.locator(`[data-ctxsort-key="${measurementItemId}"]`);
+  224 |         await expect(newMeasurementItem).toBeVisible();
+  225 |         await expect(newMeasurementItem.locator(`[data-ddm-track-action="map-view"]`)).toHaveCount(0);
+  226 |     }
+  227 |
+  228 |
+  229 |     async toggleShowHideLayer(measurementItemId: string) {
+  230 |         await this.performRightClickAction(`[data-ctxsort-key="${measurementItemId}"]`, 'Show / Hide layer');
+  231 |         console.log(`Toggled visibility for measurement Item ID: ${measurementItemId}`);
+  232 |     }
+  233 |
+  234 |     async validateMeasurementItemIsNotShownInMap(measurementItemId: string) {
+  235 |         const newMeasurementItem = this.page.locator(`[data-ctxsort-key="${measurementItemId}"]`);
+  236 |         await expect(newMeasurementItem).toBeVisible();
+  237 |         await expect(newMeasurementItem.locator(`[data-ddm-track-action="map-view"]`)).toHaveCount(1);
+  238 |     }
+  239 |
+  240 |     async renameMeasurementItem(measurementItemId: string, newName: string,) {
+  241 |         const measurementItem = this.page.locator(`[data-ctxsort-key="${measurementItemId}"]`);
+  242 |         await this.performRightClickAction(`[data-ctxsort-key="${measurementItemId}"]`, 'Rename');
+  243 |
+  244 |         await measurementItem.getByRole('textbox').fill(newName);
+  245 |         await measurementItem.getByRole('textbox').press('Enter');
+  246 |         await expect(measurementItem.locator('p')).toHaveText(newName);
+  247 |
+  248 |         console.log(`Renamed Measurement Item ID ${measurementItemId} to "${newName}"`);
+  249 |     }
+  250 |
+  251 |     async centerOnMap(measurementItemId: string) {
+  252 |         await this.performRightClickAction(`[data-ctxsort-key="${measurementItemId}"]`, 'Center on map');
+  253 |         console.log(`Centered on Measurement Item ID: ${measurementItemId}`);
+  254 |     }
+  255 |
+  256 |     // ! No attribute found for Center on Map -- Discuss with the developer
+  257 |
+  258 |     async toggleShowHideDetails(measurementItemId: string) {
+  259 |         await this.performRightClickAction(`[data-ctxsort-key="${measurementItemId}"]`, 'Show / Hide Details');
+  260 |         console.log(`Toggled details visibility for measurement Item ID: ${measurementItemId}`);
+  261 |     }
+  262 |
+  263 |     async getMeasurementItemDetailsDataSelectedAttributeValue(measurementItemId: string) {
+  264 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  265 |         const detailsDataSelectedAttributeValue = await measurementItem.getAttribute('data-selected');
+  266 |         return detailsDataSelectedAttributeValue;
+  267 |     }
+  268 |
+  269 |     async getMeasurementItemDetailsDataStateAttributeValue(measurementItemId: string) {
+  270 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  271 |         const detailsDataStateAttributeValue = await measurementItem.getAttribute('data-state');
+  272 |         return detailsDataStateAttributeValue;
+  273 |     }
+  274 |
+  275 |     async getMeasurementItemDetailsDataStateAttributeCount(measurementItemId: string) {
+  276 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  277 |         const detailsDataStateAttributeCount = await measurementItem.count();
+  278 |         return detailsDataStateAttributeCount;
+  279 |     }
+  280 |
+  281 |
+  282 |
+  283 |     async getMeasurementItemDetailsDataPinnedAttributeValue(measurementItemId: string) {
+  284 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  285 |         const detailsDataPinnedAttributeValue = await measurementItem.getAttribute('data-pinned');
+  286 |         return detailsDataPinnedAttributeValue;
+  287 |     }
+  288 |
+  289 |     // ! No attribute found for Show Hide Details , although dynamic class is visible -- Discuss with the developer
+  290 |
+  291 |     private async performRightClickAction(selector: string, actionName: string) {
+  292 |         const element = this.page.locator(selector);
+> 293 |         await element.click({ button: "right" });
+      |                       ^ TimeoutError: locator.click: Timeout 10000ms exceeded.
+  294 |         await this.page.getByRole('button', { name: actionName }).click();
+  295 |     }
+  296 |
+  297 |     private async verifyDeletion(endpoint: string): Promise<boolean> {
+  298 |         const response = await this.page.waitForResponse(res =>
+  299 |             res.url().includes(endpoint) && res.request().method() === 'DELETE'
+  300 |         );
+  301 |         const isSuccess = response.status() === 204;
+  302 |         console.log(`Deletion API Status: ${response.status()} (Success: ${isSuccess})`);
+  303 |         return isSuccess;
+  304 |     }
+  305 |
+  306 |
+  307 |     async createNewLength(xStart: number, yStart: number) {
+  308 |         await this.page.mouse.click(xStart + 120, yStart + 120);
+  309 |         await this.page.mouse.click(xStart + 200, yStart + 200);
+  310 |         await this.page.mouse.click(xStart + 200, yStart + 200);
+  311 |         console.log(`Created new Length at (${xStart + 120}, ${yStart + 120}) and (${xStart + 200}, ${yStart + 200})`);
+  312 |     }
+  313 |
+  314 |
+  315 |     async getValueOfYCoordinate() {
+  316 |         const yCoordinate = await this.page.locator('[id="marker-pinpointer-y-text"] > p').textContent();
+  317 |         return yCoordinate;
+  318 |     }
+  319 |
+  320 |     async getValueOfXCoordinate() {
+  321 |         const xCoordinate = await this.page.locator('[id="marker-pinpointer-x-text"] > p').textContent();
+  322 |         return xCoordinate;
+  323 |     }
+  324 |
+  325 |     async getValueOfYFromSideBar(measurementItemId: string) {
+  326 |         const yCoordinate = await this.page.locator(`li#contentid-${measurementItemId} p`).nth(1).textContent();
+  327 |         return yCoordinate;
+  328 |     }
+  329 |
+  330 |     async getValueOfXFromSideBar(measurementItemId: string) {
+  331 |         const xCoordinate = await this.page.locator(`li#contentid-${measurementItemId} p`).last().textContent();
+  332 |         return xCoordinate;
+  333 |     }
+  334 |
+  335 |     async getElevationValueFromSideBar(measurementItemId: string) {
+  336 |         const elevationValue = await this.page.locator(`li#contentid-${measurementItemId}`).locator('span:text-is("Elev.") + span').textContent();
+  337 |         return elevationValue;
+  338 |     }
+  339 |
+  340 |     async hoverOverMeasurementItemInMap(measurementItemTitle: string) {
+  341 |         await this.page.waitForTimeout(500);
+  342 |         await this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle }).hover({ force: true });
+  343 |         await this.page.waitForTimeout(500);
+  344 |     }
+  345 |
+  346 |     async getYXValueFromMap() {
+  347 |         const xyValue = await this.page.locator(`[type="marker"]`).locator('div:text-is("Y, X")').locator('+ div').textContent();
+  348 |         if (!xyValue) throw new Error('XY Value not found');
+  349 |         const [yCoordinate, xCoordinate] = xyValue!.split(',');
+  350 |         return { y: yCoordinate.trim(), x: xCoordinate.trim() };
+  351 |     }
+  352 |
+  353 |     async getElevationValueFromMap() {
+  354 |         const elevationValue = await this.page.locator(`[type="marker"]`).locator('div:text-is("Elev")').locator('+ div').textContent();
+  355 |         if (!elevationValue) throw new Error('Elevation Value not found');
+  356 |         return elevationValue.trim();
+  357 |     }
+  358 |
+  359 |     async validateLocationMarkerIsDisplayedOnMap(measurementItemTitle: string) {
+  360 |         await expect(this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle })).toBeVisible({ timeout: 5000 });
+  361 |     }
+  362 |
+  363 |     async validateLocationMarkerIsNotDisplayedOnMap(measurementItemTitle: string) {
+  364 |         await expect(this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle })).toBeHidden();
+  365 |     }
+  366 |
+  367 |     async deleteAllGroups() {
+  368 |         const groupLocator = this.page.locator('[data-testid^="open-space-group"]');
+  369 |         const totalGroups = await groupLocator.count();
+  370 |         console.log(`Total Groups: ${totalGroups}`);
+  371 |
+  372 |         for (let i = 0; i < totalGroups; i++) {
+  373 |             console.log(`Deleting group ${i + 1} of ${totalGroups}`);
+  374 |             const currentGroup = groupLocator.first(); // TODO: Check if the group is already selected
+  375 |             await currentGroup.locator('> div').first().click();
+  376 |             await currentGroup.click({ button: 'right' });
+  377 |             try {
+  378 |                 await this.page.getByRole('button', { name: 'Delete' }).click({ timeout: 2000 });
+  379 |             } catch (error) {
+  380 |                 if ((error as Error).name === 'TimeoutError') {
+  381 |                     console.log('Delete button click timed out, trying to toggle show/hide folder and retry');
+  382 |                     await this.page.getByRole('button', { name: 'Show / Hide folder' }).click();
+  383 |                     await currentGroup.click({ button: 'right' });
+  384 |                     await this.page.getByRole('button', { name: 'Delete' }).click();
+  385 |                 } else {
+  386 |                     throw error;
+  387 |                 }
+  388 |             }
+  389 |             await this.page.getByTestId('warning-button').filter({ hasText: 'Delete' }).click();
+  390 |             await this.page.waitForTimeout(1000);
+  391 |         }
+  392 |     }
+  393 |
+```

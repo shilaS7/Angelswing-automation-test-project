@@ -1,0 +1,32 @@
+✅ Token created with UUID: ee95f9a1-adda-4e4e-88a8-5f64133d7226
+Selecting role: Admin
+Entering email: ee95f9a1-adda-4e4e-88a8-5f64133d7226@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: ee95f9a1-adda-4e4e-88a8-5f64133d7226@emailhook.site
+Search completed
+No collaborators found for "ee95f9a1-adda-4e4e-88a8-5f64133d7226@emailhook.site"
+Searching for: ee95f9a1-adda-4e4e-88a8-5f64133d7226@emailhook.site
+Search completed
+Row Cell Text: ee95f9a1-adda-4e4e-88a8-5f64133d7226@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=ee95f9a1-adda-4e4e-88a8-5f64133d7226%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Dayne
+Entering Last Name: Klein
+Selecting Organization: Hyatt - Ziemann
+Entering Phone Number: +19802844293
+Selecting purpose: Urban Planning
+Selecting country: Saudi Arabia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #2: https://dev-api.angelswing.io/v2/confirm-email/sDkd86fUupE9VZ0_S-sErA?email=ee95f9a1-adda-4e4e-88a8-5f64133d7226%40emailhook.site
+🗑️  Token ee95f9a1-adda-4e4e-88a8-5f64133d7226 deleted successfully

@@ -1,0 +1,228 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite an admin to an organization and validate the invitation page after signup and login from new user/admin @smoke
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:428:13
+
+# Error details
+
+```
+Error: expect(received).toEqual(expected) // deep equality
+
+Expected: "checked"
+Received: "unchecked"
+    at validate2DOrthomosaicIsSelected (D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:425:32)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:446:13
+```
+
+# Test source
+
+```ts
+  325 |         await organizationPage.clickOnStartYear();
+  326 |         await organizationPage.selectStartYear(startYear);
+  327 |         await organizationPage.clickOnStartMonth();
+  328 |         await organizationPage.selectStartMonth(startMonth);
+  329 |         await organizationPage.selectStartDate(startDay);
+  330 |
+  331 |         await organizationPage.clickOnEndYear();
+  332 |         await organizationPage.selectEndYear(endYear);
+  333 |         await organizationPage.clickOnEndMonth();
+  334 |         await organizationPage.selectEndMonth(endMonth);
+  335 |         await organizationPage.selectEndDate(endDay);
+  336 |         await helper.waitForNumberOfSeconds(1);
+  337 |
+  338 |     });
+  339 |
+  340 |     test('should display correct subscription and usage data based on intercepted API responses', async ({ }) => {
+  341 |         await pm.getPage.waitForTimeout(2000);
+  342 |         await pm.getPage.route('**/v2/organizations/current', async route => {
+  343 |             const response = await route.fetch();
+  344 |             const responseBody = await response.json();
+  345 |             responseBody.data.currentPlan.sourceProcessingLimit = 50;
+  346 |             responseBody.data.currentPlan.startDate = '2024-01-01';
+  347 |             responseBody.data.currentPlan.endDate = '2024-12-31';
+  348 |             console.log(responseBody);
+  349 |
+  350 |             await route.fulfill({
+  351 |                 status: response.status(),
+  352 |                 contentType: response.headers()['content-type'] || 'application/json',
+  353 |                 body: JSON.stringify(responseBody)
+  354 |             });
+  355 |         });
+  356 |
+  357 |         await pm.getPage.route('**/v2/organizations/7/processings', async route => {
+  358 |             const response = await route.fetch();
+  359 |             const responseBody = await response.json();
+  360 |             responseBody.meta.completed = 0;
+  361 |             await route.fulfill({
+  362 |                 status: response.status(),
+  363 |                 contentType: response.headers()['content-type'] || 'application/json',
+  364 |                 body: JSON.stringify(responseBody)
+  365 |             });
+  366 |         });
+  367 |
+  368 |         const organizationPage = pm.onOrganizationPage;
+  369 |         await organizationPage.clickOnDataStorageTab();
+  370 |         await pm.getPage.waitForTimeout(1000);
+  371 |
+  372 |         expect(await organizationPage.getSubscriptionPeriod()).toBe('2024-01-01 ~ 2024-12-31');
+  373 |         expect(await organizationPage.getTotalQuota()).toBe('50');
+  374 |         expect(await organizationPage.getUsedCount()).toBe('0');
+  375 |         expect(await organizationPage.getRemainingCount()).toBe('50');
+  376 |
+  377 |     });
+  378 |
+  379 |     const scenarios = [
+  380 |         { quota: 0, used: 0, start: '2025-01-01', end: '2025-01-31' },
+  381 |         { quota: 5, used: 5, start: '2025-02-01', end: '2025-02-28' },
+  382 |         { quota: 3, used: 5, start: '2025-03-01', end: '2025-03-31' },
+  383 |         { quota: 10, used: 2, start: '2025-04-01', end: '2025-04-30' },
+  384 |         // { quota: -5, used: 2, start: '2025-05-01', end: '2025-05-31' }, // Invalid as negative will not be send from Backend
+  385 |         // { quota: 2, used: -5, start: '2025-05-01', end: '2025-05-31' }, // Invalid as negative will not be send from Backend
+  386 |         { quota: 0, used: 1, start: '2025-06-01', end: '2025-06-30' },
+  387 |         { quota: 2147483647, used: 1000, start: '2025-07-01', end: '2025-07-31' }, // Invalid as 2147483647 is not a valid number
+  388 |     ];
+  389 |     for (const { quota, used, start, end } of scenarios) {
+  390 |         test(`should handle quota=${quota}, used=${used}`, async ({ }) => {
+  391 |             await interceptSubscriptionData(pm.getPage, quota, used, start, end);
+  392 |
+  393 |             const organizationPage = pm.onOrganizationPage;
+  394 |             await organizationPage.clickOnDataStorageTab();
+  395 |             await pm.getPage.waitForTimeout(1000);
+  396 |
+  397 |             // Assertions (you can vary these based on expected behavior)
+  398 |             expect(await organizationPage.getSubscriptionPeriod()).toBe(`${start} ~ ${end}`);
+  399 |             expect(await organizationPage.getUsedCount()).toBe(String(used));
+  400 |             // expect(await organizationPage.getRemainingCount()).toBe(String(quota - used));
+  401 |             // expect(await organizationPage.getTotalQuota()).toBe(String(quota));
+  402 |         });
+  403 |     }
+  404 |
+  405 |     test.describe('Invitation tests', () => {
+  406 |         let token: string;
+  407 |         let email: string;
+  408 |
+  409 |         test.beforeEach(async ({ request }) => {
+  410 |             token = await createTokenAndGetUuid(request);
+  411 |             email = `${token}@${process.env.EMAIL_HOOK_URL}`;
+  412 |             userDetails.email = email;
+  413 |         });
+  414 |
+  415 |         test.afterEach(async ({ request }) => {
+  416 |             await deleteToken(request, token);
+  417 |             // await pm.getPage.close();
+  418 |         });
+  419 |
+  420 |         async function validate2DOrthomosaicIsSelected(verificationTab: Page) {
+  421 |             const mapPagePM = new PageManager(verificationTab);
+  422 |             const mapPage = mapPagePM.onMapPage;
+  423 |             const isSelected = await mapPage.get2DOrthomosaicIsSelectionState();
+  424 |             expect(isSelected).not.toBeNull();
+> 425 |             expect(isSelected).toEqual('checked');
+      |                                ^ Error: expect(received).toEqual(expected) // deep equality
+  426 |         }
+  427 |
+  428 |         test('should invite an admin to an organization and validate the invitation page after signup and login from new user/admin @smoke', async ({ request, context }) => {
+  429 |             const organizationPage = pm.onOrganizationPage;
+  430 |             await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  431 |             await organizationPage.enterEmail(userDetails.email);
+  432 |             await organizationPage.clickAddButton();
+  433 |             expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  434 |             await organizationPage.sendInvitation();
+  435 |             await organizationPage.validateUserIsNotListedInAccounts(userDetails.email);
+  436 |
+  437 |             await organizationPage.clickOnPendingRequestsTab();
+  438 |             await organizationPage.validateUserIsInvitedAndListedInPendingRequests(userDetails.email);
+  439 |
+  440 |             await pm.onProjectPage.clickOnDashboardMenu();
+  441 |             await pm.onDashboardPage.clickOnSignOutButton();
+  442 |
+  443 |             const signupTab = await completeUserSignupFlow({ request, context, token, userDetails, password: userDetails.password });
+  444 |             const verificationTab = await completeEmailVerification({ request, context, token, password: userDetails.password });
+  445 |             const { newUserDashboard } = await setupDashboardAfterLogin(verificationTab);
+  446 |             await validate2DOrthomosaicIsSelected(verificationTab);
+  447 |             // open dashboard page
+  448 |             const newUserNavigationPM = new PageManager(verificationTab);
+  449 |             await newUserNavigationPM.navigateTo.workspacePage();
+  450 |
+  451 |             await newUserDashboard.clickOnOrganization();
+  452 |             const newUserOrganizationPage = new PageManager(verificationTab).onOrganizationPage;
+  453 |
+  454 |             await newUserOrganizationPage.clickOnAccountsTab();
+  455 |
+  456 |             await newUserOrganizationPage.validateUserIsListedInAccounts(userDetails.email);
+  457 |
+  458 |             await newUserOrganizationPage.clickOnPendingRequestsTab();
+  459 |
+  460 |             await newUserOrganizationPage.validateUserIsNotListedInPendingRequests(userDetails.email);
+  461 |         });
+  462 |
+  463 |         test('should validate searching in Pending Requests tab', async ({ }) => {
+  464 |             const organizationPage = pm.onOrganizationPage;
+  465 |             await organizationPage.clickOnPendingRequestsTab();
+  466 |
+  467 |             for (const value of searchValues) {
+  468 |                 await organizationPage.searchByValueAndValidateResultInPendingRequests(value);
+  469 |             }
+  470 |         });
+  471 |
+  472 |         test('Should enable the Add button when a valid email is entered', async ({ }) => {
+  473 |             const organizationPage = pm.onOrganizationPage;
+  474 |             await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  475 |             await organizationPage.enterEmail(userDetails.email);
+  476 |             await organizationPage.clickAddButton();
+  477 |             expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  478 |         });
+  479 |
+  480 |         test('Should accept multiple emails separated by commas', async ({ }) => {
+  481 |             const organizationPage = pm.onOrganizationPage;
+  482 |             const email1 = `${token}@${process.env.EMAIL_HOOK_URL}`;
+  483 |             const email2 = `another-${token}@${process.env.EMAIL_HOOK_URL}`;
+  484 |             const multipleEmails = `${email1}, ${email2}`;
+  485 |             await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  486 |             await organizationPage.enterEmail(multipleEmails);
+  487 |             await organizationPage.clickAddButton();
+  488 |             expect(await organizationPage.getCountOfInvitedAccounts()).toBe(2);
+  489 |         });
+  490 |
+  491 |         test('should validate invitation, signup, and login for multiple emails', async ({ request, context }) => {
+  492 |             const organizationPage = pm.onOrganizationPage;
+  493 |             const firstToken = await createTokenAndGetUuid(request);
+  494 |             const secondToken = await createTokenAndGetUuid(request);
+  495 |             const thirdToken = await createTokenAndGetUuid(request);
+  496 |
+  497 |             const email1 = `${firstToken}@${process.env.EMAIL_HOOK_URL}`;
+  498 |             const email2 = `${secondToken}@${process.env.EMAIL_HOOK_URL}`;
+  499 |             const combinedEmails = `${email1},${email2}`;
+  500 |
+  501 |             await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  502 |             await organizationPage.enterEmail(combinedEmails);
+  503 |             await organizationPage.clickAddButton();
+  504 |             expect(await organizationPage.getCountOfInvitedAccounts()).toBe(2);
+  505 |             await organizationPage.sendInvitation();
+  506 |
+  507 |             await organizationPage.clickOnPendingRequestsTab();
+  508 |             await organizationPage.validateUserIsInvitedAndListedInPendingRequests(email1);
+  509 |             await organizationPage.validateUserIsInvitedAndListedInPendingRequests(email2);
+  510 |
+  511 |             await pm.onProjectPage.clickOnDashboardMenu();
+  512 |             await pm.onDashboardPage.clickOnSignOutButton();
+  513 |
+  514 |             for (const { token, email } of [
+  515 |                 { token: firstToken, email: email1 },
+  516 |                 { token: secondToken, email: email2 },
+  517 |             ]) {
+  518 |
+  519 |                 const signupTab = await completeUserSignupFlow({ request, context, token, userDetails, password: userDetails.password });
+  520 |                 const verificationTab = await completeEmailVerification({ request, context, token, password: userDetails.password });
+  521 |                 const { newUserDashboard } = await setupDashboardAfterLogin(verificationTab);
+  522 |                 // await validate2DOrthomosaicIsSelected(verificationTab);
+  523 |                 // Navigate to workspace and organization to verify
+  524 |                 const workspaceNavPM = new PageManager(verificationTab);
+  525 |                 await workspaceNavPM.navigateTo.workspacePage();
+```

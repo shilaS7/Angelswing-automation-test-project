@@ -1,0 +1,32 @@
+✅ Token created with UUID: be3c3187-1dff-4009-8507-5527233addca
+Selecting role: Project Admin
+Entering email: be3c3187-1dff-4009-8507-5527233addca@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: be3c3187-1dff-4009-8507-5527233addca@emailhook.site
+Search completed
+No collaborators found for "be3c3187-1dff-4009-8507-5527233addca@emailhook.site"
+Searching for: be3c3187-1dff-4009-8507-5527233addca@emailhook.site
+Search completed
+Row Cell Text: be3c3187-1dff-4009-8507-5527233addca@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=be3c3187-1dff-4009-8507-5527233addca%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Carmen
+Entering Last Name: Block
+Selecting Organization: Miller - Okuneva
+Entering Phone Number: +12225630702
+Selecting purpose: Others
+Selecting country: South Africa
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/RK--FtorcMAhV68iz1ihjw?email=be3c3187-1dff-4009-8507-5527233addca%40emailhook.site
+🗑️  Token be3c3187-1dff-4009-8507-5527233addca deleted successfully

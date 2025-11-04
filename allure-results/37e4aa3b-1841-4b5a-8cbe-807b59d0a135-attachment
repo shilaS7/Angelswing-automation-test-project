@@ -1,0 +1,231 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Sign Up Functionality >> Should invite user to the project by existing user
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\Shila_signUp.spec.ts:381:9
+
+# Error details
+
+```
+Error: browserType.connect: Executable doesn't exist at C:\Users\angelswing\AppData\Local\ms-playwright\chromium-1161\chrome-win\chrome.exe
+╔═════════════════════════════════════════════════════════════════════════╗
+║ Looks like Playwright Test or Playwright was just installed or updated. ║
+║ Please run the following command to download new browsers:              ║
+║                                                                         ║
+║     npx playwright install                                              ║
+║                                                                         ║
+║ <3 Playwright Team                                                      ║
+╚═════════════════════════════════════════════════════════════════════════╝
+```
+
+# Test source
+
+```ts
+  281 |         await signUpPage.enterConfirmPassword(userDetails.password);
+  282 |         await signUpPage.validateNextButtonIsEnabled();
+  283 |         await signUpPage.clickOnNextButton();
+  284 |         await signUpPage.validateHeaderOfThePage('Tell us more about you');
+  285 |         await signUpPage.enterFirstName(userDetails.firstName);
+  286 |         await signUpPage.enterLastName(userDetails.lastName);
+  287 |         await signUpPage.enterOrganization(userDetails.organization);
+  288 |         await signUpPage.enterPhoneNumber(userDetails.phone);
+  289 |         await signUpPage.selectPurpose(userDetails.purpose);
+  290 |         await signUpPage.clickOnNextButton();
+  291 |         await signUpPage.validateHeaderOfThePage('Set your preferences');
+  292 |         await signUpPage.validateSignUpTellUsMoreSecondUIElements();
+  293 |
+  294 |     });
+  295 |
+  296 |
+  297 |     test("Should retain values when navigating back and returning to the Set your preferences page", async ({ }) => {
+  298 |         await signUpPage.validateHeaderOfThePage('Create an account');
+  299 |         await signUpPage.clickOnSignUpWithEmail();
+  300 |         await signUpPage.validateHeaderOfThePage('Set up your account with email');
+  301 |         await signUpPage.validateNextButtonIsDisabled();
+  302 |         await signUpPage.enterEmail(userDetails.email);
+  303 |         await signUpPage.enterPassword(userDetails.password);
+  304 |         await signUpPage.enterConfirmPassword(userDetails.password);
+  305 |         await signUpPage.validateNextButtonIsEnabled();
+  306 |         await signUpPage.clickOnNextButton();
+  307 |         await signUpPage.validateHeaderOfThePage('Tell us more about you');
+  308 |         await signUpPage.enterFirstName(userDetails.firstName);
+  309 |         await signUpPage.enterLastName(userDetails.lastName);
+  310 |         await signUpPage.enterOrganization(userDetails.organization);
+  311 |         await signUpPage.enterPhoneNumber(userDetails.phone);
+  312 |         await signUpPage.selectPurpose(userDetails.purpose);
+  313 |
+  314 |         await signUpPage.clickOnNextButton();
+  315 |         await signUpPage.validateHeaderOfThePage('Set your preferences');
+  316 |         await signUpPage.validateSignUpTellUsMoreSecondUIElements();
+  317 |         await signUpPage.validateCreateAccountIsDisabled();
+  318 |         await signUpPage.selectCountry(userDetails.country);
+  319 |         await signUpPage.selectLanguage(userDetails.language);
+  320 |         await signUpPage.checkTermsAndConditions();
+  321 |         await signUpPage.validateCreateAccountIsEnabled();
+  322 |
+  323 |         await signUpPage.clickOnPreviousButton();
+  324 |         await signUpPage.validateHeaderOfThePage('Tell us more about you');
+  325 |         await signUpPage.validateNextButtonIsEnabled();
+  326 |         await signUpPage.validateFirstNameValue(userDetails.firstName);
+  327 |         await signUpPage.validateLastNameValue(userDetails.lastName);
+  328 |         await signUpPage.validateOrganizationValue(userDetails.organization);
+  329 |         await signUpPage.validatePhoneNumberValue(userDetails.phone);
+  330 |         await signUpPage.validatePurposeValue(userDetails.purpose);
+  331 |         await signUpPage.validateNextButtonIsEnabled();
+  332 |         await signUpPage.clickOnPreviousButton();
+  333 |         await signUpPage.validateHeaderOfThePage('Set up your account with email');
+  334 |         await signUpPage.validateNextButtonIsEnabled();
+  335 |         await signUpPage.validateEmailValue(userDetails.email);
+  336 |         await signUpPage.clickOnPreviousButton();
+  337 |         await signUpPage.validateHeaderOfThePage('Create an account');
+  338 |         await signUpPage.clickOnSignUpWithEmail();
+  339 |         await signUpPage.validateHeaderOfThePage('Set up your account with email');
+  340 |         await signUpPage.validateNextButtonIsEnabled();
+  341 |         await signUpPage.validateEmailValue(userDetails.email);
+  342 |         await signUpPage.clickOnNextButton();
+  343 |         await signUpPage.validateHeaderOfThePage('Tell us more about you');
+  344 |         await signUpPage.validateNextButtonIsEnabled();
+  345 |         await signUpPage.validateFirstNameValue(userDetails.firstName);
+  346 |         await signUpPage.validateLastNameValue(userDetails.lastName);
+  347 |         await signUpPage.validateOrganizationValue(userDetails.organization);
+  348 |         await signUpPage.validatePhoneNumberValue(userDetails.phone);
+  349 |         await signUpPage.validatePurposeValue(userDetails.purpose);
+  350 |
+  351 |     });
+  352 |
+  353 |     test('Should show account approval pending page after signing up, verifying email, and logging in @smoke', async ({ }) => {
+  354 |         await signUpPage.validateHeaderOfThePage('Create an account');
+  355 |         await signUpPage.clickOnSignUpWithEmail();
+  356 |         await signUpWithValidDetails(userDetails);
+  357 |         await signUpPage.clickOnCreateAccount();
+  358 |
+  359 |         await signUpPage.validateSignUpEmailVerificationSuccessMessageAndUIElements(
+  360 |             'Your email verification is pending.',
+  361 |             'Please check your inbox for email verification.'
+  362 |         );
+  363 |
+  364 |         await pageManager.getPage().waitForTimeout(10000);
+  365 |
+  366 |         const verificationLink = await verifyEmail(userDetails);
+  367 |         expect(verificationLink).toContain('confirm-email');
+  368 |
+  369 |         // console.log(message.text.body);
+  370 |         console.log(verificationLink);
+  371 |         await pageManager.getPage().goto(verificationLink);
+  372 |
+  373 |         await signUpPage.verifySuccessfulEmailVerification(MESSAGE.EMAIL_VERIFICATION.SUCCESS_TITLE, MESSAGE.EMAIL_VERIFICATION.SUCCESS_MESSAGE, email);
+  374 |         await pageManager.getPage().waitForTimeout(5000);
+  375 |         console.log(`Verification email test completed`);
+  376 |
+  377 |         await loginAndCheckApprovalStatus(userDetails);
+  378 |
+  379 |     });
+  380 |     
+> 381 |     test('Should invite user to the project by existing user', async ({}) => {
+      |         ^ Error: browserType.connect: Executable doesn't exist at C:\Users\angelswing\AppData\Local\ms-playwright\chromium-1161\chrome-win\chrome.exe
+  382 |         await pageManager.onLoginPage().openLoginPage();
+  383 |         await pageManager.onLoginPage().login(process.env.EMAIL || '', process.env.PASSWORD || '');
+  384 |         await pageManager.onProjectPage().clickOnDashboardMenu();
+  385 |         await pageManager.onProjectPage().clickOnThreeDotsMenuOfProject('Project 1');
+  386 |         await pageManager.onProjectPage().clickOnProjectSettings();
+  387 |         
+  388 |     });
+  389 |
+  390 |     // test('Should sign in with new user once approved by admin @smoke', async ({ }) => {
+  391 |     //     await signUpPage.validateHeaderOfThePage('Create an account');
+  392 |     //     await signUpPage.clickOnSignUpWithEmail();
+  393 |     //     await signUpWithValidDetails(userDetails);
+  394 |     //     await signUpPage.clickOnCreateAccount();
+  395 |     //     const userId= await signUpPage.getUserId();
+  396 |        
+  397 |
+  398 |     //     await signUpPage.validateSignUpEmailVerificationSuccessMessageAndUIElements(
+  399 |     //         'Your email verification is pending.',
+  400 |     //         'Please check your inbox for email verification.'
+  401 |     //     );
+  402 |
+  403 |     //     await pageManager.getPage().waitForTimeout(10000);
+  404 |
+  405 |     //     const verificationLink = await verifyEmail(userDetails);
+  406 |     //     expect(verificationLink).toContain('confirm-email');
+  407 |
+  408 |     //     console.log(verificationLink);
+  409 |     //     await pageManager.getPage().goto(verificationLink);
+  410 |
+  411 |     //     await signUpPage.verifySuccessfulEmailVerification(MESSAGE.EMAIL_VERIFICATION.SUCCESS_TITLE, MESSAGE.EMAIL_VERIFICATION.SUCCESS_MESSAGE, email);
+  412 |     
+  413 |
+  414 |     //     await pageManager.getPage().waitForTimeout(5000);
+  415 |     //     console.log(`Verification email test completed`);
+  416 |
+  417 |     //     await pageManager.onAdminPage().openAdminLoginPage();
+  418 |     //     const adminEmail: string = process.env.ADMINEMAIL || '';
+  419 |     //     const adminPassword: string = process.env.ADMINPASSWORD || '';
+  420 |     //     await pageManager.onAdminPage().adminlogin(adminEmail, adminPassword);
+  421 |     //     await pageManager.onAdminPage().openUserPage(userId);
+  422 |     //     await pageManager.onAdminPage().confirmation();
+  423 |     //     await pageManager.onAdminPage().selectApprovalOption();
+  424 |     //     await pageManager.onAdminPage().clickUpdateButton();
+  425 |     //      await pageManager.onAdminPage().verifyUserApprovedBanner(`User ${userId} approval status has been updated to approved!`);
+  426 |         
+  427 |     //     //Login with new user
+  428 |     //     await pageManager.onLoginPage().openLoginPage();
+  429 |     //     await pageManager.onLoginPage().login(userDetails.email, userDetails.password);
+  430 |     //     await expect(pageManager.getPage()).toHaveURL('/project/dashboard');
+  431 |  
+  432 |
+  433 |     // });
+  434 |
+  435 |     // test('Should allow user to go back, update all values, and complete the signup process', async ({ }) => {
+  436 |
+  437 |     //     await signUpPage.validateHeaderOfThePage('Create an account');
+  438 |     //     await signUpPage.clickOnSignUpWithEmail();
+  439 |     //     await signUpWithValidDetails(userDetails);
+  440 |     //     await signUpPage.clickOnPreviousButton();
+  441 |     //     await signUpPage.clickOnPreviousButton();
+  442 |     //     await signUpPage.clickOnPreviousButton();
+  443 |     //     await signUpPage.clickOnSignUpWithEmail();
+  444 |
+  445 |     //     await enterEmailAndPassword(updatedUserDetails);
+  446 |     //     await signUpPage.clickOnNextButton();
+  447 |     //     await enterMoreDetails(updatedUserDetails);
+  448 |     //     await signUpPage.clickOnNextButton();
+  449 |     //     await selectCountryAndLanguage(updatedUserDetails);
+  450 |
+  451 |     //     await signUpPage.clickOnCreateAccount();
+  452 |
+  453 |     //     await signUpPage.validateSignUpEmailVerificationSuccessMessageAndUIElements(
+  454 |     //         'Your email verification is pending.',
+  455 |     //         'Please check your inbox for email verification.'
+  456 |     //     );
+  457 |
+  458 |     //     await pageManager.getPage().waitForTimeout(10000);
+  459 |
+  460 |     //     const verificationLink = await verifyEmail(updatedUserDetails);
+  461 |     //     expect(verificationLink).toContain('confirm-email');
+  462 |
+  463 |     //     // console.log(message.text.body);
+  464 |     //     console.log(verificationLink);
+  465 |     //     await pageManager.getPage().goto(verificationLink);
+  466 |
+  467 |     //     await signUpPage.verifySuccessfulEmailVerification(MESSAGE.EMAIL_VERIFICATION.SUCCESS_TITLE, MESSAGE.EMAIL_VERIFICATION.SUCCESS_MESSAGE, updatedUserDetails.email);
+  468 |     //     await pageManager.getPage().waitForTimeout(5000);
+  469 |     //     console.log(`Verification email test completed`);
+  470 |
+  471 |     //     await loginAndCheckApprovalStatus(updatedUserDetails);
+  472 |     // });
+  473 |
+  474 |     // test.describe('Email Validation Tests', () => {
+  475 |     //     test('Verify email validation with invalid formats', async ({ }) => {
+  476 |
+  477 |     //         await signUpPage.validateHeaderOfThePage('Create an account');
+  478 |     //         await signUpPage.clickOnSignUpWithEmail();
+  479 |     //         const expectedErrorMessage = "* Please try again with a correct email address.";
+  480 |     //         for (const invalidEmail of invalidEmails) {
+  481 |     //             console.log(`Testing with email: ${invalidEmail}`);
+```

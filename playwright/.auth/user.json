@@ -1,0 +1,91 @@
+{
+  "cookies": [
+    {
+      "name": "CloudFront-Policy",
+      "value": "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9kZXYtc3RvcmFnZS5hbmdlbHN3aW5nLmlvLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3NjIzMzQ2ODF9fX1dfQ__",
+      "domain": ".angelswing.io",
+      "path": "/",
+      "expires": 1762334681,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CloudFront-Signature",
+      "value": "Ugwx-4vh~lpztD617eBmRilRJZhkoH-qqU4NOdoGYhi89YXcjoQXFwEgrlj40BXmJZTvrsKsigjDnqEEHkbjlgzHTvq95kuZP6R4bay5cYvzAEn45RLtJL4mDMFjmBePPBenHT8kGM5Oz1W7rmcRDPXRNC5Uger7UQnKcwd40oHtlNrYFmzFT2gbNhzIFCJzREMCLtYGl7HecBQcazDq5yAyCWRfOLek49tK7wl~Zym4PPoTU-zGTFqwjn8FPbFs~eVzzHGUV~MNa5OaI2K4E61ktfx3kctQyxvxyNR2ORMTcNkWZnduvn7zggg98ayce3RJsuy4EvjGiduPm~sXtQ__",
+      "domain": ".angelswing.io",
+      "path": "/",
+      "expires": 1762334681,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CloudFront-Key-Pair-Id",
+      "value": "APKAIUUVFAH2KB4XJ2FQ",
+      "domain": ".angelswing.io",
+      "path": "/",
+      "expires": 1762334681,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ph_phc_YszxDglpytcZzkWD3Hv5Ptgczoj3KT6QhXRunc1n4PK_posthog",
+      "value": "%7B%22distinct_id%22%3A%22971%22%2C%22%24sesid%22%3A%5B1762248279121%2C%22019a4e2e-c451-79da-a6af-0a0329d39789%22%2C1762248279121%5D%2C%22%24epp%22%3Atrue%7D",
+      "domain": ".angelswing.io",
+      "path": "/",
+      "expires": 1793784282,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://dev.angelswing.io",
+      "localStorage": [
+        {
+          "name": "unleash:repository:sessionId",
+          "value": "\"955003741\""
+        },
+        {
+          "name": "ph_phc_YszxDglpytcZzkWD3Hv5Ptgczoj3KT6QhXRunc1n4PK_posthog",
+          "value": "{\"$configured_session_timeout_ms\":1800000,\"$sesid\":[1762248279121,\"019a4e2e-c451-79da-a6af-0a0329d39789\",1762248279121],\"$client_session_props\":{\"sessionId\":\"019a4e2e-c451-79da-a6af-0a0329d39789\",\"props\":{\"r\":\"$direct\",\"u\":\"https://dev.angelswing.io/\"}},\"distinct_id\":\"971\",\"$device_id\":\"019a4e2e-c453-7d8c-8cf0-70f83c084f5c\",\"$user_state\":\"identified\",\"$session_recording_enabled_server_side\":false,\"$session_recording_network_payload_capture\":{\"capturePerformance\":{\"network_timing\":true,\"web_vitals\":true,\"web_vitals_allowed_metrics\":null}},\"$session_recording_canvas_recording\":{},\"$replay_sample_rate\":null,\"$replay_minimum_duration\":null,\"$autocapture_disabled_server_side\":false,\"$heatmaps_enabled_server_side\":true,\"$web_vitals_enabled_server_side\":true,\"$web_vitals_allowed_metrics\":null,\"$exception_capture_enabled_server_side\":false,\"$error_tracking_suppression_rules\":[],\"$dead_clicks_enabled_server_side\":false,\"$active_feature_flags\":[],\"$enabled_feature_flags\":{},\"$feature_flag_payloads\":{},\"$feature_flag_details\":{},\"$feature_flag_request_id\":\"ac9ee546-6413-4d68-9f1e-a390eb3478a3\",\"$epp\":true,\"$user_id\":\"971\",\"$stored_person_properties\":{\"userId\":971,\"role\":\"admin\"}}"
+        },
+        {
+          "name": "auth",
+          "value": "{\"state\":{\"automaticSignIn\":false,\"signInStatus\":\"IDLE\",\"signUpStatus\":\"IDLE\"},\"version\":0}"
+        },
+        {
+          "name": "Channel.last_seen_tab_id_",
+          "value": "\"1f00012a-4705-486f-bc73-c5ea8fb7d68e\""
+        },
+        {
+          "name": "drone-station-auth-store",
+          "value": "{\"state\":{\"authDetails\":{}},\"version\":0}"
+        },
+        {
+          "name": "unleash:repository:repo",
+          "value": "[{\"name\":\"panorama\",\"enabled\":true,\"variant\":{\"name\":\"stitched_uploader\",\"enabled\":true,\"payload\":{\"type\":\"string\",\"value\":\"blank\"},\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"v2b_tab\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"vslam_indoor\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"video_overlay\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"snapping\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"terrain_editing\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"organization\",\"enabled\":true,\"variant\":{\"name\":\"should_enable_refresh_button\",\"enabled\":true,\"payload\":{\"type\":\"json\",\"value\":\"{\\n  \\\"enabled\\\": false\\n}\"},\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"fail_safe_upload\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"earthwork-dashboard\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"photo_album_new_features\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false},{\"name\":\"indoor-360_tab\",\"enabled\":true,\"variant\":{\"name\":\"disabled\",\"enabled\":false,\"feature_enabled\":true,\"featureEnabled\":true},\"impressionData\":false}]"
+        },
+        {
+          "name": "angelsw_smartCaptureUserId",
+          "value": "85268404-ddbb-40cd-b2d7-845e90784f56"
+        },
+        {
+          "name": "persist:abc",
+          "value": "{\"Auth\":\"{\\\"version\\\":\\\"3.10.0\\\",\\\"authedUser\\\":{\\\"id\\\":971,\\\"token\\\":\\\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3MSwiZXhwIjoxNzYyMzM0NjgxLCJqdGkiOiIyYmRjZjU3Zi1iOTU2LTRhMDMtOGE5Yy1lYjlhMTNjYWUyZDcifQ.8Oe8oeloZYLGjTfW7AQvXmZ4GK0qqiClxT1S-UoPQfA\\\",\\\"cloudFrontPolicy\\\":\\\"eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9kZXYtc3RvcmFnZS5hbmdlbHN3aW5nLmlvLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3NjIzMzQ2ODF9fX1dfQ__\\\",\\\"cloudFrontSignature\\\":\\\"Ugwx-4vh~lpztD617eBmRilRJZhkoH-qqU4NOdoGYhi89YXcjoQXFwEgrlj40BXmJZTvrsKsigjDnqEEHkbjlgzHTvq95kuZP6R4bay5cYvzAEn45RLtJL4mDMFjmBePPBenHT8kGM5Oz1W7rmcRDPXRNC5Uger7UQnKcwd40oHtlNrYFmzFT2gbNhzIFCJzREMCLtYGl7HecBQcazDq5yAyCWRfOLek49tK7wl~Zym4PPoTU-zGTFqwjn8FPbFs~eVzzHGUV~MNa5OaI2K4E61ktfx3kctQyxvxyNR2ORMTcNkWZnduvn7zggg98ayce3RJsuy4EvjGiduPm~sXtQ__\\\",\\\"cloudFrontKeyPairId\\\":\\\"APKAIUUVFAH2KB4XJ2FQ\\\",\\\"refreshToken\\\":\\\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoicnRrIiwiaXNzIjoiYXctZ2xvYmFsIiwic3ViIjo5NzEsImV4cCI6MTc2MjMzNDY4MSwianRpIjoiZGYyNzRlMmUtYzA3NS00OGY3LWIwNmYtMmMwYjkxYjZkNjkyIn0.4HCnkKHl-c-3vjBF_an_K7ZBVwww128cW2AOorlVvtE\\\",\\\"userEmail\\\":\\\"shila.shrestha@angelswing.io\\\",\\\"currentSession\\\":{\\\"id\\\":8509,\\\"createdAt\\\":\\\"2025-11-04T18:24:41.464+09:00\\\",\\\"userAgent\\\":\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36\\\",\\\"ipAddress\\\":\\\"27.34.27.130\\\"}},\\\"automaticSignIn\\\":false,\\\"DDMSESSION\\\":\\\"session\\\"}\",\"PlanConfig\":\"{\\\"config\\\":{\\\"slug\\\":\\\"\\\",\\\"companyName\\\":\\\"\\\",\\\"logoUrl\\\":\\\"\\\",\\\"bgUrl\\\":\\\"\\\",\\\"navbarLogoUrl\\\":\\\"\\\",\\\"squareLogoUrl\\\":\\\"\\\"},\\\"getPlanConfigStatus\\\":\\\"SUCCESS\\\"}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "Channel.notification_sound_",
+          "value": "\"true\""
+        },
+        {
+          "name": "preferences",
+          "value": "{\"state\":{\"isSignUpTutorialPopupHidden\":false},\"version\":0}"
+        }
+      ]
+    }
+  ]
+}

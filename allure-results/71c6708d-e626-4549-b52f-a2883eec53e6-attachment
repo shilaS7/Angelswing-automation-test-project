@@ -1,0 +1,92 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Basic Map Operation @smoke >> Should retain zoom level and camera position when switching between 2D and 3D map views @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\basicMapOperations.spec.ts:197:9
+
+# Error details
+
+```
+TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('div').filter({ hasText: '‘Production Project id 1548’' }).last()
+
+    at DashboardPage.openProject (D:\Angelswing_QA\angelswing-automation-test\pages\DashboardPage.ts:24:23)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\basicMapOperations.spec.ts:27:9
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 |
+   3 | export class DashboardPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |     async closeReadUserGuidePopUp() {
+  11 |         const popup = this.page.getByTestId('popup-close');
+  12 |         try {
+  13 |             await popup.waitFor({ state: 'visible' });
+  14 |             await popup.click();
+  15 |             console.log('Popup was visible and has been closed.');
+  16 |         } catch (error) {
+  17 |             console.log('Popup not visible, skipping close.');
+  18 |         }
+  19 |     }
+  20 |
+  21 |     async openProject(projectTitle: string) {
+  22 |         const project = this.page.locator('div', { hasText: projectTitle }).last();
+  23 |         await this.page.waitForTimeout(2000);
+> 24 |         await project.scrollIntoViewIfNeeded();
+     |                       ^ TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 10000ms exceeded.
+  25 |         await project.click();
+  26 |     }
+  27 |
+  28 |     async verifyLoadingBehavior() {
+  29 |         const loading = this.page.getByTestId('loading-wrapper');
+  30 |         const isVisible = await loading.isVisible({ timeout: 300 });
+  31 |         expect(isVisible).toBe(true);
+  32 |         await expect(loading).toBeHidden({ timeout: 10000 });
+  33 |     }
+  34 |
+  35 |     async isSignOutButtonVisible() {
+  36 |         const signOutButton = this.page.getByRole('button', { name: 'Sign out' });
+  37 |         const isVisible = await signOutButton.isVisible();
+  38 |         return isVisible;
+  39 |     }
+  40 |
+  41 |     async clickOnProjectMenu() {
+  42 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText('Projects').click();
+  43 |     }
+  44 |
+  45 |     async getLoggedInUserResponse(): Promise<any> {
+  46 |         const response = await this.page.waitForResponse(response =>
+  47 |             response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST',
+  48 |             { timeout: 10000 }
+  49 |         );
+  50 |         const status = response.status();
+  51 |         const body = await response.json();
+  52 |         // console.log(`Response: ${JSON.stringify(body)}`);
+  53 |         console.log(`Status: ${status}`);
+  54 |         return body;
+  55 |     }
+  56 |
+  57 |
+  58 |     async clickOnUserName(name: string) {
+  59 |         await this.page.locator('p', { hasText: `${name}` }).click();
+  60 |     }
+  61 |
+  62 |
+  63 |
+  64 | }
+  65 |
+```

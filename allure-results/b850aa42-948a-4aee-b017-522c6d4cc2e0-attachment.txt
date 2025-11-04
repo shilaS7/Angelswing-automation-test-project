@@ -1,0 +1,3 @@
+Actual filter text: Source Photos
+Expected filter text: Source Photos
+Is source filter selected: true

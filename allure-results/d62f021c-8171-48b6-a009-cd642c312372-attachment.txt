@@ -1,0 +1,33 @@
+✅ Token created with UUID: 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5
+Selecting role: Admin
+Entering email: 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5@emailhook.site
+Searching for: 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5@emailhook.site
+Search completed
+No collaborators found for "59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5@emailhook.site"
+Searching for: 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5@emailhook.site
+Search completed
+Row Cell Text: 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5%40emailhook.site
+🗑️  All Requests for Token 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Shanel
+Entering Last Name: Feil
+Selecting Organization: Kuhic - Kerluke
+Organization input validated: "Kuhic - Kerluke"
+Entering Phone Number: +18004983228
+Selecting purpose: Construction
+Selecting country: Georgia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/khLTwgiVs-pFurxDbndIhA?email=59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5%40emailhook.site
+🗑️  Token 59ba8b08-c7a0-432f-9b9d-e34b0ecde3f5 deleted successfully

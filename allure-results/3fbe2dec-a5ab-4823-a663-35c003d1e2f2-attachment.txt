@@ -1,0 +1,7 @@
+Clicked on create content group
+Created Group ID: 65847
+Clicked on create content sub group
+Created Sub Group ID: 65848
+Created new Measurement Item at (670.6666666666667, 280)
+Response: {"data":{"id":65849,"projectId":1419,"screenId":3214,"groupId":65848,"attachmentsCount":0,"minHeight":null,"maxHeight":null,"pinEventAt":"2025-04-11T18:04:42.000+09:00","title":"Location 184","category":"measurement","type":"marker","color":"rgb(89, 172, 100)","status":"ready","createdAt":"2025-04-11T18:04:42.178+09:00","updatedAt":"2025-04-11T18:04:42.228+09:00","size":null,"elevation":{},"info":{"description":"","location":[225541.73589086608,515214.1859215965],"move":false},"config":{"type":"marker"},"createdBy":{"id":1147,"name":"Lafayette Jones-Tremblay","email":"suraj.anand@angelswing.io"},"isPersonal":false}}
+Status: 201

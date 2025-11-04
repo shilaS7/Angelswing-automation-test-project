@@ -1,0 +1,6 @@
+✅ Token created with UUID: d06950e2-47c6-4435-af48-b7c3d7a412c9
+Selecting role: Admin
+Entering email: d06950e2-47c6-4435-af48-b7c3d7a412c9@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: d06950e2-47c6-4435-af48-b7c3d7a412c9@emailhook.site
+🗑️  Token d06950e2-47c6-4435-af48-b7c3d7a412c9 deleted successfully

@@ -1,0 +1,10 @@
+Error fetching email: MailosaurError: No matching messages found in time. By default, only messages received in the last hour are checked (use receivedAfter to override this). The search criteria used for this query was [{"sentTo":"jovan.robel@unzpekpc.mailosaur.net"}] which timed out after 10000ms
+    at D:\Angelswing_QA\angelswing-automation-test\node_modules\mailosaur\lib\operations\messages.js:152:22
+    at IncomingMessage.<anonymous> (D:\Angelswing_QA\angelswing-automation-test\node_modules\mailosaur\lib\request.js:94:9)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  errorType: 'search_timeout',
+  httpStatusCode: null,
+  httpResponseBody: null
+}

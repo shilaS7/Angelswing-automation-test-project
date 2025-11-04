@@ -1,0 +1,144 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate 360 source photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:281:9
+
+# Error details
+
+```
+TimeoutError: locator.waitFor: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByTestId('photo-album-tab-timeline') to be visible
+
+    at PhotoGallery.clickOnTimelineTab (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:17:65)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:285:32
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 | import { HelperBase } from './HelperBase';
+   3 | import { BasePage } from './BasePage';
+   4 |
+   5 | export class PhotoGallery extends BasePage {
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         super(page);
+   9 |     }
+   10 |
+   11 |     async getHeaderText() {
+   12 |         await this.page.getByTestId('photo-gallery').waitFor({ state: 'visible' });
+   13 |         return await this.page.getByTestId('photo-gallery').textContent();
+   14 |     }
+   15 |     // click on Timeline tab
+   16 |     async clickOnTimelineTab() {
+>  17 |         await this.page.getByTestId('photo-album-tab-timeline').waitFor({ state: 'visible' });
+      |                                                                 ^ TimeoutError: locator.waitFor: Timeout 5000ms exceeded.
+   18 |         await this.page.getByTestId('photo-album-tab-timeline').filter({ hasText: 'Timeline' }).click();
+   19 |     }
+   20 |     //Click on Location tab
+   21 |     async clickOnLocationTab() {
+   22 |         await this.page.getByTestId('photo-album-tab-location').filter({ hasText: 'Location' }).click();
+   23 |     }
+   24 |     //Click on Album tab
+   25 |     async clickOnAlbumTab() {
+   26 |         await this.page.getByTestId('photo-album-tab-album').filter({ hasText: 'Album' }).click();
+   27 |     }
+   28 |     
+   29 |     async isTimelineTabShownAsSelected() {
+   30 |         return await this.isTabShownAsSelected('photo-album-tab-timeline');
+   31 |     }
+   32 |     async isLocationTabShownAsSelected() {
+   33 |         return await this.isTabShownAsSelected('photo-album-tab-location');
+   34 |     }
+   35 |     async isAlbumTabShownAsSelected(){
+   36 |         return await this.isTabShownAsSelected('photo-album-tab-album');
+   37 |     }
+   38 |
+   39 |     private async isTabShownAsSelected(tabName: string) {
+   40 |         const isSelected = await this.page.getByTestId(`${tabName}`).getAttribute('data-selected');
+   41 |         return isSelected === 'true';
+   42 |     }
+   43 |
+   44 |     async clickFilterAll() {
+   45 |         await this.page.locator('[data-testid="photo-album-tabs"] +div>button').click();
+   46 |     }
+   47 |     async isAllFilterShownAsSelected() {
+   48 |         return await this.isTabShownAsSelected('photo-collection-filter-item-all');
+   49 |     }
+   50 |     async clickFilterOverlay(){
+   51 |         return await this.page.getByTestId('photo-collection-filter-item-overlay').click();
+   52 |     }
+   53 |     async getFilterText(){
+   54 |         return await this.page.locator('[data-testid="photo-album-tabs"] +div>button').textContent();
+   55 |     }
+   56 |
+   57 |     async clickFilterBirdeye(){
+   58 |         return await this.page.getByTestId('photo-collection-filter-item-normal').click();
+   59 |         
+   60 |     }
+   61 |     async getFilterTextBirdeye(){
+   62 |         return await this.page.locator('[data-testid="photo-album-tabs"] +div>button').textContent();
+   63 |     }
+   64 |
+   65 |     async isBirdeyeFilterShownAsSelected() {
+   66 |         return await this.isTabShownAsSelected('photo-collection-filter-item-normal');
+   67 |     }
+   68 |
+   69 |     async clickFilterInspection(){
+   70 |         return await this.page.getByTestId('photo-collection-filter-item-drone').click();
+   71 |     }    
+   72 |     async isInspectionFilterShownAsSelected() {
+   73 |         return await this.isTabShownAsSelected('photo-collection-filter-item-drone');
+   74 |     }
+   75 |
+   76 |     async clickFilterSourcePhoto(){
+   77 |         return await this.page.getByTestId('photo-collection-filter-item-source').click();
+   78 |     }
+   79 |     async isSourcePhotoFilterShownAsSelected() {
+   80 |         return await this.isTabShownAsSelected('photo-collection-filter-item-source');
+   81 |     }
+   82 |
+   83 |     async clickFilter360Photos(){
+   84 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty').click();
+   85 |     }
+   86 |     async is360PhotosFilterShownAsSelected() {
+   87 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty');
+   88 |     }
+   89 |
+   90 |     async clickfilter360SourcePhoto(){
+   91 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_source').click();
+   92 |     }
+   93 |     async is360SourcePhotoFilterShownAsSelected() {
+   94 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_source');
+   95 |     }
+   96 |  
+   97 |     async clickFilter360StitchedPhotos(){
+   98 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_stitched').click();
+   99 |     }
+  100 |     async is360StitchedPhotosFilterShownAsSelected() {
+  101 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_stitched');
+  102 |     }
+  103 |
+  104 |      async clickFilter360Video() {
+  105 |         await this.page.getByTestId('photo-collection-filter-item-three_sixty_video').click();
+  106 |      }
+  107 |      async is360VideoFilterShownAsSelected() {
+  108 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_video');
+  109 |      }
+  110 |
+  111 |      async clickfilterRequestedPhotos(){
+  112 |         return await this.page.getByTestId('photo-collection-filter-item-viewpoint').click();
+  113 |      }
+  114 |      async isRequestedPhotosFilterShownAsSelected() {
+  115 |         return await this.isTabShownAsSelected('photo-collection-filter-item-viewpoint');
+  116 |      }
+  117 |
+```

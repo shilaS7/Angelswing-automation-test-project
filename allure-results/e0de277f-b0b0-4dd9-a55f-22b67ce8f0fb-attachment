@@ -1,0 +1,71 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: should return 201 and created for valid login 
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\auth.spec.ts:6:5
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "n"
+Received: "m"
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\auth.spec.ts:34:20
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '@playwright/test';
+   2 | import { login } from '../../services/auth.request';
+   3 | import { MESSAGE } from '../../utils/message';
+   4 | import { STATUS_CODES } from '../../utils/statusCodes';
+   5 |
+   6 | test(`should return 201 and created for valid login `, async ({ request }) => {
+   7 |
+   8 |     const email: string = process.env.EMAIL || '';
+   9 |     const password: string = process.env.PASSWORD || '';
+  10 |
+  11 |     const loginResponse = await login(request, email, password);
+  12 |     // console.log(`Response: ${JSON.stringify(loginResponse)}`);
+  13 |     expect(loginResponse.status()).toBe(STATUS_CODES.SUCCESS.CREATED);
+  14 |     expect(loginResponse.statusText()).toBe(MESSAGE.AUTH.STATUS_TEXT.CREATED);
+  15 |     const loginResponseBody = await loginResponse.json();
+  16 |     // console.log(`Response: ${JSON.stringify(loginResponseBody)}`);
+  17 |     expect(loginResponseBody.data.attributes).toHaveProperty('email');
+  18 |     expect(loginResponseBody.data.attributes).toHaveProperty('email', email);
+  19 |     expect(loginResponseBody.data.attributes.token).toBeDefined();
+  20 |     expect(loginResponseBody.data.attributes.token).toBe(loginResponseBody.data.attributes.token);
+  21 |     const token = loginResponseBody.data.attributes.token;
+  22 |     console.log(`Token: ${token}`);
+  23 |     
+  24 |
+  25 |     const getElevationResponse = await request.post(`http://volume-dev.angelswing.io/elev/69794?lon=127.12995962492273&lat=37.1378049701908`, {
+  26 |         headers: {
+  27 |             'Authorization': `Bearer ${token}`
+  28 |         }
+  29 |     });
+  30 |     const elevation = await getElevationResponse.json();
+  31 | console.log(`Get Elevation Response: ${JSON.stringify(elevation)}`);
+  32 | const actualUnit = elevation.unit;
+  33 | console.log(`Actual Unit Value: ${actualUnit}`);
+> 34 | expect(actualUnit).toBe('n');
+     |                    ^ Error: expect(received).toBe(expected) // Object.is equality
+  35 |
+  36 | const actualValue = elevation.value;
+  37 | console.log(`Actual Value: ${actualValue}`);
+  38 | expect(actualValue).toBe(758787878.47);
+  39 |
+  40 |
+  41 |
+  42 | });
+  43 |
+  44 |
+  45 |
+```

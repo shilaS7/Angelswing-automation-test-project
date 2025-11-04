@@ -1,0 +1,15 @@
+Entering Email: wilford.sipes@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Wilford
+Entering Last Name: Sipes
+Selecting Organization: Fay - Schmeler
+Organization input validated: "Fay - Schmeler"
+Entering Phone Number: +18086187169
+Selecting purpose: Inspection
+Selecting country: Mozambique
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/gL7U8ev_5sdc1L00rR1xxw?email=wilford.sipes%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/gL7U8ev_5sdc1L00rR1xxw?email=wilford.sipes%40j87bh0xv.mailosaur.net
+Expected Email in URL: wilford.sipes%40j87bh0xv.mailosaur.net
+Verification email test completed

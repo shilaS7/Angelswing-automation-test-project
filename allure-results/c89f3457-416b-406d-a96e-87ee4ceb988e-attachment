@@ -1,0 +1,236 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Sign Up Functionality >> Should show account approval pending page after signing up, verifying email, and logging in @smoke @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\signUp.spec.ts:353:9
+
+# Error details
+
+```
+Error: expect(received).toContain(expected) // indexOf
+
+Expected substring: "?email=zola.o'kon%40j87bh0xv.mailosaur.net"
+Received string:    "https://dev-api.angelswing.io/v2/confirm-email/_nOWy2Lt0pqXcUfpNZWJIA?email=zola.o%27kon%40j87bh0xv.mailosaur.net"
+    at SignupPage.verifySuccessfulEmailVerification (D:\Angelswing_QA\angelswing-automation-test\pages\SignupPage.ts:122:28)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\signUp.spec.ts:373:9
+```
+
+# Page snapshot
+
+```yaml
+- img "logo"
+- paragraph: Your email has been verified.
+- paragraph: Please wait for administrator approval.
+```
+
+# Test source
+
+```ts
+   22 |     }
+   23 |
+   24 |     async enterConfirmPassword(confirmPassword: string) {
+   25 |         console.log(`Entering Confirm Password: ${confirmPassword}`);
+   26 |         const confirmPasswordInput = this.page.locator('label:text-is("Confirm Password")').last().locator('..').locator('input');
+   27 |         await confirmPasswordInput.press('Control+A');
+   28 |         await confirmPasswordInput.press('Backspace');
+   29 |         await confirmPasswordInput.fill(confirmPassword);
+   30 |         await confirmPasswordInput.press('Tab');
+   31 |     }
+   32 |
+   33 |     async enterFirstName(firstName: string) {
+   34 |         console.log(`Entering First Name: ${firstName}`);
+   35 |         await this.enterTextByLabel('First Name', firstName);
+   36 |     }
+   37 |
+   38 |     async enterLastName(lastName: string) {
+   39 |         console.log(`Entering Last Name: ${lastName}`);
+   40 |         await this.enterTextByLabel('Last Name', lastName);
+   41 |     }
+   42 |
+   43 |     async enterPhoneNumber(phone: string) {
+   44 |         console.log(`Entering Phone Number: ${phone}`);
+   45 |         const phoneInput = this.page.locator('input[placeholder="Phone number"]');
+   46 |         await phoneInput.press('Control+A');
+   47 |         await phoneInput.press('Backspace');
+   48 |         await phoneInput.fill(phone);
+   49 |         await phoneInput.press('Tab');
+   50 |     }
+   51 |
+   52 |     async enterOrganization(organization: string) {
+   53 |         console.log(`Selecting Organization: ${organization}`);
+   54 |         const organizationInput = this.page.locator('input[placeholder="Your organization"]');
+   55 |         await organizationInput.fill(organization);
+   56 |         const enteredValue = await organizationInput.inputValue();
+   57 |         expect(enteredValue).toBe(organization);
+   58 |         console.log(`Organization input validated: "${enteredValue}"`);
+   59 |     }
+   60 |
+   61 |     async selectCountry(country: any) {
+   62 |         console.log(`Selecting country: ${country}`);
+   63 |         const countryDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]').nth(0);
+   64 |         await countryDropdown.click();
+   65 |         await this.page.locator(`text=${country.trim()}`).first().click();
+   66 |         await expect(countryDropdown).toHaveText(country);
+   67 |     }
+   68 |
+   69 |     async selectPurpose(purpose: string,) {
+   70 |         console.log(`Selecting purpose: ${purpose}`);
+   71 |         const purposeDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]');
+   72 |         await purposeDropdown.click();
+   73 |         await this.page.locator(`text=${purpose}`).last().click();
+   74 |         await expect(purposeDropdown).toHaveText(purpose);
+   75 |     }
+   76 |
+   77 |     async selectLanguage(language: string) {
+   78 |         console.log(`Selecting language: ${language}`);
+   79 |         const languageDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]').last();
+   80 |         await languageDropdown.click();
+   81 |         await this.page.locator(`text=${language}`).last().click();
+   82 |         await expect(languageDropdown).toHaveText(language);
+   83 |     }
+   84 |
+   85 |     async agreeToTerms() {
+   86 |         await this.page.locator('[data-testid="ddmcheckbox-root"] i').click();
+   87 |     }
+   88 |
+   89 |     async submitSignUpForm() {
+   90 |         await this.page.locator('button[data-testid="signup-button"]').click();
+   91 |     }
+   92 |
+   93 |     async verifySuccessfulSignup(title: string, message: string, expectedEmail: string) {
+   94 |         const verificationTitle = this.page.getByTestId('simple-title-template-description').locator('h3');
+   95 |         const verificationMessage = this.page.getByTestId('simple-title-template-description').locator('p');
+   96 |
+   97 |         await expect(verificationTitle).toHaveText(title);
+   98 |         await expect(verificationMessage).toHaveText(message);
+   99 |
+  100 |         const currentURL = this.page.url();
+  101 |         const encodedEmail = encodeURIComponent(expectedEmail);
+  102 |
+  103 |         console.log(`Current URL: ${currentURL}`);
+  104 |         console.log(`Expected Email in URL: ${encodedEmail}`);
+  105 |
+  106 |         await expect(this.page).toHaveURL(`signup?email=${encodedEmail}`);
+  107 |     }
+  108 |
+  109 |     async verifySuccessfulEmailVerification(title: string, message: string, expectedEmail: string) {
+  110 |         const verificationTitle = this.page.locator('p').first();
+  111 |         const verificationMessage = this.page.locator('p').last();
+  112 |
+  113 |         await expect(verificationTitle).toHaveText(title);
+  114 |         await expect(verificationMessage).toHaveText(message);
+  115 |
+  116 |         const currentURL = this.page.url();
+  117 |         const encodedEmail = encodeURIComponent(expectedEmail);
+  118 |
+  119 |         console.log(`Current URL: ${currentURL}`);
+  120 |         console.log(`Expected Email in URL: ${encodedEmail}`);
+  121 |
+> 122 |         expect(currentURL).toContain(`?email=${encodedEmail}`);
+      |                            ^ Error: expect(received).toContain(expected) // indexOf
+  123 |         // await expect(this.page).toHaveURL(`?email=${encodedEmail}`);
+  124 |     }
+  125 |
+  126 |     async getAllCountry() {
+  127 |         const countryDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]').nth(0);
+  128 |         await countryDropdown.click();
+  129 |         const countries = await this.page.getByTestId('dropdown-item').locator('div').all();
+  130 |
+  131 |         for (const c of countries) {
+  132 |             const countryName = await c.textContent();
+  133 |             console.log(countryName?.trim());
+  134 |         }
+  135 |     }
+  136 |
+  137 |     async verifyEmailError(expectedMessage: string) {
+  138 |         const emailErrorMessage = this.page.locator('div:has(label:text-is("Email"))>p[data-testid="sign-up-input-field-error"]').first();
+  139 |         await expect(emailErrorMessage).toHaveText(expectedMessage);
+  140 |         console.log(`Email validation error displayed: "${expectedMessage}"`);
+  141 |     }
+  142 |
+  143 |     async verifyPasswordError(expectedMessage: string) {
+  144 |         const passwordErrorMessage = this.page.locator('div:has(label:text-is("Password"))>p[data-testid="sign-up-input-field-error"]').first();
+  145 |         await expect(passwordErrorMessage).toHaveText(expectedMessage);
+  146 |         console.log(`Password validation error displayed: "${expectedMessage}"`);
+  147 |     }
+  148 |
+  149 |     async verifyConfirmPasswordError(expectedMessage: string) {
+  150 |         const confirmPasswordErrorMessage = this.page.locator('div:has(label:text-is("Confirm Password"))>p[data-testid="sign-up-input-field-error"]').first();
+  151 |         await expect(confirmPasswordErrorMessage).toHaveText(expectedMessage);
+  152 |         console.log(`Confirm Password validation error displayed: "${expectedMessage}"`);
+  153 |     }
+  154 |
+  155 |
+  156 |     async verifyFirstNameError(expectedMessage: string) {
+  157 |         const firstNameErrorMessage = this.page.locator('div:has(label:text-is("First Name"))>p[data-testid="sign-up-input-field-error"]').first();
+  158 |         await expect(firstNameErrorMessage).toHaveText(expectedMessage);
+  159 |         console.log(`First Name validation error displayed: "${expectedMessage}"`);
+  160 |     }
+  161 |
+  162 |     async verifyLastNameError(expectedMessage: string) {
+  163 |         const lastNameErrorMessage = this.page.locator('div:has(label:text-is("Last Name"))>p[data-testid="sign-up-input-field-error"]').first();
+  164 |         await expect(lastNameErrorMessage).toHaveText(expectedMessage);
+  165 |         console.log(`Last Name validation error displayed: "${expectedMessage}"`);
+  166 |     }
+  167 |
+  168 |     async verifyOrganizationError(expectedMessage: string) {
+  169 |         const organizationErrorMessage = this.page.locator('div:has(label:text-is("Organization"))>p[data-testid="sign-up-input-field-error"]').first();
+  170 |         await expect(organizationErrorMessage).toHaveText(expectedMessage);
+  171 |         console.log(`Organization validation error displayed: "${expectedMessage}"`);
+  172 |     }
+  173 |
+  174 |     async verifyPurposeError(expectedMessage: string) {
+  175 |         const purposeErrorMessage = this.page.locator('div:has(label:text-is("Purpose"))>p').first();
+  176 |         await expect(purposeErrorMessage).toHaveText(expectedMessage);
+  177 |         console.log(`Purpose validation error displayed: "${expectedMessage}"`);
+  178 |     }
+  179 |
+  180 |     async verifyPhoneNumberError(expectedMessage: string) {
+  181 |         const phoneNumberErrorMessage = this.page.locator('div:has(input[placeholder="Enter your phone number"])>p[data-testid="sign-up-input-field-error"]');
+  182 |         await expect(phoneNumberErrorMessage).toHaveText(expectedMessage);
+  183 |         console.log(`Phone number validation error displayed: "${expectedMessage}"`);
+  184 |     }
+  185 |
+  186 |
+  187 |     async verifyTermsErrorMessage(expectedMessage: string) {
+  188 |         const termsErrorMessage = this.page.locator('p:text-is("* Please agree with Terms and Conditions & Privacy Policy")');
+  189 |         await expect(termsErrorMessage).toHaveText(expectedMessage);
+  190 |         console.log(`Terms & Conditions validation error displayed: "${expectedMessage}"`);
+  191 |     }
+  192 |
+  193 |
+  194 |
+  195 |     //Angelswing 3.0
+  196 |
+  197 |     async validateSignUpCreateAccountUIElements() {
+  198 |         await this.page.getByRole('link', { name: 'Back to Sign in' }).isVisible();
+  199 |         await this.page.locator('a + div').isVisible();
+  200 |         await this.page.getByRole('button', { name: 'Sign up with Email' }).isVisible();
+  201 |         await this.page.getByRole('button', { name: 'Sign up with Microsoft' }).isVisible();
+  202 |     }
+  203 |
+  204 |     async clickBackToSignInLink() {
+  205 |         await this.page.getByRole('link', { name: 'Back to Sign in' }).click();
+  206 |     }
+  207 |
+  208 |     async validateHeaderOfThePage(headerText: string) {
+  209 |         await expect(this.page.locator('a + div')).toHaveText(headerText);
+  210 |     }
+  211 |
+  212 |
+  213 |     async clickOnSignUpWithEmail() {
+  214 |         await this.page.getByRole('button', { name: 'Sign up with Email' }).click();
+  215 |     }
+  216 |
+  217 |     async clickOnSignUpWithMicrosoft() {
+  218 |         await this.page.getByRole('button', { name: 'Sign up with Microsoft' }).click();
+  219 |     }
+  220 |
+  221 |     async clickOnNextButton() {
+  222 |         await this.page.getByRole('button', { name: 'Next' }).click();
+```

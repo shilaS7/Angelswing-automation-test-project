@@ -1,0 +1,2 @@
+Popup was visible and has been closed.
+Checking the value of DSM default true

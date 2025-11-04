@@ -1,0 +1,2 @@
+✅ Token created with UUID: e98a4da1-17af-4538-9159-be74de359920
+🗑️  Token e98a4da1-17af-4538-9159-be74de359920 deleted successfully

@@ -1,0 +1,21 @@
+Clicked on create content group
+Created new Volume
+Status: 201, URL: https://dev-api.angelswing.io/v2/projects/1575/contents
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Created Volume ID: 70128
+Expected Cut Value: 39920840
+Expected Fill Value: 24917006
+Expected Total Value: 15003833
+Cut Value From Side Bar: 39920840.00,
+Fill Value From Side Bar: -24917006.00
+Cut Value From Below Side Bar: 39920840
+Fill Value From Below Side Bar: 24917006
+Total Value From Below Side Bar: 15003833
+Cut Value From Map: 39920840
+Fill Value From Map: 24917006
+Total Value From Map: 15003833
+Toggled visibility for measurement Item ID: 70128
+Toggled visibility for measurement Item ID: 70128
+Renamed Measurement Item ID 70128 to "XDXIJHpMMv"
+Centered on Measurement Item ID: 70128
+Toggled details visibility for measurement Item ID: 70128

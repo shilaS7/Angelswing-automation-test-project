@@ -1,0 +1,135 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should able to add the photo on the album
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:676:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "My New Album"
+Received: ""
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:714:66
+```
+
+# Test source
+
+```ts
+  614 |
+  615 |     // })
+  616 |
+  617 |     test('should able to upload the bird eye photo from the gallery', async () => {
+  618 |         
+  619 |         const photoGalleryPage = pm.onPhotoGallery;
+  620 |          //Click on timeline tab
+  621 |
+  622 |         await photoGalleryPage.clickOnTimelineTab();
+  623 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  624 |
+  625 |         const fileChooserPromise = pm.getPage.waitForEvent('filechooser');
+  626 |         await photoGalleryPage.uploadPhotoFromGallery();
+  627 |         await photoGalleryPage.clickonUploadButtonFileChooser();
+  628 |         const fileChooser = await fileChooserPromise;
+  629 |         
+  630 |         await helper.waitForNumberOfSeconds(2);
+  631 |         const folderPath = 'D:/Automation Upload/Bird eye photo';
+  632 |         await photoGalleryPage.handleFileChooserWithImages(fileChooser, folderPath);
+  633 |         await photoGalleryPage.clickonUploadButtonPopup();
+  634 |         await helper.waitForNumberOfSeconds(35);
+  635 |
+  636 |         //Assert the success message is displayed
+  637 |         expect(await photoGalleryPage.uploadSuccessMessage()).toContain('Successfully uploaded photos.');
+  638 |         console.log(await photoGalleryPage.uploadSuccessMessage());
+  639 |
+  640 |         //Close the popup
+  641 |         await photoGalleryPage.isCloseButtonShown();
+  642 |     })
+  643 |    
+  644 |     test('should able to upload the inspection photo from the gallery', async () => {
+  645 |         const photoGalleryPage = pm.onPhotoGallery;
+  646 |         //Click on timeline tab
+  647 |         await photoGalleryPage.clickOnTimelineTab();
+  648 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  649 |
+  650 |         //Select the "Inspection" filter
+  651 |         await photoGalleryPage.clickFilterAll();
+  652 |         await photoGalleryPage.clickFilterInspection();
+  653 |         expect(await photoGalleryPage.getFilterText()).toBe(UI_META.photoGalleryPage.filter.inspectionPhoto);
+  654 |         await photoGalleryPage.clickOnPhoto();
+  655 |
+  656 |         const fileChooserPromise = pm.getPage.waitForEvent('filechooser');
+  657 |         await photoGalleryPage.uploadPhotoFromGallery();
+  658 |         await photoGalleryPage.clickonUploadButtonFileChooser();
+  659 |         const fileChooser = await fileChooserPromise;
+  660 |         
+  661 |         await helper.waitForNumberOfSeconds(2);
+  662 |         const folderPath = 'D:/Automation Upload/Bird eye photo';
+  663 |         await photoGalleryPage.handleFileChooserWithImages(fileChooser, folderPath);
+  664 |         await photoGalleryPage.clickonUploadButtonPopup();
+  665 |         await helper.waitForNumberOfSeconds(20);
+  666 |
+  667 |          //Assert the success message is displayed
+  668 |          expect(await photoGalleryPage.uploadSuccessMessage()).toContain('Successfully uploaded photos.');
+  669 |
+  670 |          //Close the popup
+  671 |         await photoGalleryPage.isCloseButtonShown();
+  672 |
+  673 |        
+  674 |     })
+  675 |
+  676 |     test('should able to add the photo on the album', async () => {
+  677 |         const photoGalleryPage = pm.onPhotoGallery;
+  678 |         //Click on timeline tab
+  679 |         await photoGalleryPage.clickOnTimelineTab();
+  680 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  681 |         await photoGalleryPage.clickFilterAll();
+  682 |
+  683 |         expect(await photoGalleryPage.isAllFilterShownAsSelected()).toBe(true);
+  684 |         console.log("all filter is selected");
+  685 |         
+  686 |         //Select All option
+  687 |         await photoGalleryPage.clickAllOption();
+  688 |          console.log("all option is selected");
+  689 |    
+  690 |         //Select the "Birdeye" filter
+  691 |         await photoGalleryPage.clickFilterBirdeye();
+  692 |         expect(await photoGalleryPage.getFilterTextBirdeye()).toBe(UI_META.photoGalleryPage.filter.birdEyeView);
+  693 |         console.log("birdeye filter is selected");
+  694 |         
+  695 |         await photoGalleryPage.page.click('body');
+  696 |         await helper.waitForNumberOfSeconds(1);
+  697 |
+  698 |         await pm.onMapPage.clickOn3D();
+  699 |         await pm.on3DMap.verify3DMapIsVisible();
+  700 |         console.log("3d map is visible");
+  701 |
+  702 |         // select the photo
+  703 |         await photoGalleryPage.clickOnPhoto();
+  704 |         // Assert the photo is selected 
+  705 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  706 |         console.log("photo is selected");
+  707 |
+  708 |         //Select the album button
+  709 |         await photoGalleryPage.clickAddToAlbumButton();
+  710 |         expect(await photoGalleryPage.isAddToAlbumButtonShown()).toBe(true);
+  711 |
+  712 |         //select the create album button
+  713 |         await photoGalleryPage.clickCreateAlbumButton();
+> 714 |         expect(await photoGalleryPage.isAlbumPlaceholderShown()).toBe(UI_META.photoGalleryPage.newAlbumPlaceholder);
+      |                                                                  ^ Error: expect(received).toBe(expected) // Object.is equality
+  715 |         
+  716 |     })
+  717 |
+  718 |     test.afterAll(async ({ browser }) => {
+  719 |         await browser.close();
+  720 |     });
+  721 | });
+  722 |
+```

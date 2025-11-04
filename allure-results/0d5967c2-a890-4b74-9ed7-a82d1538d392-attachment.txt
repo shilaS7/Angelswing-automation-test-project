@@ -1,0 +1,2 @@
+✅ Token created with UUID: a06e1720-e7c3-4a96-8ba1-7b56d0abc950
+🗑️  Token a06e1720-e7c3-4a96-8ba1-7b56d0abc950 deleted successfully

@@ -1,0 +1,156 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications Alt+T"
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - button [ref=e6] [cursor=pointer]:
+        - img [ref=e7]
+      - navigation [ref=e9]:
+        - generic [ref=e13] [cursor=pointer]:
+          - img [ref=e15]
+          - paragraph [ref=e18]: Digital twin
+        - generic [ref=e19]:
+          - paragraph [ref=e20]: Menu
+          - generic [ref=e21] [cursor=pointer]:
+            - img [ref=e23]
+            - generic [ref=e25]: Dashboard
+            - img "project" [ref=e27]
+          - generic [ref=e28] [cursor=pointer]:
+            - img [ref=e30]
+            - generic [ref=e32]: My Projects
+          - generic [ref=e33] [cursor=pointer]:
+            - img [ref=e35]
+            - generic [ref=e37]: Organization A update Projects
+          - generic [ref=e38] [cursor=pointer]:
+            - img [ref=e40]
+            - generic [ref=e44]: Drone Stations
+          - generic [ref=e45] [cursor=pointer]:
+            - img [ref=e47]
+            - generic [ref=e49]: Organization
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: Others
+          - generic [ref=e52] [cursor=pointer]:
+            - img [ref=e54]
+            - generic [ref=e56]:
+              - text: Support
+              - img [ref=e57]
+        - navigation
+        - generic [ref=e60] [cursor=pointer]:
+          - img [ref=e63]
+          - generic [ref=e65]:
+            - generic [ref=e66]:
+              - text: Shila Admin
+              - generic [ref=e69]: Organization A update
+            - generic [ref=e70]: admin
+    - main [ref=e71]:
+      - generic [ref=e73]:
+        - heading "Hello, Shila" [level=1] [ref=e75]
+        - button "Sign out" [ref=e76] [cursor=pointer]:
+          - img [ref=e77]
+          - text: Sign out
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e81]: Resources & Support
+          - generic [ref=e82]:
+            - generic [ref=e84] [cursor=pointer]:
+              - generic [ref=e85]:
+                - img [ref=e86]
+                - img [ref=e88]
+              - generic [ref=e90]: Release Note
+            - generic [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]:
+                - img [ref=e94]
+                - img [ref=e97]
+              - generic [ref=e99]: User Guide
+            - generic [ref=e101] [cursor=pointer]:
+              - generic [ref=e102]:
+                - img [ref=e103]
+                - img [ref=e105]
+              - generic [ref=e107]: Official Website
+        - generic [ref=e108]:
+          - generic [ref=e109]: Recent Projects
+          - list [ref=e111]:
+            - generic [ref=e113]:
+              - generic [ref=e114] [cursor=pointer]:
+                - generic [ref=e115]:
+                  - generic [ref=e116]:
+                    - img [ref=e117]
+                    - generic [ref=e119]: "3"
+                  - button [ref=e122]:
+                    - img [ref=e123]
+                - img "Site Image" [ref=e126]
+                - generic [ref=e127]: Every Release
+                - generic [ref=e128]:
+                  - generic [ref=e129]: Construction
+                  - generic [ref=e130]: Site Logistics
+                - generic [ref=e131]: "Created At : 2025-09-03"
+              - generic [ref=e133]:
+                - text: "Last Opened At :"
+                - generic [ref=e134]: about 4 hours ago
+            - generic [ref=e135]:
+              - generic [ref=e136] [cursor=pointer]:
+                - generic [ref=e137]:
+                  - generic [ref=e138]:
+                    - img [ref=e139]
+                    - generic [ref=e141]: "3"
+                  - button [ref=e144]:
+                    - img [ref=e145]
+                - img "Site Image" [ref=e148]
+                - generic [ref=e149]: clone1585 Production
+                - generic [ref=e151]: Construction
+                - generic [ref=e152]: "Created At : 2025-10-30"
+              - generic [ref=e154]:
+                - text: "Last Opened At :"
+                - generic [ref=e155]: about 7 hours ago
+            - generic [ref=e156]:
+              - generic [ref=e157] [cursor=pointer]:
+                - generic [ref=e158]:
+                  - generic [ref=e159]:
+                    - img [ref=e160]
+                    - generic [ref=e162]: "15"
+                  - button [ref=e165]:
+                    - img [ref=e166]
+                - img "Site Image" [ref=e169]
+                - generic [ref=e170]: Clone 1603-Latest_update
+                - generic [ref=e171]:
+                  - generic [ref=e172]: Construction
+                  - generic [ref=e173]: Site Logistics
+                - generic [ref=e174]: "Created At : 2025-07-14"
+              - generic [ref=e176]:
+                - text: "Last Opened At :"
+                - generic [ref=e177]: 4 days ago
+            - generic [ref=e178]:
+              - generic [ref=e179] [cursor=pointer]:
+                - generic [ref=e180]:
+                  - generic [ref=e181]:
+                    - img [ref=e182]
+                    - generic [ref=e184]: "7"
+                  - button [ref=e187]:
+                    - img [ref=e188]
+                - img "Site Image" [ref=e191]
+                - generic [ref=e192]: Clone 1603
+                - generic [ref=e194]: Construction
+                - generic [ref=e195]: "Created At : 2025-06-13"
+              - generic [ref=e197]:
+                - text: "Last Opened At :"
+                - generic [ref=e198]: 4 days ago
+            - generic [ref=e199]:
+              - generic [ref=e200] [cursor=pointer]:
+                - generic [ref=e201]:
+                  - generic [ref=e202]:
+                    - img [ref=e203]
+                    - generic [ref=e205]: "3"
+                  - button [ref=e208]:
+                    - img [ref=e209]
+                - img "Site Image" [ref=e212]
+                - generic [ref=e213]:
+                  - text: Prod Clone 1480
+                  - img [ref=e215]
+                - generic [ref=e218]: Construction
+                - generic [ref=e219]: "Created At : 2025-07-15"
+              - generic [ref=e221]:
+                - text: "Last Opened At :"
+                - generic [ref=e222]: 4 days ago
+```

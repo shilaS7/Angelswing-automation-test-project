@@ -1,0 +1,33 @@
+✅ Token created with UUID: a63c0537-a1d2-4e57-a51c-db899ae45fc7
+Selecting role: Admin
+Entering email: a63c0537-a1d2-4e57-a51c-db899ae45fc7@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: a63c0537-a1d2-4e57-a51c-db899ae45fc7@emailhook.site
+Search completed
+No collaborators found for "a63c0537-a1d2-4e57-a51c-db899ae45fc7@emailhook.site"
+Searching for: a63c0537-a1d2-4e57-a51c-db899ae45fc7@emailhook.site
+Search completed
+Row Cell Text: a63c0537-a1d2-4e57-a51c-db899ae45fc7@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=a63c0537-a1d2-4e57-a51c-db899ae45fc7%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+🗑️  All Requests for Token a63c0537-a1d2-4e57-a51c-db899ae45fc7 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Leopold
+Entering Last Name: Wiegand
+Selecting Organization: Quigley Inc
+Entering Phone Number: +18617118753
+Selecting purpose: Disaster Response
+Selecting country: Northern Mariana Islands
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/aGv2x6qaHxOo1hgGPLFpQw?email=a63c0537-a1d2-4e57-a51c-db899ae45fc7%40emailhook.site
+🗑️  Token a63c0537-a1d2-4e57-a51c-db899ae45fc7 deleted successfully

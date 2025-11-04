@@ -1,0 +1,32 @@
+✅ Token created with UUID: 066f1c89-2c96-4dfc-965f-8f6e62d92f09
+Selecting role: Admin
+Entering email: 066f1c89-2c96-4dfc-965f-8f6e62d92f09@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 066f1c89-2c96-4dfc-965f-8f6e62d92f09@emailhook.site
+Search completed
+No collaborators found for "066f1c89-2c96-4dfc-965f-8f6e62d92f09@emailhook.site"
+Searching for: 066f1c89-2c96-4dfc-965f-8f6e62d92f09@emailhook.site
+Search completed
+Row Cell Text: 066f1c89-2c96-4dfc-965f-8f6e62d92f09@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=066f1c89-2c96-4dfc-965f-8f6e62d92f09%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Ashton
+Entering Last Name: Herman
+Selecting Organization: Heathcote and Sons
+Entering Phone Number: +17878556531
+Selecting purpose: Drone Service
+Selecting country: Bulgaria
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/hsVorxDzVSj6aXn6NJlEkw?email=066f1c89-2c96-4dfc-965f-8f6e62d92f09%40emailhook.site
+🗑️  Token 066f1c89-2c96-4dfc-965f-8f6e62d92f09 deleted successfully

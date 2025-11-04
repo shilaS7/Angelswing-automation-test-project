@@ -1,0 +1,4 @@
+✅ Token created with UUID: d5320504-a021-4fe9-871a-43934c88cd21
+Selecting role: Org Admin
+Entering email: d5320504-a021-4fe9-871a-43934c88cd21@emailhook.site, another-d5320504-a021-4fe9-871a-43934c88cd21@emailhook.site
+🗑️  Token d5320504-a021-4fe9-871a-43934c88cd21 deleted successfully

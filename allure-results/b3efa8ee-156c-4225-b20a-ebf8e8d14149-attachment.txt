@@ -1,0 +1,15 @@
+Entering Email: caesar.turner@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Caesar
+Entering Last Name: Turner
+Selecting Organization: Ebert Inc
+Organization input validated: "Ebert Inc"
+Entering Phone Number: +15297677711
+Selecting purpose: Drone Service
+Selecting country: Barbados
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/OL1eC698FtHYbTfU22ZTkg?email=caesar.turner%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/OL1eC698FtHYbTfU22ZTkg?email=caesar.turner%40j87bh0xv.mailosaur.net
+Expected Email in URL: caesar.turner%40j87bh0xv.mailosaur.net
+Verification email test completed

@@ -1,0 +1,7 @@
+Get Area Response: {"basePlane":"triangulation","cut":20,"elevation":0,"fill":-616,"status":"200","volume":-597}
+Base Plane: triangulation
+Elevation: 0
+Cut: 20
+Fill: -616
+Status: 200
+Volume: -597

@@ -1,0 +1,39 @@
+✅ Token created with UUID: 61d19ad4-ed7d-4392-8e89-109cc2ad516c
+Selecting role: Admin
+Entering email: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Searching for: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Search completed
+No collaborators found for "61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site"
+Searching for: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Search completed
+Row Cell Text: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=61d19ad4-ed7d-4392-8e89-109cc2ad516c%40emailhook.site
+🗑️  All Requests for Token 61d19ad4-ed7d-4392-8e89-109cc2ad516c deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Dwight
+Entering Last Name: Schinner
+Selecting Organization: Effertz, Crona and D'Amore
+Organization input validated: "Effertz, Crona and D'Amore"
+Entering Phone Number: +19227357478
+Selecting purpose: Drone Service
+Selecting country: United States
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/73Wo4wPJPYrPZDnYUaDqfg?email=61d19ad4-ed7d-4392-8e89-109cc2ad516c%40emailhook.site
+Searching for: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Search completed
+Row Cell Text: Dwight Schinner61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Searching for: 61d19ad4-ed7d-4392-8e89-109cc2ad516c@emailhook.site
+Search completed
+No data available
+🗑️  Token 61d19ad4-ed7d-4392-8e89-109cc2ad516c deleted successfully

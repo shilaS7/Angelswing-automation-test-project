@@ -1,0 +1,175 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite an admin to an organization and validate the invitation page after signup and login from new user/admin @smoke
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:427:13
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByTestId('project-sidebar-menu-item-Organization').filter({ hasText: 'Organization' })
+
+    at DashboardPage.clickOnOrganization (D:\Angelswing_QA\angelswing-automation-test\pages\DashboardPage.ts:182:115)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:450:36
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications Alt+T"
+- img
+- img
+- text: English
+- img
+- link "Back to Sign in":
+  - img
+  - text: Back to Sign in
+- paragraph: Your email verification is pending.
+- paragraph: Please check your inbox for email verification.
+- separator
+- button "Go to Homepage"
+```
+
+# Test source
+
+```ts
+   82 |     }
+   83 |
+   84 |     async hoverOnUserName(name: string) {
+   85 |         await this.page.locator(`div:text-is("${name}")`).hover();
+   86 |     }
+   87 |
+   88 |     async getTooltipText() {
+   89 |         const tooltip = this.page.locator('[class="tippy-content"]').textContent();
+   90 |         return tooltip;
+   91 |     }
+   92 |
+   93 |     async clickOnSignOutButton() {
+   94 |         await this.page.getByRole('button', { name: 'Sign out' }).click();
+   95 |
+   96 |     }
+   97 |
+   98 |     async clickOnReleaseNotes() {
+   99 |         await this.page.locator('[data-testid="dashboard-Release Note -0"]').click();
+  100 |     }
+  101 |
+  102 |     async clickOnUserGuide() {
+  103 |         await this.page.locator('[data-testid="dashboard-User Guide-1"]').click();
+  104 |     }
+  105 |
+  106 |     async clickOnOfficialWebsite() {
+  107 |         await this.page.locator('[data-testid="dashboard-Official Website-2"]').click();
+  108 |     }
+  109 |
+  110 |     async clickOnSupport() {
+  111 |         await this.page.locator('div:text-is("Support")').click();
+  112 |     }
+  113 |
+  114 |     async validateURL(expectedUrl: string | RegExp): Promise<void> {
+  115 |         await expect(this.page).toHaveURL(expectedUrl);
+  116 |     }
+  117 |
+  118 |     async validateHeaderText(content: string) {
+  119 |         await expect(this.page.locator('h1, h2').first()).toContainText(content);
+  120 |     }
+  121 |
+  122 |     async clickOnViewProjectToCloseProjectSharedPopup(number: number = 0) {
+  123 |         const popup = this.page.getByTestId('popup');
+  124 |         await popup.waitFor({ state: 'visible' });
+  125 |         await popup.getByRole('button', { name: 'View project' }).nth(number).click();
+  126 |     }
+  127 |
+  128 |     async getCountOfSharedProjects() {
+  129 |         await this.page.waitForLoadState('networkidle');
+  130 |         const sharedProjects = this.page.getByTestId('popup').getByRole('button', { name: 'View Project' });
+  131 |         return await sharedProjects.count();
+  132 |     }
+  133 |
+  134 |     async scrollRecentProjectsSectionHorizontally() {
+  135 |         const recentProjectsSection = this.page.locator('.no-scrollbar');
+  136 |         await recentProjectsSection.hover();
+  137 |         await recentProjectsSection.scrollIntoViewIfNeeded();
+  138 |         await this.page.mouse.wheel(0, 100);
+  139 |
+  140 |         // Optional wait or assertion to confirm scroll occurred
+  141 |         await this.page.waitForTimeout(500);
+  142 |         await this.page.mouse.wheel(0, -100);
+  143 |         await this.page.waitForTimeout(500);
+  144 |     }
+  145 |
+  146 |     async collapseSidebar() {
+  147 |         await this.expandCollapseSideBar();
+  148 |     }
+  149 |
+  150 |     async expandSidebar() {
+  151 |         await this.expandCollapseSideBar();
+  152 |     }
+  153 |
+  154 |     async expandCollapseSideBar() {
+  155 |         const collapseButton = this.page.getByTestId('project-sidebar-collapse-button');
+  156 |         await collapseButton.click({ force: true });
+  157 |     }
+  158 |
+  159 |     async getCollapseButtonText() {
+  160 |         const collapseButton = this.page.getByTestId('project-sidebar-collapse-button');
+  161 |         const collapseButtonText = await collapseButton.textContent();
+  162 |         return collapseButtonText;
+  163 |     }
+  164 |
+  165 |     async clickLinkAndValidateHeaderOfLinkOnNewTab(
+  166 |         clickFn: () => Promise<void>,
+  167 |         expectedUrl: RegExp,
+  168 |         expectedHeader: string
+  169 |     ) {
+  170 |         const [popup] = await Promise.all([
+  171 |             this.page.waitForEvent('popup'),
+  172 |             clickFn(),
+  173 |         ]);
+  174 |         // await page.waitForLoadState('domcontentloaded');
+  175 |         await expect(popup).toHaveURL(expectedUrl);
+  176 |         const header = popup.locator('h1, h2').first();
+  177 |         await expect(header).toContainText(expectedHeader);
+  178 |         await popup.close();
+  179 |     }
+  180 |
+  181 |     async clickOnOrganization() {
+> 182 |         await this.page.getByTestId('project-sidebar-menu-item-Organization').filter({ hasText: 'Organization' }).click();
+      |                                                                                                                   ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  183 |     }
+  184 |
+  185 |     async isOrganizationSideBarVisible() {
+  186 |         const organizationSideBar = this.page.getByTestId('project-sidebar-menu-item-Organization');
+  187 |         return await organizationSideBar.isVisible();
+  188 |     }
+  189 |
+  190 |     async clickOnOrganizationProject(projectName: string) {
+  191 |         await this.page.getByText(`${projectName} Projects`).click();
+  192 |         await this.page.waitForLoadState('networkidle');
+  193 |     }
+  194 |
+  195 |     async getAuthAndCurrentUserResponse(): Promise<{ signinBody: any, currentUserBody: any; }> {
+  196 |         const [signinResponse, currentUserResponse] = await Promise.all([
+  197 |             this.page.waitForResponse(response =>
+  198 |                 response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST'
+  199 |             ),
+  200 |             this.page.waitForResponse(response =>
+  201 |                 response.url().includes(`/v2/organizations/current`) && response.status() === 200 && response.request().method() === 'GET'
+  202 |             )
+  203 |         ]);
+  204 |
+  205 |         const signinBody = await signinResponse.json();
+  206 |         const currentUserBody = await currentUserResponse.json();
+  207 |
+  208 |         return { signinBody, currentUserBody };
+  209 |     }
+  210 |
+  211 | }
+  212 |
+```

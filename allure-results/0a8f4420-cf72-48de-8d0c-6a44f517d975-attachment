@@ -1,0 +1,172 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should remove user from organization
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1191:13
+
+# Error details
+
+```
+Error: locator.click: Target page, context or browser has been closed
+Call log:
+  - waiting for getByRole('row', { name: 'be0e7695-a2e7-4314-8435-c1de10f6bfd1@emailhook.site' }).locator('td').last()
+
+    at OrganizationPage.selectTargetRow (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:466:25)
+    at OrganizationPage.removeFromOrganization (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:469:20)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1195:36
+```
+
+# Test source
+
+```ts
+  366 |             'Project Viewer',
+  367 |         ];
+  368 |
+  369 |         for (const name of roles) {
+  370 |             const btn = popup.getByRole('button', { name }).first();
+  371 |             if (await btn.isVisible({ timeout: 500 }).catch(() => false)) {
+  372 |                 await btn.click();
+  373 |                 return;
+  374 |             }
+  375 |         }
+  376 |         throw new Error('None of the role buttons were visible');
+  377 |     }
+  378 |
+  379 |     async selectRole(role: string) {
+  380 |         const popup = this.page.getByTestId('popup');
+  381 |         await this.clickOnRoleDropdown();
+  382 |         console.log(`Selecting role: ${role}`);
+  383 |         const roleDropdown = popup.locator('button[data-testid="dropdown-mainbutton"]').first();
+  384 |         await popup.getByText(`${role}`).first().click();
+  385 |         await expect(roleDropdown).toHaveText(role);
+  386 |     }
+  387 |
+  388 |     async enterEmail(email: string) {
+  389 |         console.log(`Entering email: ${email}`);
+  390 |         await this.page.getByPlaceholder('Email').fill(email);
+  391 |     }
+  392 |
+  393 |     async getEmailInputValue() {
+  394 |         return await this.page.getByPlaceholder('Email').inputValue();
+  395 |     }
+  396 |
+  397 |     async clickAddButton() {
+  398 |         await this.page.getByRole('button', { name: 'Add' }).click();
+  399 |     }
+  400 |
+  401 |     async isAddButtonEnabled() {
+  402 |         return await this.page.getByRole('button', { name: 'Add' }).isEnabled();
+  403 |     }
+  404 |
+  405 |     async isAddButtonDisabled() {
+  406 |         return await this.page.getByRole('button', { name: 'Add' }).isDisabled();
+  407 |     }
+  408 |
+  409 |     async getCountOfInvitedAccounts(): Promise<number> {
+  410 |         return await this.page.locator('[data-testid="inviting-collaborators-list"] > div').count();
+  411 |     }
+  412 |
+  413 |     async sendInvitation() {
+  414 |         await this.page.getByRole('button', { name: 'Invite' }).last().click();
+  415 |         const successMessage = await this.getInvitationSuccessMessage();
+  416 |         console.log(`Invitation success message: ${successMessage}`);
+  417 |         expect(successMessage).toContain('The invitations have been sent.');
+  418 |     }
+  419 |
+  420 |
+  421 |     async sendInvitationAndGetResponse(): Promise<Array<{ status: string; }>> {
+  422 |         const [response] = await Promise.all([
+  423 |             // 1) start waiting
+  424 |             this.page.waitForResponse(r =>
+  425 |                 r.request().method() === 'POST' &&
+  426 |                 r.url().includes('/organization_users'),
+  427 |                 { timeout: 10_000 }
+  428 |             ),
+  429 |             // 2) click the button that triggers it
+  430 |             this.sendInvitation()
+  431 |         ]);
+  432 |         if (response.status() < 200 || response.status() >= 300) {
+  433 |             throw new Error(`Invitation API failed: ${response.status()}`);
+  434 |         }
+  435 |         return response.json();
+  436 |     }
+  437 |
+  438 |
+  439 |     async getInvitationSuccessMessage() {
+  440 |         return await this.page.locator('section>.Toastify__toast-container').first().textContent();
+  441 |     }
+  442 |
+  443 |     async cancelInvitation() {
+  444 |         await this.page.getByRole('button', { name: 'Cancel' }).click();
+  445 |     }
+  446 |
+  447 |     //Pending Requests
+  448 |     async getPendingRequestsCount() {
+  449 |         const textContent = await this.page.locator('h2:text-is("Organization Accounts")  +div').textContent();
+  450 |         return textContent ? parseInt(textContent.trim(), 10) : 0;
+  451 |     }
+  452 |
+  453 |     async selectAccountOnPendingRequests(accountName: string) {
+  454 |         await this.page.getByText(accountName).click();
+  455 |     }
+  456 |
+  457 |
+  458 |
+  459 |
+  460 |     async getOrganizationInviteResponse() {
+  461 |         return await this.waitForPostResponse(`organization_users`);
+  462 |     }
+  463 |
+  464 |     private async selectTargetRow(email: string) {
+  465 |         const targetRow = this.page.getByRole('row', { name: email }).locator('td').last();
+> 466 |         await targetRow.click();
+      |                         ^ Error: locator.click: Target page, context or browser has been closed
+  467 |     }
+  468 |     async removeFromOrganization(email: string) {
+  469 |         await this.selectTargetRow(email);
+  470 |         await this.page.getByRole('button', { name: 'Remove from organization' }).click();
+  471 |         await this.clickOnRemoveButton();
+  472 |     }
+  473 |
+  474 |     async clickOnRemoveButton() {
+  475 |         await this.page.getByRole('button', { name: 'Remove' }).click();
+  476 |     }
+  477 |
+  478 |     async promoteToAdmin(email: string) {
+  479 |         await this.selectTargetRow(email);
+  480 |         await this.page.getByRole('button', { name: 'Promote to org admin' }).click();
+  481 |         await this.clickOnApply();
+  482 |     }
+  483 |
+  484 |     async demoteFromAdmin(email: string) {
+  485 |         await this.selectTargetRow(email);
+  486 |         await this.page.getByRole('button', { name: 'Demote to member' }).click();
+  487 |         await this.clickOnApply();
+  488 |     }
+  489 |
+  490 |     async changeRoles(email: string, role: string) {
+  491 |         await this.page.getByRole('button', { name: 'Change Roles' }).click();
+  492 |         await this.selectRole(role);
+  493 |         await this.clickOnApply();
+  494 |     }
+  495 |
+  496 |     async bulkRemoveFromOrganization(multipleEmails: string[]) {
+  497 |         for (const email of multipleEmails) {
+  498 |             await this.selectTargetRowForBulkAction(email, 0);
+  499 |         }
+  500 |         await this.clickOnRemoveButton();
+  501 |         // await this.clickOnApply();
+  502 |     }
+  503 |
+  504 |     async selectTargetRowForBulkAction(email: string, columnNumber: number = 0) {
+  505 |         const targetRow = this.page.getByRole('row', { name: email }).locator('td').nth(columnNumber);
+  506 |         await targetRow.click();
+  507 |     }
+  508 | }
+  509 |
+```

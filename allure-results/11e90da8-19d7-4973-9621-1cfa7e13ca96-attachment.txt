@@ -1,0 +1,35 @@
+✅ Token created with UUID: b6f633d9-725b-4086-9dbb-dcaa56a6b6c2
+Selecting role: Admin
+Entering email: b6f633d9-725b-4086-9dbb-dcaa56a6b6c2@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: b6f633d9-725b-4086-9dbb-dcaa56a6b6c2@emailhook.site
+Search completed
+No collaborators found for "b6f633d9-725b-4086-9dbb-dcaa56a6b6c2@emailhook.site"
+Searching for: b6f633d9-725b-4086-9dbb-dcaa56a6b6c2@emailhook.site
+Search completed
+Row Cell Text: b6f633d9-725b-4086-9dbb-dcaa56a6b6c2@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=b6f633d9-725b-4086-9dbb-dcaa56a6b6c2%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Norberto
+Entering Last Name: Kris
+Selecting Organization: Willms - Mosciski
+Entering Phone Number: +15224349373
+Selecting purpose: Survey
+Selecting country: Estonia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 4/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/ISSyVkmOV68dQDTqzwEbfw?email=b6f633d9-725b-4086-9dbb-dcaa56a6b6c2%40emailhook.site
+🗑️  Token b6f633d9-725b-4086-9dbb-dcaa56a6b6c2 deleted successfully

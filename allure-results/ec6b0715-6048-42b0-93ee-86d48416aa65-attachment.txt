@@ -1,0 +1,32 @@
+✅ Token created with UUID: 3e87f3a4-5775-4fef-849d-161d2e753445
+Selecting role: Admin
+Entering email: 3e87f3a4-5775-4fef-849d-161d2e753445@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 3e87f3a4-5775-4fef-849d-161d2e753445@emailhook.site
+Search completed
+No collaborators found for "3e87f3a4-5775-4fef-849d-161d2e753445@emailhook.site"
+Searching for: 3e87f3a4-5775-4fef-849d-161d2e753445@emailhook.site
+Search completed
+Row Cell Text: 3e87f3a4-5775-4fef-849d-161d2e753445@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=3e87f3a4-5775-4fef-849d-161d2e753445%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Harley
+Entering Last Name: Sipes
+Selecting Organization: Mayert - Wilkinson
+Entering Phone Number: +15997876746
+Selecting purpose: Others
+Selecting country: Kuwait
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 3 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/_wayK0hlRhI5zHneJyFnYA?email=3e87f3a4-5775-4fef-849d-161d2e753445%40emailhook.site
+🗑️  Token 3e87f3a4-5775-4fef-849d-161d2e753445 deleted successfully

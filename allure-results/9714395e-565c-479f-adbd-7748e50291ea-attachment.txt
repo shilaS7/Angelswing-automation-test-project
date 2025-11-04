@@ -1,0 +1,26 @@
+Clicked on create content group
+Created new Volume
+Status: 201, URL: https://dev-api.angelswing.io/v2/projects/1575/contents
+Status: 200, URL: https://volume-dev.angelswing.io/sbvc/67908
+Created Volume ID: 70137
+Expected Cut Value: 388
+Expected Fill Value: 172
+Expected Total Value: 216
+Cut Value From Side Bar: 388.00,
+Fill Value From Side Bar: -172.00
+Cut Value From Below Side Bar: 388
+Fill Value From Below Side Bar: 172
+Total Value From Below Side Bar: 216
+Cut Value From Map: 388
+Fill Value From Map: 172
+Total Value From Map: 216
+Toggled visibility for measurement Item ID: 70137
+Toggled visibility for measurement Item ID: 70137
+Renamed Measurement Item ID 70137 to "uYbiRhemrv"
+Centered on Measurement Item ID: 70137
+Toggled details visibility for measurement Item ID: 70137
+Total Groups: 2
+Deleting group 1 of 2
+Delete button click timed out, trying to toggle show/hide folder and retry
+Deleting group 2 of 2
+One group created successfully

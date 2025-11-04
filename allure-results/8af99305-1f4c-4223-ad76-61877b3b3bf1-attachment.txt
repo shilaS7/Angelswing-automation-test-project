@@ -1,0 +1,6 @@
+Dataset selection message: Please select another dataset
+✅ Verified Ortho is selected by default on first screen
+✅ Verified DSM and DTM are clickable in the first screen
+✅ Verified Ortho, DSM, and DTM are disabled on screen 2
+✅ Verified Ortho, DSM, and DTM are disabled on screen 3
+✅ Verified Ortho, DSM, and DTM are enabled in the fourth screen

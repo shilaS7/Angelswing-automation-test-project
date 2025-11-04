@@ -1,0 +1,2 @@
+✅ Token created with UUID: db009af0-8012-45e7-9c3d-4e9bd5405ded
+🗑️  Token db009af0-8012-45e7-9c3d-4e9bd5405ded deleted successfully

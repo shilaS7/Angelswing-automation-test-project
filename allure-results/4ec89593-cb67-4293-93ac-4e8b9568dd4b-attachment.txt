@@ -1,0 +1,2 @@
+✅ Token created with UUID: fc789f55-eba5-4410-80fb-2f7b9e8c5330
+🗑️  Token fc789f55-eba5-4410-80fb-2f7b9e8c5330 deleted successfully

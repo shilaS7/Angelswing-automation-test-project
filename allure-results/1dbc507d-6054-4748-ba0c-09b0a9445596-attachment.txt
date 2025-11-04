@@ -1,0 +1,32 @@
+✅ Token created with UUID: 30aba989-8aac-43e8-8831-028b527472ea
+Selecting role: Admin
+Entering email: 30aba989-8aac-43e8-8831-028b527472ea@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 30aba989-8aac-43e8-8831-028b527472ea@emailhook.site
+Search completed
+No collaborators found for "30aba989-8aac-43e8-8831-028b527472ea@emailhook.site"
+Searching for: 30aba989-8aac-43e8-8831-028b527472ea@emailhook.site
+Search completed
+Row Cell Text: 30aba989-8aac-43e8-8831-028b527472ea@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=30aba989-8aac-43e8-8831-028b527472ea%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Onie
+Entering Last Name: Hahn
+Selecting Organization: Okuneva Group
+Entering Phone Number: +14697186823
+Selecting purpose: Construction
+Selecting country: Sao Tome and Principe
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/JqKuHQgTOfwQyOVpgVvIcQ?email=30aba989-8aac-43e8-8831-028b527472ea%40emailhook.site
+🗑️  Token 30aba989-8aac-43e8-8831-028b527472ea deleted successfully

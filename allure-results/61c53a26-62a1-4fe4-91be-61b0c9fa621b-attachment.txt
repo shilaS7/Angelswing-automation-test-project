@@ -1,0 +1,15 @@
+Entering Email: ava.kihn@qk1te4rl.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Ava
+Entering Last Name: Kihn
+Selecting Organization: Pfeffer - Runte
+Organization input validated: "Pfeffer - Runte"
+Entering Phone Number: +16365652018
+Selecting purpose: Survey
+Selecting country: Senegal
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/jyXXpnWPxaKaNBC_bFt4vA?email=ava.kihn%40qk1te4rl.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/jyXXpnWPxaKaNBC_bFt4vA?email=ava.kihn%40qk1te4rl.mailosaur.net
+Expected Email in URL: ava.kihn%40qk1te4rl.mailosaur.net
+Verification email test completed

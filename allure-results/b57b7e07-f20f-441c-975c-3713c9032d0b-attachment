@@ -1,0 +1,80 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the filter in album tab is working correctly
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:148:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByTestId('tab-btn-photo')
+    - locator resolved to <section class="sc-dlfnuX iFekAr" data-testid="tab-btn-photo" data-ddm-track-action="change-tab" data-ddm-track-label="btn-tab-photo">…</section>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - performing click action
+    - click action done
+    - waiting for scheduled navigations to finish
+
+    at NavigationPage.photoAlbumPage (D:\Angelswing_QA\angelswing-automation-test\pages\NavigationPage.ts:27:54)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:40:29
+```
+
+# Test source
+
+```ts
+   1 | import { Page, Locator, expect } from '@playwright/test';
+   2 |
+   3 | export class NavigationPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |     async mapPage() {
+  11 |         await this.page.getByTestId('tab-btn-map').click();
+  12 |     }
+  13 |
+  14 |     async cadOverlayPage() {
+  15 |         await this.page.getByTestId('tab-btn-overlay').click();
+  16 |     }
+  17 |
+  18 |     async measurementPage() {
+  19 |         await this.page.getByTestId('tab-btn-measurement').click();
+  20 |     }
+  21 |
+  22 |     async issuePage() {
+  23 |         await this.page.getByTestId('tab-btn-issue').click();
+  24 |     }
+  25 |
+  26 |     async photoAlbumPage() {
+> 27 |         await this.page.getByTestId('tab-btn-photo').click();
+     |                                                      ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  28 |     }
+  29 |
+  30 |     async siteLogisticsPage() {
+  31 |         await this.page.getByTestId('tab-btn-safety').click();
+  32 |     }
+  33 |
+  34 |     async viewPointPage() {
+  35 |         await this.page.getByTestId('tab-btn-viewpoint-capture').click();
+  36 |     }
+  37 |
+  38 |     async workspacePage() {
+  39 |         await this.page.locator('section[data-test-id="content-page-logo-tab"]').click({ force: true });
+  40 |         await this.page.getByText('Back to Workspace').click({ force: true });
+  41 |     }
+  42 |
+  43 | }
+  44 |
+```

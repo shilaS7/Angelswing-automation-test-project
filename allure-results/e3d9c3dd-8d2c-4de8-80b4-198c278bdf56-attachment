@@ -1,0 +1,231 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite an admin to an organization and validate the invitation page after signup and login from new user/admin @smoke
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:398:13
+
+# Error details
+
+```
+Error: Timed out 15000ms waiting for expect(locator).toHaveURL(expected)
+
+Locator: locator(':root')
+Expected pattern: /.*content\/map\/.*/
+Received string:  "https://dev.angelswing.io/project/1562/content"
+Call log:
+  - expect.toHaveURL with timeout 15000ms
+  - waiting for locator(':root')
+    18 × locator resolved to <html translate="no">…</html>
+       - unexpected value "https://dev.angelswing.io/project/1562/content"
+
+    at DashboardPage.validateURL (D:\Angelswing_QA\angelswing-automation-test\pages\DashboardPage.ts:100:33)
+    at setupDashboardAfterLogin (D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:148:32)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:415:42
+```
+
+# Test source
+
+```ts
+   1 | import { Locator, Page, expect } from '@playwright/test';
+   2 |
+   3 | export class DashboardPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+   10 |     async closeReadUserGuidePopUp() {
+   11 |         const popup = this.page.locator('section', { hasText: 'Read user guide' });
+   12 |
+   13 |         if (!await popup.isVisible({ timeout: 2000 })) {
+   14 |             return;
+   15 |         }
+   16 |         const desktopCloseButton = popup.locator('[data-testid="popup-close"]');
+   17 |         const mobileCloseButton = this.page.locator('section:has-text("Read user guide") + button:has-text("Close")');
+   18 |
+   19 |         if (await desktopCloseButton.isVisible({ timeout: 2000 })) {
+   20 |             await desktopCloseButton.click({ force: true });
+   21 |             return;
+   22 |         }
+   23 |
+   24 |         if (await mobileCloseButton.isVisible({ timeout: 2000 })) {
+   25 |             await mobileCloseButton.click();
+   26 |             return;
+   27 |         }
+   28 |         console.log('ReadUserGuide Popup not visible, skipping close.');
+   29 |     }
+   30 |
+   31 |     async openProject(projectId: string = process.env.PROJECT_ID || '1554') {
+   32 |         await this.page.getByTestId(`project-list-card-${projectId}`).click();
+   33 |     }
+   34 |
+   35 |     async verifyLoadingBehavior() {
+   36 |         const loading = this.page.getByTestId('loading-wrapper');
+   37 |         const isVisible = await loading.isVisible({ timeout: 300 });
+   38 |         expect(isVisible).toBe(true);
+   39 |         await expect(loading).toBeHidden({ timeout: 10000 });
+   40 |     }
+   41 |
+   42 |     async isSignOutButtonVisible() {
+   43 |         const signOutButton = this.page.getByRole('button', { name: 'Sign out' });
+   44 |         const isVisible = await signOutButton.isVisible();
+   45 |         return isVisible;
+   46 |     }
+   47 |
+   48 |     async clickOnProjectMenu() {
+   49 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText(' My Projects').click();
+   50 |     }
+   51 |
+   52 |     async getLoggedInUserResponse(): Promise<any> {
+   53 |         const response = await this.page.waitForResponse(response =>
+   54 |             response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST',
+   55 |             { timeout: 10000 }
+   56 |         );
+   57 |         const status = response.status();
+   58 |         const body = await response.json();
+   59 |         // console.log(`Response: ${JSON.stringify(body)}`);
+   60 |         console.log(`Status: ${status}`);
+   61 |         return body;
+   62 |     }
+   63 |
+   64 |
+   65 |     async clickOnUserName() {
+   66 |         await this.page.getByTestId('user-profile-button').click();
+   67 |     }
+   68 |
+   69 |     async hoverOnUserName(name: string) {
+   70 |         await this.page.locator(`div:text-is("${name}")`).hover();
+   71 |     }
+   72 |
+   73 |     async getTooltipText() {
+   74 |         const tooltip = this.page.locator('[class="tippy-content"]').textContent();
+   75 |         return tooltip;
+   76 |     }
+   77 |
+   78 |     async clickOnSignOutButton() {
+   79 |         await this.page.getByRole('button', { name: 'Sign out' }).click();
+   80 |
+   81 |     }
+   82 |
+   83 |     async clickOnReleaseNotes() {
+   84 |         await this.page.locator('[data-testid="dashboard-Release Note -0"]').click();
+   85 |     }
+   86 |
+   87 |     async clickOnUserGuide() {
+   88 |         await this.page.locator('[data-testid="dashboard-User Guide-1"]').click();
+   89 |     }
+   90 |
+   91 |     async clickOnOfficialWebsite() {
+   92 |         await this.page.locator('[data-testid="dashboard-Official Website-2"]').click();
+   93 |     }
+   94 |
+   95 |     async clickOnSupport() {
+   96 |         await this.page.locator('div:text-is("Support")').click();
+   97 |     }
+   98 |
+   99 |     async validateURL(expectedUrl: string | RegExp): Promise<void> {
+> 100 |         await expect(this.page).toHaveURL(expectedUrl);
+      |                                 ^ Error: Timed out 15000ms waiting for expect(locator).toHaveURL(expected)
+  101 |     }
+  102 |
+  103 |     async validateHeaderText(content: string) {
+  104 |         await expect(this.page.locator('h1, h2').first()).toContainText(content);
+  105 |     }
+  106 |
+  107 |     async clickOnViewProjectToCloseProjectSharedPopup(number: number = 0) {
+  108 |         const popup = this.page.getByTestId('popup');
+  109 |         await popup.waitFor({ state: 'visible' });
+  110 |         await popup.getByRole('button', { name: 'View project' }).nth(number).click();
+  111 |     }
+  112 |
+  113 |     async getCountOfSharedProjects() {
+  114 |         await this.page.waitForLoadState('networkidle');
+  115 |         const sharedProjects = this.page.getByTestId('popup').getByRole('button', { name: 'View Project' });
+  116 |         return await sharedProjects.count();
+  117 |     }
+  118 |
+  119 |     async scrollRecentProjectsSectionHorizontally() {
+  120 |         const recentProjectsSection = this.page.locator('.no-scrollbar');
+  121 |         await recentProjectsSection.hover();
+  122 |         await recentProjectsSection.scrollIntoViewIfNeeded();
+  123 |         await this.page.mouse.wheel(0, 100);
+  124 |
+  125 |         // Optional wait or assertion to confirm scroll occurred
+  126 |         await this.page.waitForTimeout(500);
+  127 |         await this.page.mouse.wheel(0, -100);
+  128 |         await this.page.waitForTimeout(500);
+  129 |     }
+  130 |
+  131 |     async collapseSidebar() {
+  132 |         await this.expandCollapseSideBar();
+  133 |     }
+  134 |
+  135 |     async expandSidebar() {
+  136 |         await this.expandCollapseSideBar();
+  137 |     }
+  138 |
+  139 |     async expandCollapseSideBar() {
+  140 |         const collapseButton = this.page.getByTestId('drawer-toggle-button').last();
+  141 |         await collapseButton.click();
+  142 |     }
+  143 |
+  144 |     async getCollapseButtonText() {
+  145 |         const collapseButton = this.page.getByTestId('project-sidebar-collapse-button');
+  146 |         const collapseButtonText = await collapseButton.textContent();
+  147 |         return collapseButtonText;
+  148 |     }
+  149 |
+  150 |     async clickLinkAndValidateHeaderOfLinkOnNewTab(
+  151 |         clickFn: () => Promise<void>,
+  152 |         expectedUrl: RegExp,
+  153 |         expectedHeader: string
+  154 |     ) {
+  155 |         const [popup] = await Promise.all([
+  156 |             this.page.waitForEvent('popup'),
+  157 |             clickFn(),
+  158 |         ]);
+  159 |         // await page.waitForLoadState('domcontentloaded');
+  160 |         await expect(popup).toHaveURL(expectedUrl);
+  161 |         const header = popup.locator('h1, h2').first();
+  162 |         await expect(header).toContainText(expectedHeader);
+  163 |         await popup.close();
+  164 |     }
+  165 |
+  166 |     async clickOnOrganization() {
+  167 |         await this.page.getByTestId('project-sidebar-menu-item-Organization').filter({ hasText: 'Organization' }).click();
+  168 |     }
+  169 |
+  170 |     async isOrganizationSideBarVisible() {
+  171 |         const organizationSideBar = this.page.getByTestId('project-sidebar-menu-item-Organization');
+  172 |         return await organizationSideBar.isVisible();
+  173 |     }
+  174 |
+  175 |     async clickOnOrganizationProject(projectName: string) {
+  176 |         await this.page.getByText(`${projectName} Projects`).click();
+  177 |         await this.page.waitForLoadState('networkidle');
+  178 |     }
+  179 |
+  180 |     async getAuthAndCurrentUserResponse(): Promise<{ signinBody: any, currentUserBody: any; }> {
+  181 |         const [signinResponse, currentUserResponse] = await Promise.all([
+  182 |             this.page.waitForResponse(response =>
+  183 |                 response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST'
+  184 |             ),
+  185 |             this.page.waitForResponse(response =>
+  186 |                 response.url().includes(`/v2/organizations/current`) && response.status() === 200 && response.request().method() === 'GET'
+  187 |             )
+  188 |         ]);
+  189 |
+  190 |         const signinBody = await signinResponse.json();
+  191 |         const currentUserBody = await currentUserResponse.json();
+  192 |
+  193 |         return { signinBody, currentUserBody };
+  194 |     }
+  195 | }
+  196 |
+```

@@ -1,0 +1,35 @@
+✅ Token created with UUID: 03af059d-6423-41c5-8e95-15e07171151a
+Selecting role: Admin
+Entering email: 03af059d-6423-41c5-8e95-15e07171151a@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 03af059d-6423-41c5-8e95-15e07171151a@emailhook.site
+Search completed
+No collaborators found for "03af059d-6423-41c5-8e95-15e07171151a@emailhook.site"
+Searching for: 03af059d-6423-41c5-8e95-15e07171151a@emailhook.site
+Search completed
+Row Cell Text: 03af059d-6423-41c5-8e95-15e07171151a@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=03af059d-6423-41c5-8e95-15e07171151a%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Prince
+Entering Last Name: Paucek
+Selecting Organization: Kessler - Schmeler
+Entering Phone Number: +17994885161
+Selecting purpose: Disaster Response
+Selecting country: Swaziland
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 4/5)...
+Fetched 2 emails
+✅ Verify link found in email #2: https://dev-api.angelswing.io/v2/confirm-email/ixWB39wZVL-yS_ss71wD2A?email=03af059d-6423-41c5-8e95-15e07171151a%40emailhook.site
+🗑️  Token 03af059d-6423-41c5-8e95-15e07171151a deleted successfully

@@ -1,0 +1,11 @@
+Get sbvc Response: {"basePlane":"comparison","cut":"245","elevation":"0.0","fill":"-75","minMaxElevation":{"maxHeight":8.5081329345703,"minHeight":-9.4442558288574},"status":"200","volume":"170","wmsInfo":{"layer":"surveybased:69833-2025_09_15T08_46_32_190Z-69794-69827","nativeBoundingBox":{"crs":{"$":"EPSG:5186","@class":"projected"},"maxx":211596.2042881811,"maxy":504204.5293324786,"minx":211559.2042881811,"miny":504163.0293324786},"url":"https://geoserver-staging.angelswing.io/geoserver/surveybased/wms"}}
+Base Plane: comparison
+Cut: 245
+Elevation: 0.0
+Fill: -75
+Min Max Elevation: {"maxHeight":8.5081329345703,"minHeight":-9.4442558288574}
+Max Height: 8.5081329345703
+Min Height: -9.4442558288574
+Volume: 170
+Status: 200
+WMS Info: {"layer":"surveybased:69833-2025_09_15T08_46_32_190Z-69794-69827","nativeBoundingBox":{"crs":{"$":"EPSG:5186","@class":"projected"},"maxx":211596.2042881811,"maxy":504204.5293324786,"minx":211559.2042881811,"miny":504163.0293324786},"url":"https://geoserver-staging.angelswing.io/geoserver/surveybased/wms"}

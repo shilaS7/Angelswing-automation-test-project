@@ -1,0 +1,6 @@
+Get design base volume Response: {"basePlane":"comparison","cut":"61203","elevation":"0.0","fill":"0","minMaxElevation":{"maxHeight":94.136791229248,"minHeight":0.99481201171875},"status":"200","volume":"61203","wmsInfo":{"layer":"designbased:69814-2025_09_12T09_33_54_095Z-69800-69794","nativeBoundingBox":{"crs":{"$":"EPSG:5186","@class":"projected"},"maxx":211551.70662327492,"maxy":504384.2838413965,"minx":211449.70662327492,"miny":504293.2838413965},"url":"https://geoserver-staging.angelswing.io/geoserver/designbased/wms"}}
+Base Plane: comparison
+Cut: 61203
+Elevation: 0.0
+Fill: 0
+Minimum Elevation: undefined

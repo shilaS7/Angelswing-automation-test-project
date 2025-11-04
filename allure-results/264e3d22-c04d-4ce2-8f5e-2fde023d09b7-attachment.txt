@@ -1,0 +1,5 @@
+Popup was visible and has been closed.
+Clicked on create content group
+Toggled visibility for folder having Group ID: 65855
+Delete Group response status: 204
+Verified: Group ID 65855 is not displayed

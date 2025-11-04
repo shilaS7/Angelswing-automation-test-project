@@ -1,0 +1,229 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite an admin to an organization and validate the invitation page after signup and login from new user/admin
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:425:13
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByText('GLOBAL - QA AWS').first()
+
+    at OrganizationPage.selectProject (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:354:56)
+    at setupInvitation (D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:163:36)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:427:13
+```
+
+# Test source
+
+```ts
+  254 |         await this.page.getByRole('button', { name: 'Pick a period' }).click();
+  255 |     }
+  256 |     async clickOnStartYear() {
+  257 |         await this.clickDatePickerButton('Start date', 'first');
+  258 |     }
+  259 |
+  260 |     async clickOnStartMonth() {
+  261 |         await this.clickDatePickerButton('Start date', 'last');
+  262 |     }
+  263 |
+  264 |     async clickOnEndYear() {
+  265 |         await this.clickDatePickerButton('End date', 'first');
+  266 |     }
+  267 |
+  268 |     async clickOnEndMonth() {
+  269 |         await this.clickDatePickerButton('End date', 'last');
+  270 |     }
+  271 |
+  272 |     private async clickDatePickerButton(label: string, position: 'first' | 'last') {
+  273 |         const buttonLocator = this.page.locator(`div:text-is("${label}") + div`).getByRole('button');
+  274 |         await (position === 'first' ? buttonLocator.first() : buttonLocator.last()).click();
+  275 |     }
+  276 |
+  277 |     private async selectDropdownOption(optionValue: string) {
+  278 |         await this.page.getByTestId('dropdown-item').filter({ hasText: optionValue }).click();
+  279 |     }
+  280 |
+  281 |     async selectStartYear(year: string) {
+  282 |         await this.selectDropdownOption(year);
+  283 |     }
+  284 |
+  285 |     async selectStartMonth(month: string) {
+  286 |         await this.selectDropdownOption(month);
+  287 |     }
+  288 |
+  289 |     async selectEndYear(year: string) {
+  290 |         await this.selectDropdownOption(year);
+  291 |     }
+  292 |
+  293 |     async selectEndMonth(month: string) {
+  294 |         await this.selectDropdownOption(month);
+  295 |     }
+  296 |
+  297 |     async selectStartDate(startDate: string) {
+  298 |         await this.page.locator('[class="DayPicker-Day"]').filter({ hasText: '18' }).first().click();
+  299 |     }
+  300 |
+  301 |     async selectEndDate(endDate: string) {
+  302 |         await this.page.locator('[class="DayPicker-Day"]').filter({ hasText: '18' }).last().click();
+  303 |     }
+  304 |
+  305 |     async clickOnSearchButton() {
+  306 |         await this.page.getByRole('button', { name: 'Search' }).click();
+  307 |     }
+  308 |
+  309 |     async getOrganizationAccountCount() {
+  310 |         const textContent = await this.page.locator('h2:text-is("Organization Accounts")  div').textContent();
+  311 |         return textContent ? parseInt(textContent.trim(), 10) : 0;
+  312 |     }
+  313 |
+  314 |     async getOrganizationAccountCountFromTable() {
+  315 |         const rows = this.page.locator('tbody tr');
+  316 |         await this.page.waitForTimeout(1000);
+  317 |         const rowCount = await rows.count();
+  318 |         return rowCount;
+  319 |     }
+  320 |
+  321 |     async getSubscriptionPeriod() {
+  322 |         return await this.page.locator('h3:text-is("Subscription Period")').locator('..').locator('+ p').textContent();
+  323 |     }
+  324 |
+  325 |     async getTotalQuota() {
+  326 |         return await this.page.locator('h3:text-is("Total Quota")').locator('..').locator('+ p').textContent();
+  327 |     }
+  328 |
+  329 |     async getUsedCount() {
+  330 |         return await this.page.locator('h3:text-is("Used Count")').locator('..').locator('+ span').textContent();
+  331 |     }
+  332 |
+  333 |     async getRemainingCount() {
+  334 |         return await this.page.locator('h3:text-is("Remaining Count")').locator('..').locator('+ span').textContent();
+  335 |     }
+  336 |
+  337 |     async clickOnInviteButton() {
+  338 |         await this.page.getByRole('button', { name: 'Invite' }).click();
+  339 |     }
+  340 |
+  341 |     async getInvitationPageHeader() {
+  342 |         return await this.getHeaderOfPopup();
+  343 |     }
+  344 |
+  345 |     async clickOnSelectProjects() {
+  346 |         await this.page.getByText('Select projects').click();
+  347 |     }
+  348 |
+  349 |     async clickOnXButton() {
+  350 |         await this.page.locator('.react-select__indicators').first().click();
+  351 |     }
+  352 |
+  353 |     async selectProject(projectName: string) {
+> 354 |         await this.page.getByText(projectName).first().click();
+      |                                                        ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  355 |     }
+  356 |
+  357 |     async clickOnRoleDropdown() {
+  358 |         const popup = this.page.getByTestId('popup');
+  359 |         const roleDropdown = popup.getByText('Select role').first();
+  360 |         const adminDropdown = popup.getByText('Admin').first();
+  361 |         const memberDropdown = popup.getByText('Member').first();
+  362 |
+  363 |         if (await roleDropdown.isVisible()) {
+  364 |             await roleDropdown.click();
+  365 |             return;
+  366 |         }
+  367 |         if (await adminDropdown.isVisible()) {
+  368 |             await adminDropdown.click();
+  369 |             return;
+  370 |         }
+  371 |         if (await memberDropdown.isVisible()) {
+  372 |             await memberDropdown.click();
+  373 |             return;
+  374 |         }
+  375 |     }
+  376 |
+  377 |     async selectRole(role: string) {
+  378 |         const popup = this.page.getByTestId('popup');
+  379 |         await this.clickOnRoleDropdown();
+  380 |         console.log(`Selecting role: ${role}`);
+  381 |         const roleDropdown = popup.locator('button[data-testid="dropdown-mainbutton"]').first();
+  382 |         await popup.getByText(`${role}`).first().click();
+  383 |         await expect(roleDropdown).toHaveText(role);
+  384 |     }
+  385 |
+  386 |     async enterEmail(email: string) {
+  387 |         console.log(`Entering email: ${email}`);
+  388 |         await this.page.getByPlaceholder('Email').fill(email);
+  389 |     }
+  390 |
+  391 |     async getEmailInputValue() {
+  392 |         return await this.page.getByPlaceholder('Email').inputValue();
+  393 |     }
+  394 |
+  395 |     async clickAddButton() {
+  396 |         await this.page.getByRole('button', { name: 'Add' }).click();
+  397 |     }
+  398 |
+  399 |     async isAddButtonEnabled() {
+  400 |         return await this.page.getByRole('button', { name: 'Add' }).isEnabled();
+  401 |     }
+  402 |
+  403 |     async isAddButtonDisabled() {
+  404 |         return await this.page.getByRole('button', { name: 'Add' }).isDisabled();
+  405 |     }
+  406 |
+  407 |     async getCountOfInvitedAccounts(): Promise<number> {
+  408 |         return await this.page.locator('[data-testid="inviting-collaborators-list"] > div').count();
+  409 |     }
+  410 |
+  411 |     async sendInvitation() {
+  412 |         await this.page.getByRole('button', { name: 'Invite' }).last().click();
+  413 |     }
+  414 |
+  415 |     async cancelInvitation() {
+  416 |         await this.page.getByRole('button', { name: 'Cancel' }).click();
+  417 |     }
+  418 |
+  419 |     //Pending Requests
+  420 |     async getPendingRequestsCount() {
+  421 |         const textContent = await this.page.locator('h2:text-is("Organization Accounts")  +div').textContent();
+  422 |         return textContent ? parseInt(textContent.trim(), 10) : 0;
+  423 |     }
+  424 |
+  425 |     async selectAccountOnPendingRequests(accountName: string) {
+  426 |         await this.page.getByText(accountName).click();
+  427 |     }
+  428 |
+  429 |
+  430 |
+  431 |
+  432 |
+  433 |
+  434 |     async getOrganizationInviteResponse() {
+  435 |         return await this.waitForPostResponse(`organization_users`);
+  436 |     }
+  437 |
+  438 |     private async selectTargetRow(email: string) {
+  439 |         const targetRow = this.page.getByRole('row', { name: email }).locator('td').last();
+  440 |         await targetRow.click();
+  441 |     }
+  442 |     async removeFromOrganization(email: string) {
+  443 |         await this.selectTargetRow(email);
+  444 |         await this.page.getByRole('button', { name: 'Remove from organization' }).click();
+  445 |         await this.clickOnRemoveButton();
+  446 |     }
+  447 |
+  448 |     async clickOnRemoveButton() {
+  449 |         await this.page.getByRole('button', { name: 'Remove' }).click();
+  450 |     }
+  451 |
+  452 |     async promoteToAdmin(email: string) {
+  453 |         await this.selectTargetRow(email);
+  454 |         await this.page.getByRole('button', { name: 'Promote to org admin' }).click();
+```

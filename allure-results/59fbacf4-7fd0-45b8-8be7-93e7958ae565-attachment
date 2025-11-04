@@ -1,0 +1,228 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the filter in location tab is working correctly
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:154:9
+
+# Error details
+
+```
+TimeoutError: locator.textContent: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByTestId('timelapse-collection-filter-item-drone')
+
+    at PhotoGallery.getFilterTextLocationFilterInspection (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:190:86)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:178:39
+```
+
+# Test source
+
+```ts
+   90 |     }
+   91 |
+   92 |     // async clickFilter360Photos(){
+   93 |     //     return await this.page.getByTestId('photo-collection-filter-item-three_sixty_source').click();
+   94 |     // }
+   95 |     // async is360PhotosFilterShownAsSelected() {
+   96 |     //     return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty');
+   97 |     // }
+   98 |
+   99 |     async clickfilter360SourcePhoto(){
+  100 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_source').click();
+  101 |     }
+  102 |     async getFilterText360SourcePhoto(){
+  103 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_source').textContent();
+  104 |     }
+  105 |     async is360SourcePhotoFilterShownAsSelected() {
+  106 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_source');
+  107 |     }
+  108 |  
+  109 |     async clickFilter360StitchedPhotos(){
+  110 |         return await this.page.getByTestId('photo-collection-filter-item-stitched').click();
+  111 |     }
+  112 |     async getFilterText360StitchedPhotos(){
+  113 |         return await this.page.getByTestId('photo-collection-filter-item-stitched').textContent();
+  114 |     }
+  115 |     async is360StitchedPhotosFilterShownAsSelected() {
+  116 |         return await this.isTabShownAsSelected('photo-collection-filter-item-stitched');
+  117 |     }
+  118 |
+  119 |      async clickFilter360Video() {
+  120 |         await this.page.getByTestId('photo-collection-filter-item-three_sixty_video').click();
+  121 |      }
+  122 |      async getFilterText360Video(){
+  123 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_video').textContent();
+  124 |     }
+  125 |      async is360VideoFilterShownAsSelected() {
+  126 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_video');
+  127 |      }
+  128 |
+  129 |      async clickfilterRequestedPhotos(){
+  130 |         return await this.page.getByTestId('photo-collection-filter-item-viewpoint').click();
+  131 |      }
+  132 |      async getFilterTextRequestedPhotos(){
+  133 |         return await this.page.getByTestId('photo-collection-filter-item-viewpoint').textContent();
+  134 |     }
+  135 |      async isRequestedPhotosFilterShownAsSelected() {
+  136 |         return await this.isTabShownAsSelected('photo-collection-filter-item-viewpoint');
+  137 |      }
+  138 |      
+  139 |      async clickFilter360PanoramaImages(){
+  140 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_panorama_timeline').click();
+  141 |      }
+  142 |      async getFilterText360PanoramaImages(){
+  143 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_panorama_timeline').textContent();
+  144 |     }
+  145 |      async is360PanoramaImagesFilterShownAsSelected() {
+  146 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_panorama_timeline');
+  147 |      }
+  148 |
+  149 |      async clickFilter360Indoor(){
+  150 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_vslam_timeline').click();
+  151 |      }
+  152 |      async getFilterText360Indoor(){
+  153 |         return await this.page.getByTestId('photo-collection-filter-item-three_sixty_vslam_timeline').textContent();
+  154 |     }
+  155 |      async is360IndoorFilterShownAsSelected() {
+  156 |         return await this.isTabShownAsSelected('photo-collection-filter-item-three_sixty_vslam_timeline');
+  157 |      }
+  158 |
+  159 |      async clickFilterLocation(){
+  160 |         return await this.page.locator('data-testid="photo-album-tab-location"').click();
+  161 |      }
+  162 |      async clickFilterIcon(){
+  163 |         await this.page.getByTestId('timelapse-collection-filter-icon-inactive').waitFor({ state: 'visible' });
+  164 |         await this.page.getByTestId('timelapse-collection-filter-icon-inactive').click();
+  165 |         // Wait for the dropdown to be visible
+  166 |         await this.page.getByTestId('timelapse-collection-filter-item-source').waitFor({ state: 'visible' });
+  167 |     }
+  168 |      async clickFilterLocationSource(){
+  169 |         await this.page.getByTestId('timelapse-collection-filter-item-source').waitFor({ state: 'visible' });
+  170 |         return await this.page.getByTestId('timelapse-collection-filter-item-source').click();
+  171 |      }
+  172 |
+  173 |      async clickFilterLocationInspection(){
+  174 |         return await this.page.getByTestId('timelapse-collection-filter-item-drone').click();
+  175 |     }
+  176 |
+  177 |     async getFilterTextLocationBirdeye(){
+  178 |         return await this.page.getByTestId('timelapse-collection-filter-item-integration').textContent();
+  179 |     }
+  180 |     // async getFilterTextLocationFilterSource(){
+  181 |     //         return await this.page.getByTestId('timelapse-collection-filter-item-source').textContent();
+  182 |     // }
+  183 |     async getFilterTextLocationFilterSource(){
+  184 |         return await this.page.locator('[data-testid="timelapse-collection-filter-icon-inactive"] +div').textContent();
+  185 | }
+  186 |
+  187 |     async getFilterTextLocationFilterInspection(){
+  188 |         // Wait for the element to be visible before getting text content
+  189 |         
+> 190 |         return await this.page.getByTestId('timelapse-collection-filter-item-drone').textContent();
+      |                                                                                      ^ TimeoutError: locator.textContent: Timeout 5000ms exceeded.
+  191 |     }
+  192 |
+  193 |   //album Tab
+  194 |   async clickFilterIconAlbum(){
+  195 |     return await this.page.getByTestId('photo-album-collection-filter-icon-inactive').click();
+  196 |   }
+  197 |     async clickAlbumFilter(){
+  198 |         return await this.page.locator('data-testid="photo-album-tab-location"').click();
+  199 |     }
+  200 |     // async isAlbumFilterShownAsSelected(){
+  201 |     //     return await this.isTabShownAsSelected('photo-album-collection-filter-item-all');
+  202 |     // }
+  203 |     async clickAllbutton(){
+  204 |         return await this.page.locator('data-testid="photo-album-collection-filter-item-all"').click();
+  205 |     }
+  206 |     async clickAllOptionAlbum(){
+  207 |         return await this.page.getByTestId('photo-album-collection-filter-item-all').click();
+  208 |     }
+  209 |     async isAllOptionAlbumShownAsSelected(){
+  210 |         return await this.isTabShownAsSelected('photo-album-collection-filter-item-all');
+  211 |     }
+  212 |     async clickFilterAlbumBirdeye(){
+  213 |         return await this.page.getByTestId('photo-album-collection-filter-item-bird_eye').click();
+  214 |     }
+  215 |     async getFilterTextAlbumBirdeye(){
+  216 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-bird_eye"]').textContent();
+  217 |     }
+  218 |     async getFilterTextAlbumInspection(){
+  219 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-inspection"]').textContent();
+  220 |     }
+  221 |     async getFilterTextAlbumSourcePhoto(){
+  222 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-source"]').textContent();
+  223 |     }
+  224 |     async getFilterTextAlbum360SourcePhoto(){
+  225 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_source"]').textContent();
+  226 |     }
+  227 |     async getFilterTextAlbumRequestedPhotos(){
+  228 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-viewpoint"]').textContent();
+  229 |     }
+  230 |     async getFilterText360StitchedPhotosAlbum(){
+  231 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-stitched"]').textContent();
+  232 |     }
+  233 |     async getFilterText360PanoramaImagesAlbum(){
+  234 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_panorama_album"]').textContent();
+  235 |     }
+  236 |     async getFilterText360IndoorAlbum(){
+  237 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_vslam_album"]').textContent();
+  238 |     }
+  239 |
+  240 |     async clickFilterAlbumInspection(){
+  241 |         return await this.page.getByTestId('photo-album-collection-filter-item-inspection').click();
+  242 |     }
+  243 |     async clickFilterAlbumSourcePhoto(){
+  244 |         return await this.page.getByTestId('photo-album-collection-filter-item-source').click();
+  245 |     }
+  246 |     async clickFilterAlbum360Photos(){
+  247 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty').click();
+  248 |     }
+  249 |     async clickFilterAlbum360SourcePhoto(){
+  250 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_source').click();
+  251 |     }
+  252 |     async clickFilterAlbum360StitchedPhotos(){
+  253 |         return await this.page.getByTestId('photo-album-collection-filter-item-stitched').click();
+  254 |     }
+  255 |     async clickFilterAlbum360PanoramaImages(){
+  256 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_panorama_album').click();
+  257 |     }
+  258 |     async clickFilterAlbum360Indoor(){
+  259 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_vslam_album').click();
+  260 |     }
+  261 |     async clickFilterAlbumRequestedPhotos(){
+  262 |         return await this.page.getByTestId('photo-album-collection-filter-item-viewpoint').click();
+  263 |     }
+  264 |     
+  265 |
+  266 |     async clickOnPhoto(){
+  267 |         return await this.page.locator('[data-testid="photo-album-item-185002"]>div').first().click();
+  268 |     }
+  269 |
+  270 |     async clickOnPhotoVideo(){
+  271 |         return await this.page.locator('[data-testid="photo-album-item-306"]').dblclick();
+  272 |     }
+  273 |
+  274 |     async clickOnPhotoInspection(){
+  275 |         return await this.page.locator('[data-testid="photo-album-item-185005"]').first().click();
+  276 |     }
+  277 |     async clickOnPhotoSource(){
+  278 |         return await this.page.locator('[data-testid="photo-album-item-175985"]').first().click();
+  279 |     }
+  280 |     async clickOnPhotoVslam(){
+  281 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  282 |     }
+  283 |     // async isPhotoSelected(){
+  284 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().getAttribute('data-selected');
+  285 |     // }  
+  286 |     async  uploadPhotoFromGallery(){
+  287 |         return await this.page.getByTestId('photo-upoload-button').click();
+  288 |     }
+  289 |      async clickonUploadButtonFileChooser(){
+  290 |         return await this.page.locator('[data-testid="popup"]>div>div>div>div>label').click();
+```

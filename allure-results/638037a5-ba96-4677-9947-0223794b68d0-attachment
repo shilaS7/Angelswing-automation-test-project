@@ -1,0 +1,136 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the 360 panorama images on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:436:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="photo-album-item-175947"]').first()
+
+    at PhotoGallery.clickPhoto360PanoramaImages (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:331:91)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:463:33
+```
+
+# Test source
+
+```ts
+  231 |         return await this.page.getByTestId('photo-album-collection-filter-item-inspection').click();
+  232 |     }
+  233 |     async clickFilterAlbumSourcePhoto(){
+  234 |         return await this.page.getByTestId('photo-album-collection-filter-item-source').click();
+  235 |     }
+  236 |     async clickFilterAlbum360Photos(){
+  237 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty').click();
+  238 |     }
+  239 |     async clickFilterAlbum360SourcePhoto(){
+  240 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_source').click();
+  241 |     }
+  242 |     async clickFilterAlbum360StitchedPhotos(){
+  243 |         return await this.page.getByTestId('photo-album-collection-filter-item-stitched').click();
+  244 |     }
+  245 |     async clickFilterAlbum360PanoramaImages(){
+  246 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_panorama_album').click();
+  247 |     }
+  248 |     async clickFilterAlbum360Indoor(){
+  249 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_vslam_album').click();
+  250 |     }
+  251 |     async clickFilterAlbumRequestedPhotos(){
+  252 |         return await this.page.getByTestId('photo-album-collection-filter-item-viewpoint').click();
+  253 |     }
+  254 |     
+  255 |
+  256 |     async clickOnPhoto(){
+  257 |         return await this.page.locator('[data-testid="photo-album-item-185002"]>div').first().click();
+  258 |     }
+  259 |
+  260 |     async clickOnPhotoVideo(){
+  261 |         return await this.page.locator('[data-testid="photo-album-item-306"]').dblclick();
+  262 |     }
+  263 |
+  264 |     async clickOnPhotoInspection(){
+  265 |         return await this.page.locator('[data-testid="photo-album-item-185005"]').first().click();
+  266 |     }
+  267 |     async clickOnPhotoSource(){
+  268 |         return await this.page.locator('[data-testid="photo-album-item-175985"]').first().click();
+  269 |     }
+  270 |     async clickOnPhotoVslam(){
+  271 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  272 |     }
+  273 |     // async isPhotoSelected(){
+  274 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().getAttribute('data-selected');
+  275 |     // }  
+  276 |     async  uploadPhotoFromGallery(){
+  277 |         return await this.page.getByTestId('photo-upoload-button').click();
+  278 |     }
+  279 |      async clickonUploadButtonFileChooser(){
+  280 |         return await this.page.locator('[data-testid="popup"]>div>div>div>div>label').click();
+  281 |      }
+  282 |      async clickonUploadButtonPopup(){
+  283 |         return await this.page.getByTestId('upload-popup-confirm-button').click();
+  284 |      }
+  285 |      async isCloseButtonShown(){
+  286 |         return await this.page.locator('[data-testid="popup"] > div>div>div>button').click();
+  287 |      }
+  288 |      async isPhotoSelected(){
+  289 |         return await this.page.locator('[data-testid="selected-text-element"]').textContent();
+  290 |      }
+  291 |
+  292 |      async getSelectedItemsCount(){
+  293 |         const selectedText = await this.isPhotoSelected();
+  294 |         if (!selectedText) return 0;
+  295 |         
+  296 |         // Extract number from text like "1 item selected" or "3 items selected"
+  297 |         const match = selectedText.match(/(\d+)\s+items?\s+selected/);
+  298 |         return match ? parseInt(match[1], 10) : 0;
+  299 |      }
+  300 |
+  301 |      async isAnyPhotoSelected(){
+  302 |         const selectedText = await this.isPhotoSelected();
+  303 |         return selectedText !== null && selectedText.includes('selected');
+  304 |      }
+  305 |
+  306 |      async uploadSuccessMessage(){
+  307 |         return await this.page.locator('[data-testid="popup"]>div>div>p').textContent();
+  308 |      }
+  309 |
+  310 |      async clickPhotoInspectionAlbum(){
+  311 |         return await this.page.locator('[data-testid="photo-album-185005"]').click();
+  312 |         // return await this.page.locator('[data-testid^="photo-album-"]').first().click();
+  313 |      }
+  314 |     
+  315 |      async clickPhotoSourceAlbum(){
+  316 |         return await this.page.locator('[data-testid="photos-root-component"]').first().click();
+  317 |      }
+  318 |
+  319 |      async clickPhoto360SourceAlbum(){
+  320 |         return await this.page.locator('[data-testid="photo-album-175949"]').click();
+  321 |      }
+  322 |
+  323 |      async clickPhoto360Source(){
+  324 |         return await this.page.locator('[data-testid="photo-album-item-175949"]').first().click();
+  325 |      }
+  326 |
+  327 |      async clickPhoto360PanoramaImagesAlbum(){
+  328 |         return await this.page.locator('[data-testid="photo-album-175947"]').click();
+  329 |      }
+  330 |      async clickPhoto360PanoramaImages(){
+> 331 |         return await this.page.locator('[data-testid="photo-album-item-175947"]').first().click();
+      |                                                                                           ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  332 |      }
+  333 |
+  334 |      async clickPhotoAlbum(){
+  335 |         return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div>div').click();
+  336 |      }
+  337 |     
+  338 |     }
+  339 |     
+```

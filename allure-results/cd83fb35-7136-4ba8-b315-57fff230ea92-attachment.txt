@@ -1,0 +1,3 @@
+videoCountBefore: 0
+videoCountAfter: 1
+videoCountAfterDelete: 0

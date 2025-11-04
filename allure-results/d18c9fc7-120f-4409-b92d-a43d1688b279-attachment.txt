@@ -1,0 +1,29 @@
+✅ Token created with UUID: cbd56a04-caea-47ba-9434-9bea053da899
+Selecting role: Org Admin
+Entering email: suraj.anand+6042972335251155@angelswing.io
+Invitation success message: The invitations have been sent.
+Searching for: suraj.anand+6042972335251155@angelswing.io
+Search completed
+No collaborators found for "suraj.anand+6042972335251155@angelswing.io"
+Searching for: suraj.anand+6042972335251155@angelswing.io
+Search completed
+Row Cell Text: suraj.anand+6042972335251155@angelswing.io
+Selecting role: Org Admin
+Entering email: suraj.anand+2292805453516430@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: suraj.anand+2292805453516430@emailhook.site
+Search completed
+No collaborators found for "suraj.anand+2292805453516430@emailhook.site"
+Searching for: suraj.anand+2292805453516430@emailhook.site
+Search completed
+Row Cell Text: suraj.anand+2292805453516430@emailhook.site
+Selecting role: Org Admin
+Entering email: Calista97@hotmail.com
+Invitation success message: The invitations have been sent.
+Searching for: Calista97@hotmail.com
+Search completed
+No collaborators found for "Calista97@hotmail.com"
+Searching for: Calista97@hotmail.com
+Search completed
+Row Cell Text: calista97@hotmail.com
+🗑️  Token cbd56a04-caea-47ba-9434-9bea053da899 deleted successfully

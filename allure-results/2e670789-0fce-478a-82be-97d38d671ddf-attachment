@@ -1,0 +1,227 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the filter in album tab is working correctly
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:152:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "360° Photos"
+Received: "360 Photos"
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:180:61
+```
+
+# Test source
+
+```ts
+   80 |         //Select the "Birdeye" filter
+   81 |         await photoGalleryPage.clickFilterAll();
+   82 |         await photoGalleryPage.clickFilterBirdeye();
+   83 |         expect(await photoGalleryPage.getFilterText()).toBe('Bird Eye View Photos');
+   84 |         // expect(await photoGalleryPage.isBirdeyeFilterShownAsSelected()).toBe(true);
+   85 |
+   86 |         //Select the "Inspection" filter
+   87 |         await photoGalleryPage.clickFilterAll();
+   88 |         await photoGalleryPage.clickFilterInspection();
+   89 |         expect(await photoGalleryPage.getFilterText()).toBe('Inspection Photos');
+   90 |
+   91 |         //Select the "Source Photo" filter
+   92 |         await photoGalleryPage.clickFilterAll();
+   93 |         await photoGalleryPage.clickFilterSourcePhoto();
+   94 |         expect(await photoGalleryPage.getFilterText()).toBe('Source Photos');
+   95 |
+   96 |         //Select the "360 Photos" filter
+   97 |         await photoGalleryPage.clickFilterAll();
+   98 |         await photoGalleryPage.clickFilter360Photos();
+   99 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Photos');
+  100 |         //Select the "360 Source Photo" filter
+  101 |         await photoGalleryPage.clickFilterAll();
+  102 |         await photoGalleryPage.clickfilter360SourcePhoto();
+  103 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Source Photos');
+  104 |
+  105 |         //Select the "360 Stitched Photos" filter
+  106 |         await photoGalleryPage.clickFilterAll();
+  107 |         await photoGalleryPage.clickFilter360StitchedPhotos();
+  108 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Stitched Photos');
+  109 |
+  110 |         //Select the "360 Video" filter
+  111 |         await photoGalleryPage.clickFilterAll();
+  112 |         await photoGalleryPage.clickFilter360Video();
+  113 |         expect(await photoGalleryPage.getFilterText()).toBe('360° VSLAM Videos');
+  114 |
+  115 |         //Select the "Requested Photos" filter
+  116 |         await photoGalleryPage.clickFilterAll();
+  117 |         await photoGalleryPage.clickfilterRequestedPhotos();
+  118 |         expect(await photoGalleryPage.getFilterText()).toBe('Requested Photos');
+  119 |
+  120 |         //Select the "360 VSLAM Photos" filter
+  121 |         await photoGalleryPage.clickFilterAll();
+  122 |         await photoGalleryPage.clickFilter360VslamPhotos();
+  123 |         expect(await photoGalleryPage.getFilterText()).toBe('360° VSLAM Photos');
+  124 |
+  125 |     });
+  126 |
+  127 |     test('should validate the filter in location tab is working correctly', async () => {
+  128 |         const photoGalleryPage = pm.onPhotoGallery;
+  129 |
+  130 |         // Go to the location tab
+  131 |         await photoGalleryPage.clickOnLocationTab();
+  132 |         expect(await photoGalleryPage.isLocationTabShownAsSelected()).toBe(true);
+  133 |
+  134 |         //Select the "Bird Eye View" filter
+  135 |         await photoGalleryPage.clickFilterLocation();
+  136 |         expect(await photoGalleryPage.getFilterTextLocation()).toBe('Bird Eye View');
+  137 |
+  138 |         //Select the Inspection Photos filter
+  139 |         // await photoGalleryPage.clickFilterLocation();
+  140 |         await photoGalleryPage.clickFilterLocationInspection();
+  141 |         expect(await photoGalleryPage.getFilterTextLocationFilter()).toBe('Inspection');
+  142 |
+  143 |         //Select the Source Photos filter
+  144 |         await photoGalleryPage.clickFilterLocation();
+  145 |         await photoGalleryPage.clickFilterLocationSource();
+  146 |         expect(await photoGalleryPage.getFilterTextLocationFilter()).toBe('Source');
+  147 |
+  148 |
+  149 |
+  150 |     });
+  151 |
+  152 |     test('should validate the filter in album tab is working correctly', async () => {
+  153 |         const photoGalleryPage = pm.onPhotoGallery;
+  154 |         //Go to the album tab
+  155 |         await photoGalleryPage.clickOnAlbumTab();
+  156 |         expect(await photoGalleryPage.isAlbumTabShownAsSelected()).toBe(true);
+  157 |
+  158 |         //Select the "All" filter
+  159 |         await photoGalleryPage.clickAlbumFilter();
+  160 |         expect(await photoGalleryPage.isAlbumFilterShownAsSelected()).toBe(true);
+  161 |
+  162 |         //Select the "Birdeye" filter
+  163 |         await photoGalleryPage.clickFilterAlbumBirdeye();
+  164 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('Bird Eye View Photos');
+  165 |         // expect(await photoGalleryPage.isBirdeyeFilterShownAsSelected()).toBe(true);
+  166 |
+  167 |         //Select the "Inspection" filter
+  168 |         await photoGalleryPage.clickAlbumFilter();
+  169 |         await photoGalleryPage.clickFilterAlbumInspection();
+  170 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('Inspection Photos');
+  171 |
+  172 |         //Select the "Source Photo" filter
+  173 |         await photoGalleryPage.clickAlbumFilter();
+  174 |         await photoGalleryPage.clickFilterAlbumSourcePhoto();
+  175 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('Source Photos');
+  176 |
+  177 |         //Select the "360 Photos" filter
+  178 |         await photoGalleryPage.clickAlbumFilter();
+  179 |         await photoGalleryPage.clickFilterAlbum360Photos();
+> 180 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('360° Photos');
+      |                                                             ^ Error: expect(received).toBe(expected) // Object.is equality
+  181 |         //Select the "360 Source Photo" filter
+  182 |         await photoGalleryPage.clickAlbumFilter();
+  183 |         await photoGalleryPage.clickFilterAlbum360SourcePhoto();
+  184 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('360° Source Photos');
+  185 |
+  186 |         //Select the "360 Stitched Photos" filter
+  187 |         await photoGalleryPage.clickAlbumFilter();
+  188 |         await photoGalleryPage.clickFilterAlbum360StitchedPhotos();
+  189 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('360° Stitched Photos');
+  190 |
+  191 |         //Select the "360 Video" filter
+  192 |         await photoGalleryPage.clickAlbumFilter();
+  193 |         await photoGalleryPage.clickFilterAlbum360Video();
+  194 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('360° VSLAM Videos');
+  195 |
+  196 |         //Select the "Requested Photos" filter
+  197 |         await photoGalleryPage.clickAlbumFilter();
+  198 |         await photoGalleryPage.clickFilterAlbumRequestedPhotos();
+  199 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('Requested Photos');
+  200 |
+  201 |         //Select the "360 VSLAM Photos" filter
+  202 |         await photoGalleryPage.clickAlbumFilter();
+  203 |         await photoGalleryPage.clickFilterAlbum360VslamPhotos();
+  204 |         expect(await photoGalleryPage.getFilterTextAlbum()).toBe('360° VSLAM Photos');
+  205 |
+  206 |     });
+  207 |
+  208 |     test('should validate the photo on the gallery page is selected when user click on it', async () => {
+  209 |         const photoGalleryPage = pm.onPhotoGallery;
+  210 |
+  211 |         //Click on timeline tab
+  212 |         await photoGalleryPage.clickOnTimelineTab();
+  213 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  214 |
+  215 |         //Select the "Birdeye" filter
+  216 |         await photoGalleryPage.clickFilterAll();
+  217 |         await photoGalleryPage.clickFilterBirdeye();
+  218 |         expect(await photoGalleryPage.getFilterText()).toBe('Bird Eye View Photos');
+  219 |
+  220 |         //Click on the first photo available on the timeline tab
+  221 |         await pm.onMapPage.clickOn3D();
+  222 |         await pm.on3DMap.verify3DMapIsVisible();
+  223 |         await photoGalleryPage.clickOnPhoto();
+  224 |
+  225 |         // Assert the photo is selected 
+  226 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  227 |
+  228 |     });
+  229 |
+  230 |     test('should validate the inspection photo on the gallery page is selected when user click on it', async () => {
+  231 |         const photoGalleryPage = pm.onPhotoGallery;
+  232 |
+  233 |         //Click on timeline tab
+  234 |         await photoGalleryPage.clickOnTimelineTab();
+  235 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  236 |
+  237 |         //Select the "inspection" filter
+  238 |         await photoGalleryPage.clickFilterAll();
+  239 |         await photoGalleryPage.clickFilterInspection();
+  240 |         expect(await photoGalleryPage.getFilterText()).toBe('Inspection Photos');
+  241 |
+  242 |         //Click on the first photo available on the timeline tab
+  243 |         await pm.onMapPage.clickOn3D();
+  244 |         await pm.on3DMap.verify3DMapIsVisible();
+  245 |         await photoGalleryPage.clickPhotoAlbum();
+  246 |         await photoGalleryPage.clickOnPhotoInspection();
+  247 |
+  248 |         // Assert the photo is selected 
+  249 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  250 |
+  251 |     });
+  252 |
+  253 |
+  254 |     test('should validate 360 photo on the gallery page is selected when user click on it', async () => {
+  255 |         const photoGalleryPage = pm.onPhotoGallery;
+  256 |
+  257 |         //Click on timeline tab
+  258 |         await photoGalleryPage.clickOnTimelineTab();
+  259 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  260 |
+  261 |         //Select the "360" filter
+  262 |         await photoGalleryPage.clickFilterAll();
+  263 |         await photoGalleryPage.clickFilter360Photos();
+  264 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Photos');
+  265 |
+  266 |         //Click on the first photo available on the timeline tab
+  267 |         await pm.onMapPage.clickOn3D();
+  268 |         await pm.on3DMap.verify3DMapIsVisible();
+  269 |         await photoGalleryPage.clickPhotoAlbum();
+  270 |
+  271 |         // Assert the photo is selected 
+  272 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  273 |
+  274 |     });
+  275 |
+  276 |     test('should validate 360 source photo on the gallery page is selected when user click on it', async () => {
+  277 |         const photoGalleryPage = pm.onPhotoGallery;
+  278 |
+  279 |         //Click on timeline tab
+  280 |         await photoGalleryPage.clickOnTimelineTab();
+```

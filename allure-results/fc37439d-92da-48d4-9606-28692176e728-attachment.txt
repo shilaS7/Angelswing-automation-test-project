@@ -1,0 +1,39 @@
+✅ Token created with UUID: a507cbf8-6ae0-4d11-840c-f55bb19743b7
+Selecting role: Admin
+Entering email: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Search completed
+No collaborators found for "a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site"
+Searching for: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Search completed
+Row Cell Text: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=a507cbf8-6ae0-4d11-840c-f55bb19743b7%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+🗑️  All Requests for Token a507cbf8-6ae0-4d11-840c-f55bb19743b7 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Alexzander
+Entering Last Name: Larson
+Selecting Organization: Price - Ledner
+Entering Phone Number: +17218422474
+Selecting purpose: Drone Service
+Selecting country: Guernsey
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/sLFldBINgyHvy3YZmGhCXA?email=a507cbf8-6ae0-4d11-840c-f55bb19743b7%40emailhook.site
+Searching for: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Search completed
+Row Cell Text: Alexzander Larsona507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Searching for: a507cbf8-6ae0-4d11-840c-f55bb19743b7@emailhook.site
+Search completed
+No data available
+🗑️  Token a507cbf8-6ae0-4d11-840c-f55bb19743b7 deleted successfully

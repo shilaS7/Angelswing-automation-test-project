@@ -1,0 +1,7 @@
+Popup was visible and has been closed.
+✅ Hillshade toggle button clicked.
+Hillshade is enabled
+Checking the value of toggle class after enable: true
+✅ Hillshade toggle button clicked.
+Hillshade is disabled
+Checking the value of toggle class after disable: false

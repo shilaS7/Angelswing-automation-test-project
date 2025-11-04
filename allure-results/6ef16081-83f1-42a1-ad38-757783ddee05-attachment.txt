@@ -1,0 +1,32 @@
+✅ Token created with UUID: c933408f-01bd-49ab-84e4-8a5bdd2957a6
+Selecting role: Project Pilot
+Entering email: c933408f-01bd-49ab-84e4-8a5bdd2957a6@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: c933408f-01bd-49ab-84e4-8a5bdd2957a6@emailhook.site
+Search completed
+No collaborators found for "c933408f-01bd-49ab-84e4-8a5bdd2957a6@emailhook.site"
+Searching for: c933408f-01bd-49ab-84e4-8a5bdd2957a6@emailhook.site
+Search completed
+Row Cell Text: c933408f-01bd-49ab-84e4-8a5bdd2957a6@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=c933408f-01bd-49ab-84e4-8a5bdd2957a6%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Willow
+Entering Last Name: Von
+Selecting Organization: Gerlach and Sons
+Entering Phone Number: +19915220272
+Selecting purpose: Drone Service
+Selecting country: Comoros
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/nYmaTYmtCoTIJBlZRSFN-Q?email=c933408f-01bd-49ab-84e4-8a5bdd2957a6%40emailhook.site
+🗑️  Token c933408f-01bd-49ab-84e4-8a5bdd2957a6 deleted successfully

@@ -1,0 +1,143 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VSlam Page >> should validate header of the photo album page
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:52:9
+
+# Error details
+
+```
+TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByTestId('photo-gallery') to be visible
+
+    at VSlamPage.getHeaderText (D:\Angelswing_QA\angelswing-automation-test\pages\VSlamPage.ts:17:54)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:54:32
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications Alt+T"
+- img "Slide"
+- complementary:
+  - img
+  - img
+  - img
+  - img
+  - img
+  - img
+  - text: BETA
+  - img
+  - img
+- img
+- text: Thu, Jun 26, 2025
+- img
+- img
+- list:
+  - list:
+    - listitem:
+      - img
+      - img
+      - paragraph: 2D Orthomosaic
+      - img
+    - listitem:
+      - img
+      - img
+      - paragraph: Terrain
+      - img
+    - listitem:
+      - img
+      - img
+      - paragraph: 3D Orthomosaic
+      - img
+      - img
+    - listitem:
+      - img
+      - img
+      - paragraph: Point Cloud
+      - img
+      - img
+    - listitem:
+      - img
+      - img
+      - paragraph: 3D Mesh Model
+      - img
+      - img
+- button:
+  - img
+- paragraph: New Data Set-abda
+- button:
+  - img
+- button:
+  - img
+- button:
+  - img
+- button:
+  - img
+- button:
+  - img
+- button:
+  - img
+- img
+- text: Korea2000/Central Belt 2010 - EPSG:5186
+- img
+- img
+- img
+- img
+- list:
+  - listitem:
+    - img
+  - listitem:
+    - img
+  - listitem:
+    - img
+  - listitem:
+    - img
+  - listitem:
+    - img
+  - listitem:
+    - img
+- text: 2D 3D
+- button "Presentation":
+  - text: Presentation
+  - img
+- img
+- img
+- img
+- img
+- img
+- button:
+  - img
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 | import { HelperBase } from './HelperBase';
+   3 | import { BasePage } from './BasePage';
+   4 |
+   5 | export class VSlamPage extends BasePage {
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         super(page);
+   9 |     }
+  10 |
+  11 |     async photoAlbumPage() {
+  12 |         await this.page.getByTestId('tab-btn-photo').click();
+  13 |         
+  14 |     }
+  15 |
+  16 |     async getHeaderText() {
+> 17 |         await this.page.getByTestId('photo-gallery').waitFor({ state: 'visible' });
+     |                                                      ^ TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+  18 |     }
+  19 |
+  20 | }
+```

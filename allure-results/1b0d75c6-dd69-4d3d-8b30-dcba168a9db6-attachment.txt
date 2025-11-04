@@ -1,0 +1,3 @@
+Popup was visible and has been closed.
+Created new Issue at (765.6666666666667, 375)
+Status: 201
