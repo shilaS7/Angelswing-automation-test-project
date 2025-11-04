@@ -1,0 +1,111 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VCM Test >> should return 200 and the correct data for a design base volume dbvc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:45:10
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 61203
+Received: "61203"
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:59:21
+```
+
+# Test source
+
+```ts
+   1 | import { login } from '../../../services/auth.request';
+   2 | import { area, designBaseVolume, elevationProfile } from '../../../services/vcm.request';
+   3 | import { test, expect } from '../../../test-options';
+   4 | import { STATUS_CODES } from '../../../utils/statusCodes';
+   5 |
+   6 | test.describe('VCM Test', () => {
+   7 |     let token: string;
+   8 |     test.beforeEach(async ({ request }) => {
+   9 |         const email: string = process.env.EMAIL || '';
+  10 |         const password: string = process.env.PASSWORD || '';
+  11 |
+  12 |         const loginResponse = await login(request, email, password);
+  13 |         expect(loginResponse.status()).toBe(STATUS_CODES.SUCCESS.CREATED);
+  14 |
+  15 |         const loginResponseBody = await loginResponse.json();
+  16 |         token = loginResponseBody.data.attributes.token;
+  17 |
+  18 |     });
+  19 |
+  20 |     test('should return 200 and the correct data for a valid VCM Elevation request', async ({ request }) => {
+  21 |         const getElevationResponse = await elevationProfile(request, token, '69794', '127.12995962492273', '37.1378049701908');
+  22 |         expect(getElevationResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  23 |         const elevationResponseBody = await getElevationResponse.json();
+  24 |         console.log(`Get Elevation Response: ${JSON.stringify(elevationResponseBody)}`);
+  25 |         const actualUnit = elevationResponseBody.unit;
+  26 |         console.log(`Actual Unit Value: ${actualUnit}`);
+  27 |         expect(actualUnit).toBe('m');
+  28 |
+  29 |         const actualValue = elevationResponseBody.value;
+  30 |         console.log(`Actual Value: ${actualValue}`);
+  31 |         expect(actualValue).toBe(75.47);
+  32 |     });
+  33 |
+  34 |     test.only('should return 200 and the correct data for a valid VCM Area request', async ({ request }) => {
+  35 |         const areaResponse = await area(request, token, '69794');
+  36 |         expect(areaResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  37 |         const areaResponseBody = await areaResponse.json();
+  38 |          console.log(`Get Area Response: ${JSON.stringify(areaResponseBody)}`);
+  39 |         // const actualUnit = areaResponseBody.unit;
+  40 |         console.log(`Actual Unit Value: ${areaResponseBody.unit}`);
+  41 |         expect(areaResponseBody.surface).toBe(717.9802078334026);
+  42 |
+  43 |     });
+  44 |
+  45 |     test.only('should return 200 and the correct data for a design base volume dbvc', async ({ request }) => {
+  46 |         const designBaseVolumeResponse = await designBaseVolume(request, token, '69794');
+  47 |         expect(designBaseVolumeResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  48 |         const designBaseVolumeResponseBody = await designBaseVolumeResponse.json();
+  49 |         console.log(`Get design base volume Response: ${JSON.stringify(designBaseVolumeResponseBody)}`);
+  50 |
+  51 |         // validate base plane
+  52 |         const basePlane = designBaseVolumeResponseBody.basePlane;
+  53 |         console.log(`Base Plane: ${basePlane}`);
+  54 |         expect(basePlane).toBe('comparison');
+  55 |
+  56 |         // validate cut value
+  57 |         const cut = designBaseVolumeResponseBody.cut;
+  58 |         console.log(`Cut: ${cut}`);
+> 59 |         expect(cut).toBe(61203);
+     |                     ^ Error: expect(received).toBe(expected) // Object.is equality
+  60 |
+  61 |         // validate elevation
+  62 |         const elevation = designBaseVolumeResponseBody.elevation;
+  63 |         console.log(`Elevation: ${elevation}`);
+  64 |         expect(elevation).toBe("0.0");
+  65 |
+  66 |         //validate fill value
+  67 |         const fill = designBaseVolumeResponseBody.fill;
+  68 |         console.log(`Fill: ${fill}`);
+  69 |         expect(fill).toBe("0");
+  70 |
+  71 |         //validate minimum elevation
+  72 |         // const minimumElevation = designBaseVolumeResponseBody.minimumElevation;
+  73 |         // console.log(`Minimum Elevation: ${minimumElevation}`);
+  74 |         // expect(minimumElevation).toBe(0.0);
+  75 |
+  76 |         //validate volume
+  77 |         const volume = designBaseVolumeResponseBody.volume;
+  78 |         console.log(`Volume: ${volume}`);
+  79 |         expect(volume).toBe(61203);
+  80 |
+  81 |
+  82 |         
+  83 |     });
+  84 |
+  85 | });
+```

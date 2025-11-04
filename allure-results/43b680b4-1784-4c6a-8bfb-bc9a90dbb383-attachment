@@ -1,0 +1,134 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:235:9
+
+# Error details
+
+```
+TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="modal-background"]') to be visible
+
+    at LoginPage.openLoginPageAndWaitForPageToLoad (D:\Angelswing_QA\angelswing-automation-test\pages\LoginPage.ts:16:69)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:30:9
+```
+
+# Test source
+
+```ts
+   1 | import { Page, Locator, expect } from '@playwright/test';
+   2 |
+   3 | export class LoginPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+   10 |     async openLoginPage() {
+   11 |         await this.page.goto('/');
+   12 |     }
+   13 |
+   14 |     async openLoginPageAndWaitForPageToLoad() {
+   15 |         await this.page.goto('/');
+>  16 |         await this.page.locator('[data-testid="modal-background"]').waitFor({
+      |                                                                     ^ TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+   17 |             state: 'visible', timeout: 10000
+   18 |         });
+   19 |     }
+   20 |
+   21 |     async enterEmail(email: string) {
+   22 |         await this.page.locator('#sign-in-field-email').fill(email);
+   23 |     }
+   24 |
+   25 |     async enterPassword(password: string) {
+   26 |         await this.page.locator('#sign-in-field-password').fill(password);
+   27 |     }
+   28 |
+   29 |     async checkRememberMe() {
+   30 |         await this.page.locator('span:has-text("Remember me")').click();
+   31 |     }
+   32 |
+   33 |     async clickSignIn() {
+   34 |         // await this.page.getByRole('button', { name: 'Sign in' }).click();//For legacy
+   35 |         await this.page.getByRole('button', { name: 'Continue with email' }).click();
+   36 |     }
+   37 |
+   38 |     async clickContinueWithEmail() {
+   39 |         await expect(this.page.locator('#sign-in-field-email')).toBeEnabled();
+   40 |         await this.page.getByRole('button', { name: 'Continue with email' }).click();
+   41 |     }
+   42 |
+   43 |     async validateForgetPasswordIsDisplayed() {
+   44 |         await this.page.getByRole('link', { name: 'Forgot password?' }).isVisible();
+   45 |     }
+   46 |
+   47 |     async clickOnForgetPassword() {
+   48 |         await this.page.getByRole('link', { name: 'Forgot password?' }).click();
+   49 |     }
+   50 |
+   51 |     async login(email: string, password: string) {
+   52 |         await this.enterEmail(email);
+   53 |         await this.enterPassword(password);
+   54 |         await this.checkRememberMe();
+   55 |         await this.clickContinueWithEmail();
+   56 |     }
+   57 |
+   58 |     async validateContinueWithMicrosoftIsDisplayed() {
+   59 |         await this.page.getByRole('button', { name: 'Continue with Microsoft' }).isVisible();
+   60 |     }
+   61 |
+   62 |     async loginWithSaml(organizationSlug: string) {
+   63 |         await this.page.locator('#saml-sign-in-field-text').fill(organizationSlug);
+   64 |         await this.page.getByRole('button', { name: 'Continue with SAML SSO' }).click();
+   65 |     }
+   66 |
+   67 |     async verifyEmailError(expectedMessage: string) {
+   68 |         const emailErrorMessage = this.page.locator('[data-testid="sign-up-input-field-error"]').first();
+   69 |         await expect(emailErrorMessage).toHaveText(expectedMessage);
+   70 |         console.log(`✅ Email validation error displayed: "${expectedMessage}"`);
+   71 |     }
+   72 |
+   73 |     async verifyEmailErrorIsDisplayed() {
+   74 |         const emailErrorMessage = this.page.locator('[data-testid="sign-up-input-field-error"]').first();
+   75 |         await emailErrorMessage.isVisible();
+   76 |     }
+   77 |
+   78 |     async verifyPasswordError(expectedMessage: string) {
+   79 |         const emailPasswordMessage = this.page.locator('[data-testid="sign-up-input-field-error"]').last();
+   80 |         await expect(emailPasswordMessage).toHaveText(expectedMessage);
+   81 |         console.log(`✅ Password validation error displayed: "${expectedMessage}"`);
+   82 |     }
+   83 |
+   84 |     async verifyLoginPasswordError(expectedMessage: string) {
+   85 |         const emailPasswordMessage = this.page.locator('[data-testid="signin-error-message"]').last();
+   86 |         await expect(emailPasswordMessage).toHaveText(expectedMessage);
+   87 |         console.log(`✅ Password validation error displayed: "${expectedMessage}"`);
+   88 |     }
+   89 |
+   90 |
+   91 |     async verifyPasswordErrorIsDisplayed() {
+   92 |         const emailErrorMessage = this.page.locator('[data-testid="sign-up-input-field-error"]').last();
+   93 |         await emailErrorMessage.isVisible();
+   94 |     }
+   95 |
+   96 |
+   97 |     async goToSignupPage() {
+   98 |         await this.page.locator('a[href="/signup"]').click();
+   99 |         await expect(this.page).toHaveURL('/signup');
+  100 |     }
+  101 |
+  102 |     async goToForgetPasswordPage() {
+  103 |         await this.page.locator('a[href="/password"]').click();
+  104 |         await expect(this.page).toHaveURL('/password');
+  105 |     }
+  106 | }
+  107 |
+```

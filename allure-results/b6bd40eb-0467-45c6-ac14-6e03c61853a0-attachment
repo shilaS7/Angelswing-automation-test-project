@@ -1,0 +1,60 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VCM Test >> should return 200 and the correct data for a valid VCM request
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:20:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 404
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:22:47
+```
+
+# Test source
+
+```ts
+   1 | import { login } from '../../../services/auth.request';
+   2 | import { elevationProfile } from '../../../services/vcm.request';
+   3 | import { test, expect } from '../../../test-options';
+   4 | import { STATUS_CODES } from '../../../utils/statusCodes';
+   5 |
+   6 | test.describe('VCM Test', () => {
+   7 |     let token: string;
+   8 |     test.beforeEach(async ({ request }) => {
+   9 |         const email: string = process.env.EMAIL || '';
+  10 |         const password: string = process.env.PASSWORD || '';
+  11 |
+  12 |         const loginResponse = await login(request, email, password);
+  13 |         expect(loginResponse.status()).toBe(STATUS_CODES.SUCCESS.CREATED);
+  14 |
+  15 |         const loginResponseBody = await loginResponse.json();
+  16 |         token = loginResponseBody.data.attributes.token;
+  17 |
+  18 |     });
+  19 |
+  20 |     test('should return 200 and the correct data for a valid VCM request', async ({ request }) => {
+  21 |         const getElevationResponse = await elevationProfile(request, '69794', '127.12995962492273', '37.1378049701908');
+> 22 |         expect(getElevationResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+     |                                               ^ Error: expect(received).toBe(expected) // Object.is equality
+  23 |         const elevationResponseBody = await getElevationResponse.json();
+  24 |         console.log(`Get Elevation Response: ${JSON.stringify(elevationResponseBody)}`);
+  25 |         const actualUnit = elevationResponseBody.unit;
+  26 |         console.log(`Actual Unit Value: ${actualUnit}`);
+  27 |         expect(actualUnit).toBe('m');
+  28 |
+  29 |         const actualValue = elevationResponseBody.value;
+  30 |         console.log(`Actual Value: ${actualValue}`);
+  31 |         expect(actualValue).toBe(75.47);
+  32 |     });
+  33 |
+  34 | });
+```

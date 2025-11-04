@@ -1,0 +1,8 @@
+✅ Token created with UUID: 9c0a0430-93f1-406c-b1bd-d8d808a24af6
+✅ Token created with UUID: 26183a4c-66d2-4e26-85fe-120c3dfa3a70
+✅ Token created with UUID: a5f4e337-e087-497e-993c-4bb506ef304c
+Selecting role: Project Member
+Entering email: a5f4e337-e087-497e-993c-4bb506ef304c@emailhook.site
+Selecting role: Org Admin
+Entering email: 26183a4c-66d2-4e26-85fe-120c3dfa3a70@emailhook.site
+🗑️  Token 9c0a0430-93f1-406c-b1bd-d8d808a24af6 deleted successfully

@@ -1,0 +1,136 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VSlam Page >> should validate header of the photo album page
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:52:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "Photo Gallery"
+Received: undefined
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:54:49
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications Alt+T"
+- img "Slide"
+- complementary:
+  - img
+  - img
+  - img
+  - img
+  - img
+  - img
+  - text: BETA
+  - img
+  - img
+- text: 2D 3D
+- button:
+  - img
+- text: Photo Gallery
+- img
+- button "Timeline"
+- button "Location"
+- button "Album"
+- button "All":
+  - button:
+    - img
+  - text: All
+- text: July 2025 Wed, 2 July, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 123 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 1 Videos Tue, 1 July, 2025
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 1 Videos June 2025 Wed, 25 June, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 77 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 1 Videos Mon, 16 June, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 122 Photos
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 129 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 2 Videos April 2025 Tue, 15 April, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 93 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 2 Videos 2025
+- button:
+  - img
+```
+
+# Test source
+
+```ts
+   1 | import { faker } from '@faker-js/faker';
+   2 | import { HelperBase } from '../../pages/HelperBase';
+   3 | import { PageManager } from '../../pages/PageManager';
+   4 | import { test, expect } from '../../test-options';
+   5 | import { BrowserContext, Page } from '@playwright/test';
+   6 | import { UI_META } from '../../utils/uiMeta';
+   7 | import { countries, purpose } from '../../test-data/signup-test-data';
+   8 |
+   9 | test.use({ storageState: { cookies: [], origins: [] } });
+  10 |
+  11 | test.describe('VSlam Page', () => {
+  12 |     let pm: PageManager;
+  13 |     let helper: HelperBase;
+  14 |     let context: BrowserContext;
+  15 |     let page: Page;
+  16 |
+  17 |     let name: string;
+  18 |     let organizationName: string;
+  19 |
+  20 |     test.beforeEach(async ({ page }, testInfo) => {
+  21 |
+  22 |         pm = new PageManager(page);
+  23 |         helper = new HelperBase(pm.getPage);
+  24 |         await pm.onLoginPage.openLoginPage();
+  25 |         await pm.onLoginPage.login(process.env.EMAIL || '', process.env.PASSWORD || '');
+  26 |         const loggedInUserResponse = await pm.onDashboardPage.getAuthAndCurrentUserResponse();
+  27 |         const userDetails = loggedInUserResponse.signinBody.data.attributes;
+  28 |         name = `${userDetails.firstName} ${userDetails.lastName}`;
+  29 |
+  30 |         console.log(name);
+  31 |
+  32 |         await pm.onDashboardPage.closeReadUserGuidePopUp();
+  33 |         await pm.onDashboardPage.clickOnProjectMenu();
+  34 |         await pm.onDashboardPage.openProject();
+  35 |         await pm.getPage.waitForTimeout(10000);
+  36 |        
+  37 |         // const userOrganizationDetail = loggedInUserResponse.currentUserBody.data;
+  38 |         // organizationName = userOrganizationDetail.name;
+  39 |         // console.log(organizationName);
+  40 |         // await helper.closeReadUserGuidePopUp(pm, testInfo);
+  41 |         // await pm.onDashboardPage.clickOnOrganization();
+  42 |         // expect(await pm.onOrganizationPage.isInformationTabShownAsSelected()).toBe(true);
+  43 |     });
+  44 |
+  45 |     test('should redirect to the photo album page', async () => {
+  46 |          const vslamPage = pm.onVSlamPage;
+  47 |          await vslamPage.photoAlbumPage();
+  48 |          console.log("photo album page");
+  49 |          await pm.getPage.waitForTimeout(10000);
+  50 |          
+  51 |     });
+  52 |     test('should validate header of the photo album page', async () => {
+  53 |         const vslamPage = pm.onVSlamPage;
+> 54 |         expect(await vslamPage.getHeaderText()).toBe(UI_META.vslamPage.header);
+     |                                                 ^ Error: expect(received).toBe(expected) // Object.is equality
+  55 |         console.log("header text", await vslamPage.getHeaderText());
+  56 |     });
+  57 |
+  58 | })
+```

@@ -1,0 +1,145 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Issue Page Test >> Issue Test >> should create a group and validate issue data from sidebar matches API response @smoke @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\issue.spec.ts:93:13
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\issue.spec.ts:21:19
+```
+
+# Test source
+
+```ts
+   1 | import { BrowserContext, Page } from '@playwright/test';
+   2 | import { HelperBase } from '../../pages/HelperBase';
+   3 | import { PageManager } from '../../pages/PageManager';
+   4 | import { test, expect } from '../../test-options';
+   5 | import { faker } from '@faker-js/faker';
+   6 | import { IssuePage } from '../../pages/IssuePage';
+   7 |
+   8 | test.describe('Issue Page Test', () => {
+   9 |
+   10 |     let pageManager: PageManager;
+   11 |     let context: BrowserContext;
+   12 |     let page: Page;
+   13 |     let issuePage: IssuePage;
+   14 |     let xStart: number;
+   15 |     let yStart: number;
+   16 |     let helper: HelperBase;
+   17 |
+   18 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+   19 |
+   20 |     test.beforeAll(async ({ browser }, testInfo) => {
+>  21 |         context = await browser.newContext({
+      |                   ^ Error: Error reading storage state from playwright/.auth/user.json:
+   22 |             recordVideo: {
+   23 |                 dir: testInfo.outputPath('videos'),
+   24 |                 size: {
+   25 |                     width: 1920,
+   26 |                     height: 1080
+   27 |                 }
+   28 |             }
+   29 |         });
+   30 |         page = await context.newPage();
+   31 |         pageManager = new PageManager(page);
+   32 |         helper = new HelperBase(pageManager.getPage());
+   33 |         await pageManager.onLoginPage().openLoginPage();
+   34 |         await pageManager.onDashboardPage().closeReadUserGuidePopUp();
+   35 |         await pageManager.onDashboardPage().openProject(projectTitle);
+   36 |         await pageManager.onDashboardPage().verifyLoadingBehavior();
+   37 |         await pageManager.navigateTo.issuePage();
+   38 |         await expect(pageManager.getPage()).toHaveURL(/.*issue*/);
+   39 |
+   40 |         issuePage = pageManager.onIssuePage;
+   41 |     });
+   42 |
+   43 |     test.beforeEach(async () => {
+   44 |         ({ xStart, yStart } = await setupLocationCoordinates());
+   45 |     });
+   46 |
+   47 |     test.afterAll(async ({ }, testInfo) => {
+   48 |         const videoPath = testInfo.outputPath('my-video.webm');
+   49 |         await Promise.all([
+   50 |             page.video()?.saveAs(videoPath),
+   51 |             page.close()
+   52 |         ]);
+   53 |         testInfo.attachments.push({
+   54 |             name: 'video',
+   55 |             path: videoPath,
+   56 |             contentType: 'video/webm'
+   57 |         });
+   58 |         await context.close();
+   59 |     });
+   60 |
+   61 |     async function getExpectedCreatedAt(createdAtFromResponse: string) {
+   62 |         const expectedCreatedAt = new Date(createdAtFromResponse).toLocaleDateString('en-US', {
+   63 |             weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+   64 |         });
+   65 |         return expectedCreatedAt;
+   66 |     }
+   67 |     async function setupLocationCoordinates() {
+   68 |         const mapPage = pageManager.onMapPage;
+   69 |         const boundingBox = await mapPage.getMapBoundingBox();
+   70 |         if (!boundingBox) throw new Error('Bounding box not found');
+   71 |         const { xStart, yStart } = await mapPage.getStaringPosition(boundingBox, 3);
+   72 |         await mapPage.clickOnZoomInButton(faker.number.int({ min: 500, max: 800 }));
+   73 |         return { xStart, yStart };
+   74 |     }
+   75 |
+   76 |     async function markIssueOnMap(issuePage: IssuePage, xStart: number, yStart: number) {
+   77 |         const value = { min: 1, max: 200 };
+   78 |         const randomX = Math.floor(faker.number.int({ min: value.min, max: value.max }) / 5) * 5;
+   79 |         const randomY = Math.floor(faker.number.int({ min: value.min, max: value.max }) / 5) * 5;
+   80 |         await pageManager.onMapPage.moveMouseToCenter(xStart + randomX, yStart + randomY);
+   81 |         await helper.waitForNumberOfSeconds(1);
+   82 |         await pageManager.onMapPage.moveMouseToCenter(xStart + randomX, yStart + randomY);
+   83 |
+   84 |         const expectedYCoordinate = await issuePage.getValueOfYCoordinate();
+   85 |         const expectedXCoordinate = await issuePage.getValueOfXCoordinate();
+   86 |
+   87 |         await issuePage.createNewIssue(xStart + randomX, yStart + randomY);
+   88 |         return { expectedYCoordinate, expectedXCoordinate };
+   89 |     }
+   90 |
+   91 |     test.describe('Issue Test', () => {
+   92 |
+   93 |         test('should create a group and validate issue data from sidebar matches API response @smoke @poc', async () => {
+   94 |             await issuePage.clickOnIssueButton();
+   95 |
+   96 |             await markIssueOnMap(issuePage, xStart, yStart);
+   97 |
+   98 |             const response = await issuePage.getCreateNewIssuePostResponse();
+   99 |             const issueId = response.data.id;
+  100 |             const issueTitle = response.data.title;
+  101 |             const createdByFromResponse = response.data.createdBy.name;
+  102 |             const createdAtFromResponse = response.data.createdAt;
+  103 |             const statusFromResponse = response.data.issueStatus.label;
+  104 |
+  105 |             const issueTitleFromSidebar = await issuePage.getIssueTitleFromSideBar(issueId, issueTitle);
+  106 |             const createdByFromSidebar = await issuePage.getIssueCreatedByValueFromSideBar(issueId);
+  107 |             const createdAtFromSidebar = await issuePage.getIssueCreatedAtValueFromSideBar(issueId);
+  108 |             const statusFromSidebar = await issuePage.getIssueStatusValueFromSideBar(issueId);
+  109 |
+  110 |             expect(issueTitleFromSidebar).toBe(issueTitle);
+  111 |             expect(createdByFromSidebar).toBe(createdByFromResponse);
+  112 |
+  113 |             const expectedCreatedAt = await getExpectedCreatedAt(createdAtFromResponse);
+  114 |             expect(createdAtFromSidebar).toContain(expectedCreatedAt);
+  115 |
+  116 |             const normalizedStatus = statusFromResponse.replace('-', ' ');
+  117 |             expect(statusFromSidebar?.toLowerCase()).toBe(normalizedStatus.toLowerCase());
+  118 |         });
+  119 |
+  120 |
+  121 |     });
+```

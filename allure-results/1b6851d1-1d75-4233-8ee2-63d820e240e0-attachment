@@ -1,0 +1,74 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Pages Navigation Test >> should navigate to different pages and validate the url @smoke @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\pageNavigation.spec.ts:21:9
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+```
+
+# Test source
+
+```ts
+   1 | import { HelperBase } from '../../pages/HelperBase';
+   2 | import { PageManager } from '../../pages/PageManager';
+   3 | import { test, expect } from '../../test-options';
+   4 |
+   5 | test.describe('Pages Navigation Test', () => {
+   6 |
+   7 |     let pm: PageManager;
+   8 |     let helper: HelperBase;
+   9 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+  10 |
+  11 |     test.beforeEach(async ({ page }) => {
+  12 |         pm = new PageManager(page);
+  13 |         helper = new HelperBase(pm.getPage());
+  14 |         await pm.onLoginPage().openLoginPage();
+  15 |         await pm.onDashboardPage().closeReadUserGuidePopUp();
+  16 |         await pm.onDashboardPage().openProject(projectTitle);
+  17 |         await pm.onDashboardPage().verifyLoadingBehavior();
+  18 |
+  19 |     });
+  20 |
+> 21 |     test('should navigate to different pages and validate the url @smoke @poc', async ({ }) => {
+     |         ^ Error: Error reading storage state from playwright/.auth/user.json:
+  22 |         const navigateToPage = pm.navigateTo;
+  23 |
+  24 |         await navigateToPage.cadOverlayPage();
+  25 |         await expect(pm.getPage()).toHaveURL(/.*overlay*/);
+  26 |
+  27 |         await navigateToPage.measurementPage();
+  28 |         await expect(pm.getPage()).toHaveURL(/.*measurement*/);
+  29 |
+  30 |         await navigateToPage.mapPage();
+  31 |         await expect(pm.getPage()).toHaveURL(/.*map*/);
+  32 |
+  33 |         await navigateToPage.issuePage();
+  34 |         await expect(pm.getPage()).toHaveURL(/.*issue*/);
+  35 |
+  36 |         await navigateToPage.photoAlbumPage();
+  37 |         await expect(pm.getPage()).toHaveURL(/.*photo*/);
+  38 |
+  39 |         await navigateToPage.siteLogisticsPage();
+  40 |         await expect(pm.getPage()).toHaveURL(/.*safety*/);
+  41 |
+  42 |         // await navigateToPage.viewPointPage();
+  43 |         // await expect(pm.getPage()).toHaveURL(/.*viewpoint-capture*/);
+  44 |
+  45 |         await navigateToPage.navigateToWorkspace();
+  46 |         await expect(pm.getPage()).toHaveURL(/.*project*/);
+  47 |     });
+  48 |
+  49 |
+  50 | });
+  51 |
+```

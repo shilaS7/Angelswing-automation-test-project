@@ -1,0 +1,2 @@
+Popup was visible and has been closed.
+✅ Verifying checkbox state for "2D Orthomosaic": map-view-off

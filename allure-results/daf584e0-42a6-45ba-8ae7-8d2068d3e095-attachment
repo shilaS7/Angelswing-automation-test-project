@@ -1,0 +1,227 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate 360 VSLAM photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:346:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "360° VSLAM Photos"
+Received: "360 Indoor Photos"
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:356:57
+```
+
+# Test source
+
+```ts
+  256 |
+  257 |         //Click on timeline tab
+  258 |         await photoGalleryPage.clickOnTimelineTab();
+  259 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  260 |
+  261 |         //Select the "360" filter
+  262 |         await photoGalleryPage.clickFilterAll();
+  263 |         await photoGalleryPage.clickFilter360Photos();
+  264 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Photos');
+  265 |
+  266 |         //Click on the first photo available on the timeline tab
+  267 |         await pm.onMapPage.clickOn3D();
+  268 |         await pm.on3DMap.verify3DMapIsVisible();
+  269 |         await photoGalleryPage.clickPhotoAlbum();
+  270 |
+  271 |         // Assert the photo is selected 
+  272 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  273 |
+  274 |     });
+  275 |
+  276 |     test('should validate 360 source photo on the gallery page is selected when user click on it', async () => {
+  277 |         const photoGalleryPage = pm.onPhotoGallery;
+  278 |
+  279 |         //Click on timeline tab
+  280 |         await photoGalleryPage.clickOnTimelineTab();
+  281 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  282 |
+  283 |         //Select the "360" filter
+  284 |         await photoGalleryPage.clickFilterAll();
+  285 |         await photoGalleryPage.clickfilter360SourcePhoto();
+  286 |         expect(await photoGalleryPage.getFilterText()).toBe('360° Source Photos');
+  287 |
+  288 |         //Click on the first photo available on the timeline tab
+  289 |         await pm.onMapPage.clickOn3D();
+  290 |         await pm.on3DMap.verify3DMapIsVisible();
+  291 |         await photoGalleryPage.clickPhotoAlbum();
+  292 |         await photoGalleryPage.clickOnPhotoInspection();
+  293 |
+  294 |         // Assert the photo is selected 
+  295 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+  296 |
+  297 |     });
+  298 |
+  299 |     test('should validate 360 stiched photo on the gallery page is selected when user click on it', async () => {
+  300 |         const photoGalleryPage = pm.onPhotoGallery;
+  301 |
+  302 |          //Click on timeline tab
+  303 |          await photoGalleryPage.clickOnTimelineTab();
+  304 |          expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  305 |
+  306 |          //Select the "360" filter
+  307 |          await photoGalleryPage.clickFilterAll();
+  308 |          await photoGalleryPage.clickFilter360StitchedPhotos();
+  309 |          expect(await photoGalleryPage.getFilterText()).toBe('360° Stitched Photos');
+  310 |
+  311 |          //Click on the first photo available on the timeline tab
+  312 |          await pm.onMapPage.clickOn3D();
+  313 |          await pm.on3DMap.verify3DMapIsVisible();
+  314 |          await photoGalleryPage.clickPhotoAlbum();
+  315 |
+  316 |         //Assert the photo is selected 
+  317 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);    
+  318 |          
+  319 |     })
+  320 |
+  321 |     test('should validate 360 VSLAM video on the gallery page is selected when user click on it', async () => {
+  322 |         const photoGalleryPage = pm.onPhotoGallery;
+  323 |
+  324 |          //Click on timeline tab
+  325 |          await photoGalleryPage.clickOnTimelineTab();
+  326 |          expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  327 |
+  328 |          //Select the "360" filter
+  329 |          await photoGalleryPage.clickFilterAll();
+  330 |          await photoGalleryPage.clickFilter360Video();
+  331 |          expect(await photoGalleryPage.getFilterText()).toBe('360° VSLAM Videos');
+  332 |
+  333 |          //Click on the first photo available on the timeline tab
+  334 |          await pm.onMapPage.clickOn3D();
+  335 |          await pm.on3DMap.verify3DMapIsVisible();
+  336 |
+  337 |          //click on the vslam album
+  338 |          await photoGalleryPage.clickOnPhotoVslam();
+  339 |
+  340 |
+  341 |         //Assert the photo is selected 
+  342 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);    
+  343 |          
+  344 |     })
+  345 |
+  346 |     test('should validate 360 VSLAM photo on the gallery page is selected when user click on it', async () => {
+  347 |         const photoGalleryPage = pm.onPhotoGallery;
+  348 |
+  349 |          //Click on timeline tab
+  350 |          await photoGalleryPage.clickOnTimelineTab();
+  351 |          expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  352 |
+  353 |          //Select the "360" filter
+  354 |          await photoGalleryPage.clickFilterAll();
+  355 |          await photoGalleryPage.clickFilter360VslamPhotos();
+> 356 |          expect(await photoGalleryPage.getFilterText()).toBe('360° VSLAM Photos');
+      |                                                         ^ Error: expect(received).toBe(expected) // Object.is equality
+  357 |
+  358 |          //Click on the first photo available on the timeline tab
+  359 |          await pm.onMapPage.clickOn3D();
+  360 |          await pm.on3DMap.verify3DMapIsVisible();
+  361 |
+  362 |          //click on the vslam album
+  363 |          await photoGalleryPage.clickOnPhotoVslam();
+  364 |
+  365 |         // Assert the photo is selected 
+  366 |         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);    
+  367 |
+  368 |     })
+  369 |
+  370 |     // test('should validate Requested photo on the gallery page is selected when user click on it', async () => {
+  371 |     //     const photoGalleryPage = pm.onPhotoGallery;
+  372 |
+  373 |     //      //Click on timeline tab
+  374 |     //      await photoGalleryPage.clickOnTimelineTab();
+  375 |     //      expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  376 |
+  377 |     //      //Select the "360" filter
+  378 |     //      await photoGalleryPage.clickFilterAll();
+  379 |     //      await photoGalleryPage.clickfilterRequestedPhotos();
+  380 |     //      expect(await photoGalleryPage.getFilterText()).toBe('Requested Photos');
+  381 |
+  382 |     //      //Click on the first photo available on the timeline tab
+  383 |     //      await pm.onMapPage.clickOn3D();
+  384 |     //      await pm.on3DMap.verify3DMapIsVisible();
+  385 |     //      await photoGalleryPage.clickPhotoAlbum();
+  386 |     //      await photoGalleryPage.clickOnPhotoInspection();
+  387 |
+  388 |     //     // Assert the photo is selected 
+  389 |     //     expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);    
+  390 |
+  391 |     // })
+  392 |
+  393 |     test('should able to upload the bird eye photo from the gallery', async () => {
+  394 |         
+  395 |         const photoGalleryPage = pm.onPhotoGallery;
+  396 |          //Click on timeline tab
+  397 |
+  398 |         await photoGalleryPage.clickOnTimelineTab();
+  399 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  400 |
+  401 |         const fileChooserPromise = pm.getPage.waitForEvent('filechooser');
+  402 |         await photoGalleryPage.uploadPhotoFromGallery();
+  403 |         await photoGalleryPage.clickonUploadButtonFileChooser();
+  404 |         const fileChooser = await fileChooserPromise;
+  405 |         
+  406 |         await helper.waitForNumberOfSeconds(2);
+  407 |         const folderPath = 'D:/Automation Upload/Bird eye photo';
+  408 |         await photoGalleryPage.handleFileChooserWithImages(fileChooser, folderPath);
+  409 |         await photoGalleryPage.clickonUploadButtonPopup();
+  410 |         await helper.waitForNumberOfSeconds(25);
+  411 |
+  412 |         //Assert the success message is displayed
+  413 |         expect(await photoGalleryPage.uploadSuccessMessage()).toContain('Successfully uploaded photos.');
+  414 |         console.log(await photoGalleryPage.uploadSuccessMessage());
+  415 |
+  416 |         //Close the popup
+  417 |         await photoGalleryPage.isCloseButtonShown();
+  418 |     })
+  419 |    
+  420 |     test('should able to upload the inspection photo from the gallery', async () => {
+  421 |         const photoGalleryPage = pm.onPhotoGallery;
+  422 |         //Click on timeline tab
+  423 |         await photoGalleryPage.clickOnTimelineTab();
+  424 |         expect(await photoGalleryPage.isTimelineTabShownAsSelected()).toBe(true);
+  425 |
+  426 |         //Select the "Inspection" filter
+  427 |         await photoGalleryPage.clickFilterAll();
+  428 |         await photoGalleryPage.clickFilterInspection();
+  429 |         expect(await photoGalleryPage.getFilterText()).toBe('Inspection Photos');
+  430 |         await photoGalleryPage.clickOnPhoto();
+  431 |
+  432 |         const fileChooserPromise = pm.getPage.waitForEvent('filechooser');
+  433 |         await photoGalleryPage.uploadPhotoFromGallery();
+  434 |         await photoGalleryPage.clickonUploadButtonFileChooser();
+  435 |         const fileChooser = await fileChooserPromise;
+  436 |         
+  437 |         await helper.waitForNumberOfSeconds(2);
+  438 |         const folderPath = 'D:/Automation Upload/Bird eye photo';
+  439 |         await photoGalleryPage.handleFileChooserWithImages(fileChooser, folderPath);
+  440 |         await photoGalleryPage.clickonUploadButtonPopup();
+  441 |         await helper.waitForNumberOfSeconds(20);
+  442 |
+  443 |          //Assert the success message is displayed
+  444 |          expect(await photoGalleryPage.uploadSuccessMessage()).toContain('Successfully uploaded photos.');
+  445 |
+  446 |          //Close the popup
+  447 |         await photoGalleryPage.isCloseButtonShown();
+  448 |
+  449 |        
+  450 |     })
+  451 |
+  452 |     test.afterAll(async ({ browser }) => {
+  453 |         await browser.close();
+  454 |     });
+  455 | });
+  456 |
+```

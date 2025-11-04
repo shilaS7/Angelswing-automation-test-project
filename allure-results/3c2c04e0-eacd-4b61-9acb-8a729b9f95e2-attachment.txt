@@ -1,0 +1,7 @@
+Popup was visible and has been closed.
+Clicked on create content group
+Created Group ID: 65840
+Clicked on create content sub group
+Created Sub Group ID: 65841
+Toggled visibility for folder having Sub Group ID: 65841
+Toggled visibility for folder having Sub Group ID: 65841

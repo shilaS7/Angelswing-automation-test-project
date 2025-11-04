@@ -1,0 +1,142 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VCM Test >> should return 200 and the correct data for a valid VCM Elevation Profile request
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:170:10
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 19.57
+Received: 20.07
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:219:33
+```
+
+# Test source
+
+```ts
+  119 |         expect(elevation).toBe(0.0);
+  120 |
+  121 |         //validate the cut value
+  122 |         const cut = volumeResponseBody.cut;
+  123 |         console.log(`Cut: ${cut}`);
+  124 |         expect(cut).toBe(20);
+  125 |
+  126 |         //validate the fill value
+  127 |         const fill = volumeResponseBody.fill;
+  128 |         console.log(`Fill: ${fill}`);
+  129 |         expect(fill).toBe(-616);
+  130 |
+  131 |         //validate the status
+  132 |         const status = volumeResponseBody.status;
+  133 |         console.log(`Status: ${status}`);
+  134 |         expect(status).toBe("200");
+  135 |         
+  136 |         //validate the volume
+  137 |         const volume = volumeResponseBody.volume;
+  138 |         console.log(`Volume: ${volume}`);
+  139 |         expect(volume).toBe(-597);
+  140 |         
+  141 |
+  142 |     });
+  143 |
+  144 |     test.only('should return 200 and the correct data for a valid VCM Area request', async ({ request }) => {
+  145 |         const areaResponse = await areaVcm(request, token, '69794');
+  146 |         expect(areaResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  147 |         const areaResponseBody = await areaResponse.json();
+  148 |          console.log(`Get Area Response: ${JSON.stringify(areaResponseBody)}`);
+  149 |        
+  150 |
+  151 |         const actualValue = areaResponseBody.surface;
+  152 |         console.log(`Actual Value: ${actualValue}`);
+  153 |         expect(areaResponseBody.surface).toBe(717.9802078334026);
+  154 |
+  155 |     });
+  156 |
+  157 |     test.only('should return 200 and the correct data for a valid VCM distance request', async ({ request }) => {
+  158 |         const distanceResponse = await distanceVcm(request, token, '69794');
+  159 |         expect(distanceResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  160 |         const distanceResponseBody = await distanceResponse.json();
+  161 |         console.log(`Get Distance Response: ${JSON.stringify(distanceResponseBody)}`);
+  162 |
+  163 |         const distanceValue = distanceResponseBody.distances;
+  164 |         console.log(`Actual Value: ${JSON.stringify(distanceValue)}`);
+  165 |         expect(distanceValue[0]).toBe(12.026891743323308);
+  166 |         expect(distanceValue[1]).toBe(3.8440719196268134);
+  167 |         expect(distanceValue[2]).toBe(9.194984311498);
+  168 |     });
+  169 |
+  170 |     test.only('should return 200 and the correct data for a valid VCM Elevation Profile request', async ({ request }) => {
+  171 |         const elevationProfileResponse = await ElevationProfileVcm(request, token, '69794');
+  172 |         expect(elevationProfileResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  173 |         const elevationProfileResponseBody = await elevationProfileResponse.json();
+  174 |         console.log(`Get Elevation Profile Response: ${JSON.stringify(elevationProfileResponseBody)}`);
+  175 |
+  176 |         // Validate the elevation profile response structure
+  177 |         const elevations = elevationProfileResponseBody.elevations;
+  178 |         console.log(`Elevations Array: ${JSON.stringify(elevations)}`);
+  179 |         expect(elevations).toBeDefined();
+  180 |         expect(Array.isArray(elevations)).toBe(true);
+  181 |         expect(elevations.length).toBe(104);
+  182 |
+  183 |         // Validate first elevation point
+  184 |         const firstPoint = elevations[0];
+  185 |         console.log(`First Point: ${JSON.stringify(firstPoint)}`);
+  186 |         expect(firstPoint.alt).toBe(56.36);
+  187 |         expect(firstPoint.dist).toBe(0.0);
+  188 |         expect(firstPoint.lat).toBe(37.137078043);
+  189 |         expect(firstPoint.lon).toBe(127.128403484);
+  190 |
+  191 |         // Validate second elevation point
+  192 |         const secondPoint = elevations[10];
+  193 |         console.log(`Ten Point: ${JSON.stringify(secondPoint)}`);
+  194 |         expect(secondPoint.alt).toBe(56.28);
+  195 |         expect(secondPoint.dist).toBe(2.5);
+  196 |         expect(secondPoint.lat).toBe(37.137069118);
+  197 |         expect(secondPoint.lon).toBe(127.12842937);
+  198 |
+  199 |         // Validate third elevation point
+  200 |         const thirdPoint = elevations[33];
+  201 |         console.log(`Thirty Third Point: ${JSON.stringify(thirdPoint)}`);
+  202 |         expect(thirdPoint.alt).toBe(56.09);
+  203 |         expect(thirdPoint.dist).toBe(8.25);
+  204 |         expect(thirdPoint.lat).toBe( 37.137048592);
+  205 |         expect(thirdPoint.lon).toBe(127.128488908);
+  206 |
+  207 |         // Validate fourth elevation point
+  208 |         const fourthPoint = elevations[59];
+  209 |         console.log(`fifty Ninth Point: ${JSON.stringify(fourthPoint)}`);
+  210 |         expect(fourthPoint.alt).toBe(55.85);
+  211 |         expect(fourthPoint.dist).toBe(14.49);
+  212 |         expect(fourthPoint.lat).toBe(37.137017886);
+  213 |         expect(fourthPoint.lon).toBe(127.128509685);
+  214 |
+  215 |         // Validate fifth elevation point
+  216 |         const fifthPoint = elevations[83];
+  217 |         console.log(`Eighty Third Point: ${JSON.stringify(fifthPoint)}`);
+  218 |         expect(fifthPoint.alt).toBe(55.59);
+> 219 |         expect(fifthPoint.dist).toBe( 19.57);
+      |                                 ^ Error: expect(received).toBe(expected) // Object.is equality
+  220 |         expect(fifthPoint.lat).toBe(37.136982923);
+  221 |         expect(fifthPoint.lon).toBe(127.128527524);
+  222 |
+  223 |         // Validate sixth elevation point
+  224 |         const sixthPoint = elevations[104];
+  225 |         console.log(`Hundred Fourth Point: ${JSON.stringify(sixthPoint)}`);
+  226 |         expect(sixthPoint.alt).toBe(55.42);
+  227 |         expect(sixthPoint.dist).toBe(22.57);
+  228 |         expect(sixthPoint.lat).toBe(37.136962356);
+  229 |         expect(sixthPoint.lon).toBe(127.128549426);
+  230 |         
+  231 |     });
+  232 |
+  233 |     
+  234 | });
+```

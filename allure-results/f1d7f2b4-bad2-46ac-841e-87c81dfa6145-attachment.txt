@@ -1,0 +1,2 @@
+✅ Email validation error displayed: "* Required"
+✅ Password validation error displayed: "* Required"

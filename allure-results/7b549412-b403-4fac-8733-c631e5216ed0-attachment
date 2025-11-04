@@ -1,0 +1,160 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:236:9
+
+# Error details
+
+```
+TimeoutError: locator.textContent: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="selected-text-element"]')
+
+    at PhotoGallery.isPhotoSelected (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:285:81)
+    at PhotoGallery.isAnyPhotoSelected (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:298:41)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:280:39
+```
+
+# Test source
+
+```ts
+  185 |     return await this.page.getByTestId('photo-album-collection-filter-icon-inactive').click();
+  186 |   }
+  187 |     async clickAlbumFilter(){
+  188 |         return await this.page.locator('data-testid="photo-album-tab-location"').click();
+  189 |     }
+  190 |     // async isAlbumFilterShownAsSelected(){
+  191 |     //     return await this.isTabShownAsSelected('photo-album-collection-filter-item-all');
+  192 |     // }
+  193 |     async clickAllbutton(){
+  194 |         return await this.page.locator('data-testid="photo-album-collection-filter-item-all"').click();
+  195 |     }
+  196 |     async clickAllOptionAlbum(){
+  197 |         return await this.page.getByTestId('photo-album-collection-filter-item-all').click();
+  198 |     }
+  199 |     async isAllOptionAlbumShownAsSelected(){
+  200 |         return await this.isTabShownAsSelected('photo-album-collection-filter-item-all');
+  201 |     }
+  202 |     async clickFilterAlbumBirdeye(){
+  203 |         return await this.page.getByTestId('photo-album-collection-filter-item-bird_eye').click();
+  204 |     }
+  205 |     async getFilterTextAlbumBirdeye(){
+  206 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-bird_eye"]').textContent();
+  207 |     }
+  208 |     async getFilterTextAlbumInspection(){
+  209 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-inspection"]').textContent();
+  210 |     }
+  211 |     async getFilterTextAlbumSourcePhoto(){
+  212 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-source"]').textContent();
+  213 |     }
+  214 |     async getFilterTextAlbum360SourcePhoto(){
+  215 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_source"]').textContent();
+  216 |     }
+  217 |     async getFilterTextAlbumRequestedPhotos(){
+  218 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-viewpoint"]').textContent();
+  219 |     }
+  220 |     async getFilterText360StitchedPhotosAlbum(){
+  221 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-stitched"]').textContent();
+  222 |     }
+  223 |     async getFilterText360PanoramaImagesAlbum(){
+  224 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_panorama_album"]').textContent();
+  225 |     }
+  226 |     async getFilterText360IndoorAlbum(){
+  227 |         return await this.page.locator('[data-testid="photo-album-collection-filter-item-three_sixty_vslam_album"]').textContent();
+  228 |     }
+  229 |
+  230 |     async clickFilterAlbumInspection(){
+  231 |         return await this.page.getByTestId('photo-album-collection-filter-item-inspection').click();
+  232 |     }
+  233 |     async clickFilterAlbumSourcePhoto(){
+  234 |         return await this.page.getByTestId('photo-album-collection-filter-item-source').click();
+  235 |     }
+  236 |     async clickFilterAlbum360Photos(){
+  237 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty').click();
+  238 |     }
+  239 |     async clickFilterAlbum360SourcePhoto(){
+  240 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_source').click();
+  241 |     }
+  242 |     async clickFilterAlbum360StitchedPhotos(){
+  243 |         return await this.page.getByTestId('photo-album-collection-filter-item-stitched').click();
+  244 |     }
+  245 |     async clickFilterAlbum360PanoramaImages(){
+  246 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_panorama_album').click();
+  247 |     }
+  248 |     async clickFilterAlbum360Indoor(){
+  249 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_vslam_album').click();
+  250 |     }
+  251 |     async clickFilterAlbumRequestedPhotos(){
+  252 |         return await this.page.getByTestId('photo-album-collection-filter-item-viewpoint').click();
+  253 |     }
+  254 |     
+  255 |     async outsideFilterClick(){
+  256 |         return await this.page.locator('[data-testid="photo-album-tabs"]').click();
+  257 |     }
+  258 |
+  259 |     async clickOnPhoto(){
+  260 |         return await this.page.locator('[data-testid="photo-album-item-185002"]>div').first().click();
+  261 |     }
+  262 |
+  263 |     async clickOnPhotoInspection(){
+  264 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  265 |     }
+  266 |     async clickOnPhotoVslam(){
+  267 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  268 |     }
+  269 |     // async isPhotoSelected(){
+  270 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().getAttribute('data-selected');
+  271 |     // }  
+  272 |     async  uploadPhotoFromGallery(){
+  273 |         return await this.page.getByTestId('photo-upoload-button').click();
+  274 |     }
+  275 |      async clickonUploadButtonFileChooser(){
+  276 |         return await this.page.locator('[data-testid="popup"]>div>div>div>div>label').click();
+  277 |      }
+  278 |      async clickonUploadButtonPopup(){
+  279 |         return await this.page.getByTestId('upload-popup-confirm-button').click();
+  280 |      }
+  281 |      async isCloseButtonShown(){
+  282 |         return await this.page.locator('[data-testid="popup"] > div>div>div>button').click();
+  283 |      }
+  284 |      async isPhotoSelected(){
+> 285 |         return await this.page.locator('[data-testid="selected-text-element"]').textContent();
+      |                                                                                 ^ TimeoutError: locator.textContent: Timeout 5000ms exceeded.
+  286 |      }
+  287 |
+  288 |      async getSelectedItemsCount(){
+  289 |         const selectedText = await this.isPhotoSelected();
+  290 |         if (!selectedText) return 0;
+  291 |         
+  292 |         // Extract number from text like "1 item selected" or "3 items selected"
+  293 |         const match = selectedText.match(/(\d+)\s+items?\s+selected/);
+  294 |         return match ? parseInt(match[1], 10) : 0;
+  295 |      }
+  296 |
+  297 |      async isAnyPhotoSelected(){
+  298 |         const selectedText = await this.isPhotoSelected();
+  299 |         return selectedText !== null && selectedText.includes('selected');
+  300 |      }
+  301 |
+  302 |      async uploadSuccessMessage(){
+  303 |         return await this.page.locator('[data-testid="popup"]>div>div>p').textContent();
+  304 |      }
+  305 |
+  306 |      async clickPhotoAlbum(){
+  307 |         return await this.page.locator('[data-testid="photo-album-tabs"]+div+div>div>div>div>div+div>div').click();
+  308 |      }
+  309 |     //     async clickPhotoAlbum(){
+  310 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div>div').click();
+  311 |     //  }
+  312 |      
+  313 |      
+  314 |     
+  315 |     }
+  316 |     
+```

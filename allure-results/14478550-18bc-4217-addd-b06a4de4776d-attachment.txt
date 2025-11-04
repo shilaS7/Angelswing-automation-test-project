@@ -1,0 +1,32 @@
+✅ Token created with UUID: 72911490-4ddc-40ea-b351-40103d1fb91f
+Selecting role: Admin
+Entering email: 72911490-4ddc-40ea-b351-40103d1fb91f@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 72911490-4ddc-40ea-b351-40103d1fb91f@emailhook.site
+Search completed
+No collaborators found for "72911490-4ddc-40ea-b351-40103d1fb91f@emailhook.site"
+Searching for: 72911490-4ddc-40ea-b351-40103d1fb91f@emailhook.site
+Search completed
+Row Cell Text: 72911490-4ddc-40ea-b351-40103d1fb91f@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=72911490-4ddc-40ea-b351-40103d1fb91f%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Emie
+Entering Last Name: Buckridge
+Selecting Organization: Schinner - Mitchell
+Entering Phone Number: +14042585977
+Selecting purpose: Urban Planning
+Selecting country: Australia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/X1uztB9bQ1Tn2fg5W9CNBw?email=72911490-4ddc-40ea-b351-40103d1fb91f%40emailhook.site
+🗑️  Token 72911490-4ddc-40ea-b351-40103d1fb91f deleted successfully

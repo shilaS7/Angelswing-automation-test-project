@@ -1,0 +1,32 @@
+✅ Token created with UUID: 78fc186c-fe27-4489-9aa2-c232d1c4c99f
+Selecting role: Admin
+Entering email: 78fc186c-fe27-4489-9aa2-c232d1c4c99f@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 78fc186c-fe27-4489-9aa2-c232d1c4c99f@emailhook.site
+Search completed
+No collaborators found for "78fc186c-fe27-4489-9aa2-c232d1c4c99f@emailhook.site"
+Searching for: 78fc186c-fe27-4489-9aa2-c232d1c4c99f@emailhook.site
+Search completed
+Row Cell Text: 78fc186c-fe27-4489-9aa2-c232d1c4c99f@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=78fc186c-fe27-4489-9aa2-c232d1c4c99f%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Hallie
+Entering Last Name: Mohr
+Selecting Organization: Pagac - Hintz
+Entering Phone Number: +12288050371
+Selecting purpose: Survey
+Selecting country: Uruguay
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/Lq_3tgaDmK6XfM6uxiZfpA?email=78fc186c-fe27-4489-9aa2-c232d1c4c99f%40emailhook.site
+🗑️  Token 78fc186c-fe27-4489-9aa2-c232d1c4c99f deleted successfully

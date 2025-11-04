@@ -1,0 +1,4 @@
+✅ Token created with UUID: 7c8df30c-fc0c-475f-8363-b2200f39b223
+Selecting role: Org Admin
+Entering email: 7c8df30c-fc0c-475f-8363-b2200f39b223@emailhook.site
+🗑️  Token 7c8df30c-fc0c-475f-8363-b2200f39b223 deleted successfully

@@ -1,0 +1,2 @@
+📸 Screenshot downloaded: Capture.png
+✅ Verified: Screenshot downloaded successfully at ./downloads/Capture.png

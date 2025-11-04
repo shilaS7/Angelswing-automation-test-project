@@ -1,0 +1,189 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Measurement Page Test >> Group Context Menu E2E Test @poc >> Should show group and its contents on maps for all datasets
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:688:13
+
+# Error details
+
+```
+TimeoutError: locator.getAttribute: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('[data-testid="open-space-group-65861"]')
+
+    at MeasurementPage.getGroupDataStateAttributeValue (D:\Angelswing_QA\angelswing-automation-test\pages\MeasurementPage.ts:62:54)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:721:74
+```
+
+# Test source
+
+```ts
+   1 | import { th } from '@faker-js/faker/.';
+   2 | import { Page, Locator, expect } from '@playwright/test';
+   3 |
+   4 | export class MeasurementPage {
+   5 |     readonly page: Page;
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         this.page = page;
+   9 |     }
+   10 |
+   11 |     async createGroupSubGroup() {
+   12 |         const openSpaceSection = this.page.locator('section[data-ctxsort="GroupedContentsListHeader"]').filter({ hasText: 'Open space' });
+   13 |         await openSpaceSection.locator('[data-ddm-track-action="content-group"]').click();
+   14 |     }
+   15 |
+   16 |     async createGroup() {
+   17 |         await this.createGroupSubGroup();
+   18 |         console.log('Clicked on create content group');
+   19 |     }
+   20 |
+   21 |     async createSubGroup() {
+   22 |         await this.createGroupSubGroup();
+   23 |         console.log('Clicked on create content sub group');
+   24 |     }
+   25 |
+   26 |     async getGroupId(): Promise<string> {
+   27 |         const response = await this.page.waitForResponse(`**/*/v2/projects/**/contents`, { timeout: 5000 });
+   28 |         const responseBody = await response.json();
+   29 |         return responseBody.data.id;
+   30 |     }
+   31 |
+   32 |     async clickOnGroupSubGroup(id: string) {
+   33 |         await this.page.locator(`[data-testid="open-space-sub-group-${id}"]`).getByTestId('group-icon').click();
+   34 |     }
+   35 |
+   36 |     async clickOnGroup(groupId: string) {
+   37 |         const newGroup = this.page.locator(`[data-testid="open-space-group-${groupId}"] > div`).nth(1);
+   38 |         await newGroup.click();
+   39 |         console.log('Clicked on Group');
+   40 |     }
+   41 |
+   42 |     async clickOnSubGroup(subGroupId: string) {
+   43 |         await this.clickOnGroupSubGroup(subGroupId);
+   44 |         console.log('Clicked on Sub Group');
+   45 |     }
+   46 |
+   47 |     // ! No attribute found for 'Show / Hide folder' -- Discuss with the developer
+   48 |
+   49 |     async toggleShowHideGroupFolder(groupId: string) {
+   50 |         await this.performRightClickAction(`[data-testid="open-space-group-${groupId}"]`, 'Show / Hide folder');
+   51 |         console.log(`Toggled visibility for folder having Group ID: ${groupId}`);
+   52 |     }
+   53 |
+   54 |
+   55 |     async toggleShowHideSubGroupFolder(subGroupId: string) {
+   56 |         await this.performRightClickAction(`[data-testid="open-space-sub-group-${subGroupId}"]`, 'Show / Hide folder');
+   57 |         console.log(`Toggled visibility for folder having Sub Group ID: ${subGroupId}`);
+   58 |     }
+   59 |
+   60 |     async getGroupDataStateAttributeValue(groupId: string) {
+   61 |         const group = this.page.locator(`[data-testid="open-space-group-${groupId}"]`);
+>  62 |         const dataStateAttributeValues = await group.getAttribute('data-state');
+      |                                                      ^ TimeoutError: locator.getAttribute: Timeout 10000ms exceeded.
+   63 |         return dataStateAttributeValues;
+   64 |     }
+   65 |
+   66 |     async getGroupDataSelectedAttributeValue(groupId: string) {
+   67 |         const group = this.page.locator(`[data-testid="open-space-group-${groupId}"]`);
+   68 |         const dataSelectedAttributeValues = await group.getAttribute('data-selected');
+   69 |         return dataSelectedAttributeValues;
+   70 |     }
+   71 |
+   72 |     async getGroupDataPinnedAttributeValue(groupId: string) {
+   73 |         const group = this.page.locator(`[data-testid="open-space-group-${groupId}"]`);
+   74 |         const dataPinnedAttributeValues = await group.getAttribute('data-pinned');
+   75 |         return dataPinnedAttributeValues;
+   76 |     }
+   77 |
+   78 |     async getSubGroupDataPinnedAttributeValue(subGroupId: string) {
+   79 |         const subGroup = this.page.locator(`[data-testid="open-space-sub-group-${subGroupId}"]`);
+   80 |         const dataPinnedAttributeValues = await subGroup.getAttribute('data-pinned');
+   81 |         return dataPinnedAttributeValues;
+   82 |     }
+   83 |
+   84 |     async getSubGroupDataStateAttributeValue(subGroupId: string) {
+   85 |         const subGroup = this.page.locator(`[data-testid="open-space-sub-group-${subGroupId}"]`);
+   86 |         const dataStateAttributeValues = await subGroup.getAttribute('data-state');
+   87 |         return dataStateAttributeValues;
+   88 |     }
+   89 |
+   90 |     async getSubGroupDataStateAttributeCount(subGroupId: string) {
+   91 |         const subGroup = this.page.locator(`[data-testid="open-space-sub-group-${subGroupId}"]`);
+   92 |         const detailsDataStateAttributeCount = await subGroup.count();
+   93 |         return detailsDataStateAttributeCount;
+   94 |     }
+   95 |
+   96 |
+   97 |     async getSubGroupDataSelectedAttributeValue(subGroupId: string) {
+   98 |         const subGroup = this.page.locator(`[data-testid="open-space-sub-group-${subGroupId}"]`);
+   99 |         const dataSelectedAttributeValues = await subGroup.getAttribute('data-selected');
+  100 |         return dataSelectedAttributeValues;
+  101 |     }
+  102 |
+  103 |
+  104 |     async deleteGroup(groupId: string) {
+  105 |         const newGroup = this.page.locator(`[data-content="group-${groupId}"]`);
+  106 |         await newGroup.click({ button: "right" });
+  107 |         await this.page.getByRole('button', { name: 'Delete' }).click();
+  108 |         await this.page.getByTestId('warning-button').filter({ hasText: 'Delete' }).click();
+  109 |     }
+  110 |
+  111 |     async deleteSubGroup(subGroupId: string) {
+  112 |         const newGroup = this.page.locator(`[data-testid="open-space-sub-group-${subGroupId}"]`);;
+  113 |         await newGroup.click({ button: "right" });
+  114 |         await this.page.getByRole('button', { name: 'Delete' }).click();
+  115 |         await this.page.getByTestId('warning-button').filter({ hasText: 'Delete' }).click();
+  116 |     }
+  117 |
+  118 |     async verifySubGroupDeleted(subGroupId: string) {
+  119 |         const deleteSubGroupResponse = await this.page.waitForResponse(response =>
+  120 |             response.url().includes(`/v2/contents/${subGroupId}`) && response.request().method() === 'DELETE',
+  121 |             { timeout: 5000 }
+  122 |         );
+  123 |         const status = deleteSubGroupResponse.status();
+  124 |         console.log(`Delete Sub Group response status: ${status}`);
+  125 |         return status === 204;
+  126 |     }
+  127 |
+  128 |     async verifyGroupDeleted(groupId: string) {
+  129 |         const deleteGroupResponse = await this.page.waitForResponse(response =>
+  130 |             response.url().includes(`/v2/contents/${groupId}`) && response.request().method() === 'DELETE',
+  131 |             { timeout: 5000 }
+  132 |         );
+  133 |         const status = deleteGroupResponse.status();
+  134 |         console.log(`Delete Group response status: ${status}`);
+  135 |         return status === 204;
+  136 |     }
+  137 |
+  138 |     private async renameGroupSubGroup(groupId: string, newName: string) {
+  139 |         const group = this.page.locator(`[data-content="group-${groupId}"]`);
+  140 |         await this.performRightClickAction(`[data-content="group-${groupId}"]`, 'Rename');
+  141 |         await group.getByRole('textbox').fill(newName);
+  142 |         await group.getByRole('textbox').press('Enter');
+  143 |         console.log(`Renamed Group ID ${groupId} to "${newName}"`);
+  144 |         await expect(group.locator('p')).toHaveText(newName);
+  145 |         console.log(`Verified: Group ID ${groupId} renamed to "${newName}"`);
+  146 |     }
+  147 |
+  148 |     async renameGroup(groupId: string, newName: string) {
+  149 |         await this.renameGroupSubGroup(groupId, newName);
+  150 |     }
+  151 |
+  152 |     // ! No attribute found for Fold/Unfold -- Discuss with the developer
+  153 |
+  154 |     async toggleGroupFoldUnfold(groupId: string) {
+  155 |         await this.performRightClickAction(`[data-testid="open-space-group-${groupId}"]`, 'Fold / Unfold folder');
+  156 |         console.log(`Toggled Fold visibility for Group Id ID: ${groupId}`);
+  157 |     }
+  158 |
+  159 |     async toggleGroupShowMapsForAllDatasets(groupId: string) {
+  160 |         await this.performRightClickAction(`[data-testid="open-space-group-${groupId}"]`, 'Show on maps for all dates');
+  161 |         console.log(`Toggled Show on maps for all datasets for Group Id ID: ${groupId}`);
+  162 |     }
+```

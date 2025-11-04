@@ -1,0 +1,32 @@
+✅ Token created with UUID: e13b3b0f-1173-425f-a19e-b2b1007bad0b
+Selecting role: Org Admin
+Entering email: e13b3b0f-1173-425f-a19e-b2b1007bad0b@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: e13b3b0f-1173-425f-a19e-b2b1007bad0b@emailhook.site
+Search completed
+No collaborators found for "e13b3b0f-1173-425f-a19e-b2b1007bad0b@emailhook.site"
+Searching for: e13b3b0f-1173-425f-a19e-b2b1007bad0b@emailhook.site
+Search completed
+Row Cell Text: e13b3b0f-1173-425f-a19e-b2b1007bad0b@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=e13b3b0f-1173-425f-a19e-b2b1007bad0b%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Elmer
+Entering Last Name: Predovic
+Selecting Organization: Hahn - Romaguera
+Entering Phone Number: +14107905742
+Selecting purpose: Construction
+Selecting country: Azerbaijan
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/rPnvk2BAxVIeCbjqB4suAg?email=e13b3b0f-1173-425f-a19e-b2b1007bad0b%40emailhook.site
+🗑️  Token e13b3b0f-1173-425f-a19e-b2b1007bad0b deleted successfully

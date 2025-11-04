@@ -1,0 +1,32 @@
+✅ Token created with UUID: b73f9d69-438d-4f1e-ab86-5f6062b224fa
+Selecting role: Admin
+Entering email: b73f9d69-438d-4f1e-ab86-5f6062b224fa@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: b73f9d69-438d-4f1e-ab86-5f6062b224fa@emailhook.site
+Search completed
+No collaborators found for "b73f9d69-438d-4f1e-ab86-5f6062b224fa@emailhook.site"
+Searching for: b73f9d69-438d-4f1e-ab86-5f6062b224fa@emailhook.site
+Search completed
+Row Cell Text: b73f9d69-438d-4f1e-ab86-5f6062b224fa@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=b73f9d69-438d-4f1e-ab86-5f6062b224fa%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Preston
+Entering Last Name: Collins
+Selecting Organization: Fay Group
+Entering Phone Number: +14303780519
+Selecting purpose: Urban Planning
+Selecting country: Timor-Leste
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/2xZAHmSCBtJ7iMiPZHRWkA?email=b73f9d69-438d-4f1e-ab86-5f6062b224fa%40emailhook.site
+🗑️  Token b73f9d69-438d-4f1e-ab86-5f6062b224fa deleted successfully

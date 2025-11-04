@@ -1,0 +1,11 @@
+✅ Token created with UUID: 0dd14a04-b083-4253-8a2f-257a02c92936
+Selecting role: Project Member
+Entering email: 0dd14a04-b083-4253-8a2f-257a02c92936@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 0dd14a04-b083-4253-8a2f-257a02c92936@emailhook.site
+Search completed
+Row Cell Text: 0dd14a04-b083-4253-8a2f-257a02c92936@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=0dd14a04-b083-4253-8a2f-257a02c92936%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak
+🗑️  Token 0dd14a04-b083-4253-8a2f-257a02c92936 deleted successfully

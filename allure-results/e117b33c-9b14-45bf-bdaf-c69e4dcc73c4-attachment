@@ -1,0 +1,138 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VCM Test >> should return 200 and the correct data for a valid VCM sbvc request
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:233:10
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 211551.70662327492
+Received: 211596.2042881811
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:294:41
+```
+
+# Test source
+
+```ts
+  194 |         expect(secondPoint.alt).toBe(56.28);
+  195 |         expect(secondPoint.dist).toBe(2.5);
+  196 |         expect(secondPoint.lat).toBe(37.137069118);
+  197 |         expect(secondPoint.lon).toBe(127.12842937);
+  198 |
+  199 |         // Validate third elevation point
+  200 |         const thirdPoint = elevations[33];
+  201 |         console.log(`Thirty Third Point: ${JSON.stringify(thirdPoint)}`);
+  202 |         expect(thirdPoint.alt).toBe(56.09);
+  203 |         expect(thirdPoint.dist).toBe(8.25);
+  204 |         expect(thirdPoint.lat).toBe( 37.137048592);
+  205 |         expect(thirdPoint.lon).toBe(127.128488908);
+  206 |
+  207 |         // Validate fourth elevation point
+  208 |         const fourthPoint = elevations[59];
+  209 |         console.log(`fifty Ninth Point: ${JSON.stringify(fourthPoint)}`);
+  210 |         expect(fourthPoint.alt).toBe(55.85);
+  211 |         expect(fourthPoint.dist).toBe(14.49);
+  212 |         expect(fourthPoint.lat).toBe(37.137017886);
+  213 |         expect(fourthPoint.lon).toBe(127.128509685);
+  214 |
+  215 |         // Validate fifth elevation point
+  216 |         const fifthPoint = elevations[83];
+  217 |         console.log(`Eighty Third Point: ${JSON.stringify(fifthPoint)}`);
+  218 |         expect(fifthPoint.alt).toBe(55.59);
+  219 |         expect(fifthPoint.dist).toBe(20.07);
+  220 |         expect(fifthPoint.lat).toBe(37.136979495);
+  221 |         expect(fifthPoint.lon).toBe(127.128531174);
+  222 |
+  223 |         // Validate sixth elevation point
+  224 |         const sixthPoint = elevations[103];
+  225 |         console.log(`Hundred Fourth Point: ${JSON.stringify(sixthPoint)}`);
+  226 |         expect(sixthPoint.alt).toBe(55.28);
+  227 |         expect(sixthPoint.dist).toBe(24.97);
+  228 |         expect(sixthPoint.lat).toBe(37.136945879);
+  229 |         expect(sixthPoint.lon).toBe(127.128566972);
+  230 |         
+  231 |     });
+  232 |
+  233 |     test.only('should return 200 and the correct data for a valid VCM sbvc request', async ({ request }) => {
+  234 |         const sbvcResponse = await sbvc(request, token, '69794');
+  235 |         expect(sbvcResponse.status()).toBe(STATUS_CODES.SUCCESS.OK);
+  236 |         const sbvcResponseBody = await sbvcResponse.json();
+  237 |         console.log(`Get sbvc Response: ${JSON.stringify(sbvcResponseBody)}`);
+  238 |
+  239 |         // validate base plane
+  240 |          // validate base plane
+  241 |          const basePlane = sbvcResponseBody.basePlane;
+  242 |          console.log(`Base Plane: ${basePlane}`);
+  243 |          expect(basePlane).toBe('comparison');
+  244 |  
+  245 |          // validate cut value
+  246 |          const cut = sbvcResponseBody.cut;
+  247 |          console.log(`Cut: ${cut}`);
+  248 |          expect(cut).toBe("245");
+  249 |  
+  250 |          // validate elevation
+  251 |          const elevation = sbvcResponseBody.elevation;
+  252 |          console.log(`Elevation: ${elevation}`);
+  253 |          expect(elevation).toBe("0.0");
+  254 |  
+  255 |          //validate fill value
+  256 |          const fill = sbvcResponseBody.fill;
+  257 |          console.log(`Fill: ${fill}`);
+  258 |          expect(fill).toBe("-75");
+  259 |  
+  260 |          //validate minMaxElevation
+  261 |          const minMaxElevation = sbvcResponseBody.minMaxElevation;
+  262 |          console.log(`Min Max Elevation: ${JSON.stringify(minMaxElevation)}`);
+  263 |          
+  264 |          const maxHeight = minMaxElevation.maxHeight;
+  265 |          console.log(`Max Height: ${maxHeight}`);
+  266 |          expect(maxHeight).toBe(8.5081329345703);
+  267 |          
+  268 |          const minHeight = minMaxElevation.minHeight;
+  269 |          console.log(`Min Height: ${minHeight}`);
+  270 |          expect(minHeight).toBe(-9.4442558288574);
+  271 |  
+  272 |          //validate volume
+  273 |          const volume = sbvcResponseBody.volume;
+  274 |          console.log(`Volume: ${volume}`);
+  275 |          expect(volume).toBe("170");
+  276 |  
+  277 |          //validate status
+  278 |          const status = sbvcResponseBody.status;
+  279 |          console.log(`Status: ${status}`);
+  280 |          expect(status).toBe("200");
+  281 |  
+  282 |          //validate wmsInfo
+  283 |          const wmsInfo = sbvcResponseBody.wmsInfo;
+  284 |          console.log(`WMS Info: ${JSON.stringify(wmsInfo)}`);
+  285 |          expect(wmsInfo).toBeDefined();
+  286 |          expect(wmsInfo.layer).toBe("surveybased:69833-2025_09_15T08_46_32_190Z-69794-69827");
+  287 |          expect(wmsInfo.url).toBe("https://geoserver-staging.angelswing.io/geoserver/surveybased/wms");
+  288 |          
+  289 |          //validate nativeBoundingBox
+  290 |          const nativeBoundingBox = wmsInfo.nativeBoundingBox;
+  291 |          expect(nativeBoundingBox).toBeDefined();
+  292 |          expect(nativeBoundingBox.crs.$).toBe("EPSG:5186");
+  293 |          expect(nativeBoundingBox.crs["@class"]).toBe("projected");
+> 294 |          expect(nativeBoundingBox.maxx).toBe(211551.70662327492);
+      |                                         ^ Error: expect(received).toBe(expected) // Object.is equality
+  295 |          expect(nativeBoundingBox.maxy).toBe(504384.2838413965);
+  296 |          expect(nativeBoundingBox.minx).toBe(211449.70662327492);
+  297 |          expect(nativeBoundingBox.miny).toBe(504293.2838413965);
+  298 |  
+  299 |  
+  300 |         
+  301 |     });
+  302 |     
+  303 |      
+  304 |     
+  305 | });
+```

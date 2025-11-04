@@ -1,0 +1,227 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Indoor Floor Management - Comprehensive Test Suite >> Date Tab and Video Navigation >> should select a video from dropdown and validate photo navigation buttons and jump to photo for all available video options
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\indoor.spec.ts:1087:13
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 2
+Received: 1
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\indoor.spec.ts:1109:59
+```
+
+# Test source
+
+```ts
+  1009 |             await onIndoorPage.clickOnJumpButton();
+  1010 |             await expect(onIndoorPage.nextPhotoButton()).toBeDisabled();
+  1011 |             await expect(onIndoorPage.lastPhotoButton()).toBeDisabled();
+  1012 |
+  1013 |         });
+  1014 |
+  1015 |         test('Should keep both arrows disabled when only single video exists', async () => {
+  1016 |             const onIndoorPage = pm.onIndoorPage;
+  1017 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1018 |
+  1019 |             if (floorNames.length > 0) {
+  1020 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNameWithMultipleVideos);
+  1021 |                 await helper.waitForNumberOfSeconds(2);
+  1022 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage);
+  1023 |
+  1024 |                 await onIndoorPage.clickOnSelectDate();
+  1025 |                 const options = await onIndoorPage.getDateSelectorOptions();
+  1026 |                 console.log(`Total videos in the floor: ${options.length}`);
+  1027 |
+  1028 |                 if (options.length === 1) {
+  1029 |                     await expect(onIndoorPage.leftArrow()).toBeDisabled();
+  1030 |                     await expect(onIndoorPage.rightArrow()).toBeDisabled();
+  1031 |                 }
+  1032 |
+  1033 |             }
+  1034 |         });
+  1035 |
+  1036 |         // Validate Manually because the test is flaky as the options has suffix like (1)
+  1037 |         test.skip('Should highlight currently active video in dropdown', async () => {
+  1038 |             const onIndoorPage = pm.onIndoorPage;
+  1039 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1040 |
+  1041 |             if (floorNames.length > 0) {
+  1042 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNames[0]);
+  1043 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage); const selectDateText = await onIndoorPage.selectDate().textContent();
+  1044 |                 await onIndoorPage.clickOnSelectDate();
+  1045 |
+  1046 |                 expect(await onIndoorPage.getActiveVideoInDropdown()).toBeTruthy();
+  1047 |             }
+  1048 |         });
+  1049 |
+  1050 |         test('should select a video from dropdown and validate the next and previous photo buttons are enabled accordingly', async () => {
+  1051 |             const onIndoorPage = pm.onIndoorPage;
+  1052 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1053 |             if (floorNames.length > 0) {
+  1054 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNameWithMultipleVideos);
+  1055 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage);
+  1056 |                 await onIndoorPage.clickOnSelectDate();
+  1057 |                 const options = await onIndoorPage.getDateSelectorOptions();
+  1058 |                 expect(options.length).toBeGreaterThan(0);
+  1059 |
+  1060 |                 for (let i = 1; i < options.length; i++) {
+  1061 |                     await onIndoorPage.selectDateFromDropdown(options[i]);
+  1062 |                     await onIndoorPage.waitForLoading360PhotoToComplete();
+  1063 |                     const selectDateText = await onIndoorPage.selectDate().textContent();
+  1064 |                     const optionWithoutSuffix = options[i]?.slice(0, options[i]?.length - 3);
+  1065 |                     expect(selectDateText).toContain(optionWithoutSuffix);
+  1066 |
+  1067 |                     while (await onIndoorPage.rightArrow().isEnabled()) {
+  1068 |                         await onIndoorPage.goToNextDay();
+  1069 |                         await onIndoorPage.waitForLoading360PhotoToComplete();
+  1070 |
+  1071 |                     }
+  1072 |                     await expect(onIndoorPage.rightArrow()).toBeDisabled();
+  1073 |
+  1074 |                     while (await onIndoorPage.leftArrow().isEnabled()) {
+  1075 |                         await onIndoorPage.goToPreviousDay();
+  1076 |                         await onIndoorPage.waitForLoading360PhotoToComplete();
+  1077 |
+  1078 |                     }
+  1079 |                     await expect(onIndoorPage.leftArrow()).toBeDisabled();
+  1080 |
+  1081 |                     await onIndoorPage.clickOnSelectDate();
+  1082 |                 }
+  1083 |             }
+  1084 |         });
+  1085 |
+  1086 |         //! This test is lengthy and  flaky and needs to be fixed
+  1087 |         test('should select a video from dropdown and validate photo navigation buttons and jump to photo for all available video options', async () => {
+  1088 |             const onIndoorPage = pm.onIndoorPage;
+  1089 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1090 |             if (floorNames.length > 0) {
+  1091 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNameWithMultipleVideos);
+  1092 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage);
+  1093 |                 await onIndoorPage.clickOnSelectDate();
+  1094 |                 const options = await onIndoorPage.getDateSelectorOptions();
+  1095 |                 expect(options.length).toBeGreaterThan(0);
+  1096 |
+  1097 |                 for (let i = 1; i < options.length; i++) {
+  1098 |                     await onIndoorPage.selectDateFromDropdown(options[i]);
+  1099 |                     await onIndoorPage.waitForLoading360PhotoToComplete();
+  1100 |                     const selectDateText = await onIndoorPage.selectDate().textContent();
+  1101 |                     const optionWithoutSuffix = options[i]?.slice(0, options[i]?.length - 3);
+  1102 |                     expect(selectDateText).toContain(optionWithoutSuffix);
+  1103 |                     const { totalFrames } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1104 |
+  1105 |                     while (await onIndoorPage.nextPhotoButton().isEnabled() && await onIndoorPage.lastPhotoButton().isEnabled()) {
+  1106 |                         const { currentFrame: currentFrameBefore } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1107 |                         await onIndoorPage.goToNextPhoto();
+  1108 |                         const { currentFrame: currentFrameAfter } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+> 1109 |                         expect(Number(currentFrameAfter)).toBe(Number(currentFrameBefore) + 1);
+       |                                                           ^ Error: expect(received).toBe(expected) // Object.is equality
+  1110 |                     }
+  1111 |                     await expect(onIndoorPage.nextPhotoButton()).toBeDisabled();
+  1112 |                     await expect(onIndoorPage.lastPhotoButton()).toBeDisabled();
+  1113 |
+  1114 |                     while (await onIndoorPage.previousPhotoButton().isEnabled() && await onIndoorPage.firstPhotoButton().isEnabled()) {
+  1115 |                         const { currentFrame: currentFrameBefore } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1116 |                         await onIndoorPage.goToPreviousPhoto();
+  1117 |                         const { currentFrame: currentFrameAfter } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1118 |                         expect(Number(currentFrameAfter)).toBe(Number(currentFrameBefore) - 1);
+  1119 |                     }
+  1120 |                     await expect(onIndoorPage.previousPhotoButton()).toBeDisabled();
+  1121 |                     await expect(onIndoorPage.firstPhotoButton()).toBeDisabled();
+  1122 |
+  1123 |                     await onIndoorPage.goToLastPhoto();
+  1124 |
+  1125 |                     const { currentFrame: currentFrameLast, totalFrames: totalFramesLast } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1126 |                     expect(currentFrameLast).toBe(totalFrames);
+  1127 |                     expect(totalFramesLast).toBe(totalFrames);
+  1128 |
+  1129 |                     await onIndoorPage.goToFirstPhoto();
+  1130 |                     const { currentFrame: currentFrameFirst, totalFrames: totalFramesFirst } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1131 |                     expect(currentFrameFirst).toBe('1');
+  1132 |                     expect(totalFramesFirst).toBe(totalFrames);
+  1133 |
+  1134 |
+  1135 |                     await onIndoorPage.jumpToPhoto();
+  1136 |                     await onIndoorPage.enterFrameNumber(10);
+  1137 |                     await onIndoorPage.clickOnJumpButton();
+  1138 |                     const { currentFrame: currentFrameJump, totalFrames: totalFramesJump } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1139 |                     expect(currentFrameJump).toBe('10');
+  1140 |                     expect(totalFramesJump).toBe(totalFrames);
+  1141 |
+  1142 |                     await onIndoorPage.jumpToPhoto();
+  1143 |                     await onIndoorPage.enterFrameNumber(100);
+  1144 |                     await onIndoorPage.clickOnJumpButton();
+  1145 |                     const { currentFrame: currentFrameJump100, totalFrames: totalFramesJump100 } = await onIndoorPage.getCurrentFrameAndTotalFrames();
+  1146 |                     expect(currentFrameJump100).toBe('100');
+  1147 |                     expect(totalFramesJump100).toBe(totalFrames);
+  1148 |
+  1149 |                     await onIndoorPage.jumpToPhoto();
+  1150 |                     await onIndoorPage.enterFrameNumber(1);
+  1151 |                     await onIndoorPage.clickOnJumpButton();
+  1152 |                     await expect(onIndoorPage.previousPhotoButton()).toBeDisabled();
+  1153 |                     await expect(onIndoorPage.firstPhotoButton()).toBeDisabled();
+  1154 |
+  1155 |                     await onIndoorPage.jumpToPhoto();
+  1156 |                     await onIndoorPage.enterFrameNumber(Number(totalFrames));
+  1157 |                     await onIndoorPage.clickOnJumpButton();
+  1158 |                     await expect(onIndoorPage.nextPhotoButton()).toBeDisabled();
+  1159 |                     await expect(onIndoorPage.lastPhotoButton()).toBeDisabled();
+  1160 |
+  1161 |                     await onIndoorPage.clickOnSelectDate();
+  1162 |                 }
+  1163 |             }
+  1164 |             else{
+  1165 |                 console.log('No floor names found');
+  1166 |             }
+  1167 |         });
+  1168 |
+  1169 |         test('Should not delete the video if the user clicks on cancel', async () => {
+  1170 |             const onIndoorPage = pm.onIndoorPage;
+  1171 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1172 |             if (floorNames.length > 0) {
+  1173 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNameWithMultipleVideos);
+  1174 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage);
+  1175 |
+  1176 |                 await onIndoorPage.clickOnSelectDate();
+  1177 |                 const dateOptions = await onIndoorPage.getDateSelectorOptions();
+  1178 |                 expect(dateOptions.length).toBeGreaterThan(0);
+  1179 |
+  1180 |                 const optionCountBeforeDelete = dateOptions.length;
+  1181 |                 await onIndoorPage.clickOnMoreOptionsInSelectDateOption();
+  1182 |                 await onIndoorPage.clickOnDeleteVideo();
+  1183 |                 await onIndoorPage.clickOnCancel();
+  1184 |
+  1185 |                 await onIndoorPage.clickOnSelectDate();
+  1186 |                 const optionCountAfterDelete = await onIndoorPage.getDateSelectorOptions();
+  1187 |                 expect(optionCountAfterDelete.length).toBe(optionCountBeforeDelete);
+  1188 |             }
+  1189 |         });
+  1190 |
+  1191 |         test.skip('Should delete all videos from a floor and validate the videos are deleted', async () => {
+  1192 |             const onIndoorPage = pm.onIndoorPage;
+  1193 |             const floorNames = await onIndoorPage.getAllFloorNames();
+  1194 |             if (floorNames.length > 0) {
+  1195 |                 await onIndoorPage.hoverOverFloorNameAndClickOnIt(floorNameWithMultipleVideos);
+  1196 |                 await waitForLoading3DAnd360PhotoToComplete(onIndoorPage);
+  1197 |
+  1198 |                 await onIndoorPage.clickOnSelectDate();
+  1199 |                 const dateOptions = await onIndoorPage.getDateSelectorOptions();
+  1200 |                 expect(dateOptions.length).toBeGreaterThan(0);
+  1201 |
+  1202 |                 for (let i = 1; i < dateOptions.length; i++) {
+  1203 |                     const optionCountBeforeDelete = dateOptions.length;
+  1204 |                     await onIndoorPage.clickOnMoreOptionsInSelectDateOption();
+  1205 |                     await onIndoorPage.clickOnDeleteVideo();
+  1206 |                     await onIndoorPage.clickOnDelete();
+  1207 |                     await validateSuccessMessageAndCloseToaster(onIndoorPage, 'Video has been deleted successfully');
+  1208 |                     const optionCountAfterDelete = await onIndoorPage.getDateSelectorOptions();
+  1209 |                     // expect(optionCountAfterDelete.length).toBe(optionCountBeforeDelete - 1); // ! Fix this line
+```

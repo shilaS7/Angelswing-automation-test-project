@@ -1,0 +1,10 @@
+✅ Token created with UUID: 9c9bda34-edfc-4437-b64e-e8e5cbceef74
+✅ Token created with UUID: e60dce10-fe5f-4275-862c-f81cc8a8b36d
+✅ Token created with UUID: e48e423d-3631-495c-b25f-2506093e3c47
+Selecting role: Org Admin
+Entering email: e48e423d-3631-495c-b25f-2506093e3c47@emailhook.site
+Selecting role: Project Member
+Entering email: e60dce10-fe5f-4275-862c-f81cc8a8b36d@emailhook.site
+Invitation success message: The invitations have been sent.
+pending
+🗑️  Token 9c9bda34-edfc-4437-b64e-e8e5cbceef74 deleted successfully

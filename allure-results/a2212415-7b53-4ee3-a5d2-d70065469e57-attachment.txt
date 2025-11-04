@@ -1,0 +1,23 @@
+✅ Token created with UUID: 23a76e3e-ce97-4ff8-bd4e-606de910f387
+Selecting role: Org Admin
+Entering email: suraj.anand+2768254971209351@angelswing.io, 23a76e3e-ce97-4ff8-bd4e-606de910f387@emailhook.site, Darrin.Kuvalis50@hotmail.com
+Invitation success message: The invitations have been sent.
+Searching for: suraj.anand+2768254971209351@angelswing.io
+Search completed
+No collaborators found for "suraj.anand+2768254971209351@angelswing.io"
+Searching for: suraj.anand+2768254971209351@angelswing.io
+Search completed
+Row Cell Text: suraj.anand+2768254971209351@angelswing.io
+Searching for: 23a76e3e-ce97-4ff8-bd4e-606de910f387@emailhook.site
+Search completed
+No collaborators found for "23a76e3e-ce97-4ff8-bd4e-606de910f387@emailhook.site"
+Searching for: 23a76e3e-ce97-4ff8-bd4e-606de910f387@emailhook.site
+Search completed
+Row Cell Text: 23a76e3e-ce97-4ff8-bd4e-606de910f387@emailhook.site
+Searching for: Darrin.Kuvalis50@hotmail.com
+Search completed
+No collaborators found for "Darrin.Kuvalis50@hotmail.com"
+Searching for: Darrin.Kuvalis50@hotmail.com
+Search completed
+Row Cell Text: darrin.kuvalis50@hotmail.com
+🗑️  Token 23a76e3e-ce97-4ff8-bd4e-606de910f387 deleted successfully

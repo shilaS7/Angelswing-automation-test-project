@@ -1,0 +1,2 @@
+Get Elevation Response: {"status":200,"unit":"m","value":75.47}
+Actual Value: 75.47

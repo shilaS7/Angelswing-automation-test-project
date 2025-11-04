@@ -1,0 +1,13 @@
+Clicked on create content group
+Created Group ID: 65856
+Clicked on create content sub group
+Created Sub Group ID: 65857
+Created new Measurement Item at (715.6666666666667, 435)
+Response: {"data":{"id":65858,"projectId":1419,"screenId":3214,"groupId":65857,"attachmentsCount":0,"minHeight":null,"maxHeight":null,"pinEventAt":"2025-04-11T18:05:55.000+09:00","title":"Location 186","category":"measurement","type":"marker","color":"rgb(89, 172, 100)","status":"ready","createdAt":"2025-04-11T18:05:55.287+09:00","updatedAt":"2025-04-11T18:05:55.328+09:00","size":null,"elevation":{},"info":{"description":"","location":[225556.50714924454,515154.277636558],"move":false},"config":{"type":"marker"},"createdBy":{"id":1147,"name":"Lafayette Jones-Tremblay","email":"suraj.anand@angelswing.io"},"isPersonal":false}}
+Status: 201
+Clicked on create content sub group
+Created Sub Group ID: 65859
+Created new Measurement Item at (805.6666666666667, 380)
+Response: {"data":{"id":65860,"projectId":1419,"screenId":3214,"groupId":65859,"attachmentsCount":0,"minHeight":null,"maxHeight":null,"pinEventAt":"2025-04-11T18:06:00.000+09:00","title":"Location 187","category":"measurement","type":"marker","color":"rgb(89, 172, 100)","status":"ready","createdAt":"2025-04-11T18:06:00.238+09:00","updatedAt":"2025-04-11T18:06:00.287+09:00","size":null,"elevation":{},"info":{"description":"","location":[225588.9151752051,515174.13370337803],"move":false},"config":{"type":"marker"},"createdBy":{"id":1147,"name":"Lafayette Jones-Tremblay","email":"suraj.anand@angelswing.io"},"isPersonal":false}}
+Status: 201
+Toggled Fold visibility for Group Id ID: 65856

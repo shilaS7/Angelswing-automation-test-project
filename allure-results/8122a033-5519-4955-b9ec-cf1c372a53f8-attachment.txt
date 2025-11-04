@@ -1,0 +1,28 @@
+✅ Token created with UUID: 9f310273-c62d-40ca-bd53-fc619514f242
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [SIGNUP] Checking inbox (Attempt 2/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=9f310273-c62d-40ca-bd53-fc619514f242%40emailhook.site
+🗑️  All Requests for Token 9f310273-c62d-40ca-bd53-fc619514f242 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Carmella
+Entering Last Name: Keebler
+Selecting Organization: Bechtelar - Walter
+Organization input validated: "Bechtelar - Walter"
+Entering Phone Number: +15043851342
+Selecting purpose: Others
+Selecting country: Czech Republic
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/ilIreN2USra-5jv56mwVAw?email=9f310273-c62d-40ca-bd53-fc619514f242%40emailhook.site
+🗑️  Token 9f310273-c62d-40ca-bd53-fc619514f242 deleted successfully

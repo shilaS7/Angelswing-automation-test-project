@@ -1,0 +1,12 @@
+Popup was visible and has been closed.
+Map attributes: {"zoomLevel":16,"mapRotation":0,"mapCameraPosition":[127.28769567833338,37.23544271964269]}
+Map camera position: 127.28769567833338, 37.23544271964269
+Zoom level: 16
+Map attributes after switching to 3D: {"zoomLevel":2449.2036999017005,"mapRotation":0,"mapCameraPosition":[-263.4828527930363,-227.37701049377904]}
+Map attributes after zoom in and pan: {"zoomLevel":-959.750646020924,"mapRotation":-2.8100897408380587e-17,"mapCameraPosition":[1584.5570665849946,-3037.4833796984835]}
+Map attributes after switching to 2D: {"zoomLevel":16,"mapRotation":0,"mapCameraPosition":[127.28769567833338,37.23544271964269]}
+TwoD zoom level after switching to 2D: 16
+Map attributes after zoom in 2d map: {"zoomLevel":17.199999999999996,"mapRotation":0,"mapCameraPosition":[127.28769567833338,37.23544271964269]}
+Map attributes after switching to 3d map: {"zoomLevel":790.6005843393507,"mapRotation":0,"mapCameraPosition":[-263.4914242757654,-227.39363010158567]}
+Map attributes after switching to 3d map second time: {"zoomLevel":839.6804535258564,"mapRotation":0,"mapCameraPosition":[-263.4846843627451,-227.3793066840226]}
+Zoom level difference: 49.079869186505675

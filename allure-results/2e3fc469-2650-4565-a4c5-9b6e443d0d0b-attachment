@@ -1,0 +1,143 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Basic Map Operation @smoke >> Should retain zoom level and camera position when switching between 2D and 3D map views @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\basicMapOperations.spec.ts:197:9
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\basicMapOperations.spec.ts:19:19
+```
+
+# Test source
+
+```ts
+   1 | import { faker } from '@faker-js/faker';
+   2 | import { HelperBase } from '../../../pages/HelperBase';
+   3 | import { MapPage } from '../../../pages/MapPage';
+   4 | import { PageManager } from '../../../pages/PageManager';
+   5 | import { test, expect } from '../../../test-options';
+   6 | import { BrowserContext } from '@playwright/test';
+   7 | import { Page } from '@playwright/test';
+   8 |
+   9 | test.describe('Basic Map Operation @smoke', () => {
+   10 |     let pageManager: PageManager;
+   11 |     let helper: HelperBase;
+   12 |     let mapPage: MapPage;
+   13 |     let context: BrowserContext;
+   14 |     let page: Page;
+   15 |
+   16 |
+   17 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+   18 |     test.beforeAll(async ({ browser }) => {
+>  19 |         context = await browser.newContext();
+      |                   ^ Error: Error reading storage state from playwright/.auth/user.json:
+   20 |         page = await context.newPage();
+   21 |
+   22 |         pageManager = new PageManager(page);
+   23 |         mapPage = pageManager.onMapPage;
+   24 |         helper = new HelperBase(pageManager.getPage());
+   25 |         await pageManager.onLoginPage().openLoginPage();
+   26 |         await pageManager.onDashboardPage().closeReadUserGuidePopUp();
+   27 |         await pageManager.onDashboardPage().openProject(projectTitle);
+   28 |     });
+   29 |
+   30 |     test.afterAll(async () => {
+   31 |         await context.close();
+   32 |     });
+   33 |
+   34 |     test('Should switch between 2D and 3D map views and validate selected map layers and visibility', async () => {
+   35 |         console.log(`Starting test: ${test.info().title}`);
+   36 |         console.log('Should verify background is not displayed');
+   37 |         // await mapPage.ensureBackgroundIsNotDisplayed();
+   38 |
+   39 |         console.log(`Clicking and validating Map Layer : 3D Mesh Model`);
+   40 |         await mapPage.clickOn3D();
+   41 |         await mapPage.expectMapViewToBe('3D');
+   42 |         await mapPage.validateMapLayerIsChecked('3D Mesh Model');
+   43 |
+   44 |         console.log(`Clicking and validating Map Layer : 2D Orthomosaic`);
+   45 |         await mapPage.clickOn2D();
+   46 |         await mapPage.expectMapViewToBe('2D');
+   47 |         await mapPage.validateMapLayerIsChecked('2D Orthomosaic');
+   48 |
+   49 |         console.log(`Ending test: ${test.info().title}`);
+   50 |     });
+   51 |
+   52 |     test('Should verify 2d map is visible and validate map attributes', async () => {
+   53 |         const twoDMapPage = pageManager.on2DMap;
+   54 |         await twoDMapPage.verify2DMapIsVisible();
+   55 |
+   56 |         const mapAttributes = await twoDMapPage.getMapAttributes();
+   57 |         console.log(`Map attributes: ${JSON.stringify(mapAttributes)}`);
+   58 |
+   59 |         const zoomLevel = mapAttributes.zoomLevel;
+   60 |         const mapRotation = mapAttributes.mapRotation;
+   61 |         const mapCameraPositionX = mapAttributes.mapCameraPosition[0];
+   62 |         const mapCameraPositionY = mapAttributes.mapCameraPosition[1];
+   63 |
+   64 |         console.log(`Map rotation: ${mapRotation}`);
+   65 |         console.log(`Map camera position: ${mapCameraPositionX}, ${mapCameraPositionY}`);
+   66 |         console.log(`Zoom level: ${zoomLevel}`);
+   67 |
+   68 |         expect(mapRotation).toBeDefined();
+   69 |         expect(mapCameraPositionX).toBeDefined();
+   70 |         expect(mapCameraPositionY).toBeDefined();
+   71 |         expect(zoomLevel).toBeDefined();
+   72 |
+   73 |         // Zooming IN
+   74 |         await mapPage.clickOnZoomInButton(faker.number.int({ min: 600, max: 1000 }));
+   75 |         await helper.waitForNumberOfSeconds(1);
+   76 |
+   77 |         // Rotate
+   78 |         const boundingBox = await pageManager.onMapPage.getMapBoundingBox();
+   79 |
+   80 |         if (!boundingBox) {
+   81 |             console.error('Map element not found or bounding box unavailable.');
+   82 |         }
+   83 |         const { xStart, yStart } = await pageManager.onMapPage.getStaringPosition(boundingBox, 2);
+   84 |         await pageManager.onMapPage.moveMouseToCenter(xStart, yStart);
+   85 |         await pageManager.onMapPage.rightClickAndHoldMouse();
+   86 |         const dragDistance = 2000;
+   87 |         // const steps = 40;
+   88 |         await pageManager.onMapPage.moveMouseUpward(xStart, yStart, dragDistance, 40);
+   89 |         await pageManager.onMapPage.moveMouseDownward(xStart, yStart, dragDistance, 20);
+   90 |         await pageManager.onMapPage.releaseRightClick();
+   91 |
+   92 |         await helper.waitForNumberOfSeconds(1);
+   93 |         // Panning
+   94 |         await pageManager.onMapPage.moveMouseToCenter(xStart, yStart);
+   95 |         await pageManager.onMapPage.clickAndHoldOnMap();
+   96 |         const dragDistanceForPan = 500;
+   97 |         const stepsForPan = 60;
+   98 |
+   99 |         // Pan up
+  100 |         await pageManager.onMapPage.moveMouseUpward(xStart, yStart, dragDistanceForPan, stepsForPan);
+  101 |         // Pan down
+  102 |         await pageManager.onMapPage.moveMouseDownward(xStart, yStart, dragDistanceForPan, stepsForPan);
+  103 |         // Pan Left
+  104 |         await pageManager.onMapPage.moveMouseLeft(xStart, yStart, dragDistanceForPan, stepsForPan);
+  105 |         // Pan right
+  106 |         await pageManager.onMapPage.moveMouseRight(xStart, yStart, dragDistanceForPan, stepsForPan);
+  107 |         await pageManager.onMapPage.releaseTheMouse();
+  108 |
+  109 |         await helper.waitForNumberOfSeconds(1);
+  110 |
+  111 |         const mapAttributesAfterZoomIn = await twoDMapPage.getMapAttributes();
+  112 |         console.log(`Map attributes after zoom in: ${JSON.stringify(mapAttributesAfterZoomIn)}`);
+  113 |         expect(mapAttributesAfterZoomIn.zoomLevel).toBeGreaterThan(zoomLevel);
+  114 |         expect(mapAttributesAfterZoomIn.mapRotation).not.toEqual(mapRotation);
+  115 |         expect(mapAttributesAfterZoomIn.mapRotation).toBeGreaterThan(mapRotation);
+  116 |         expect(mapAttributesAfterZoomIn.mapCameraPosition).not.toStrictEqual([mapCameraPositionX, mapCameraPositionY]);
+  117 |
+  118 |     });
+  119 |
+```

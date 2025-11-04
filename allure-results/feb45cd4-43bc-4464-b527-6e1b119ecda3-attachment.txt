@@ -1,0 +1,15 @@
+Entering Email: zula.koss@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Zula
+Entering Last Name: Koss
+Selecting Organization: Willms - Effertz
+Organization input validated: "Willms - Effertz"
+Entering Phone Number: +16339964067
+Selecting purpose: Others
+Selecting country: Guernsey
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/6VPd1-qiIyJ9P-zDCcWV9g?email=zula.koss%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/6VPd1-qiIyJ9P-zDCcWV9g?email=zula.koss%40j87bh0xv.mailosaur.net
+Expected Email in URL: zula.koss%40j87bh0xv.mailosaur.net
+Verification email test completed

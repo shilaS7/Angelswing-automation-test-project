@@ -1,0 +1,15 @@
+Entering Email: kendall.dach@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Kendall
+Entering Last Name: Dach
+Selecting Organization: Schiller LLC
+Organization input validated: "Schiller LLC"
+Entering Phone Number: +17185324334
+Selecting purpose: Construction
+Selecting country: Angola
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/cTFKjbWNnPIOkQFoZxCJbw?email=kendall.dach%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/cTFKjbWNnPIOkQFoZxCJbw?email=kendall.dach%40j87bh0xv.mailosaur.net
+Expected Email in URL: kendall.dach%40j87bh0xv.mailosaur.net
+Verification email test completed

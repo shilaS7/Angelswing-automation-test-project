@@ -1,0 +1,11 @@
+Error fetching email: MailosaurError: Authentication failed, check your API key.
+    at MailosaurClient.httpError (D:\Angelswing_QA\angelswing-automation-test\node_modules\mailosaur\lib\mailosaur.js:44:16)
+    at D:\Angelswing_QA\angelswing-automation-test\node_modules\mailosaur\lib\operations\messages.js:134:44
+    at IncomingMessage.<anonymous> (D:\Angelswing_QA\angelswing-automation-test\node_modules\mailosaur\lib\request.js:94:9)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  errorType: 'authentication_error',
+  httpStatusCode: 401,
+  httpResponseBody: '[]'
+}

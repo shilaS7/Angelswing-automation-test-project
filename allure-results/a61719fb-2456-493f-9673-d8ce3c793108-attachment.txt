@@ -1,0 +1,15 @@
+Entering Email: kelsie.jerde@qk1te4rl.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Kelsie
+Entering Last Name: Jerde
+Selecting Organization: Renner Inc
+Organization input validated: "Renner Inc"
+Entering Phone Number: +14156916381
+Selecting purpose: Survey
+Selecting country: Liechtenstein
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/5X7XrJUcJvOV3-8Mb7_REg?email=kelsie.jerde%40qk1te4rl.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/5X7XrJUcJvOV3-8Mb7_REg?email=kelsie.jerde%40qk1te4rl.mailosaur.net
+Expected Email in URL: kelsie.jerde%40qk1te4rl.mailosaur.net
+Verification email test completed

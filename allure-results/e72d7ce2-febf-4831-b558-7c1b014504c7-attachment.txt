@@ -1,0 +1,7 @@
+Clicked on create content group
+Created Group ID: 65845
+Clicked on create content sub group
+Created Sub Group ID: 65846
+Toggled visibility for folder having Sub Group ID: 65846
+Delete Sub Group response status: 204
+Verified: Sub Group ID 65846 is not displayed

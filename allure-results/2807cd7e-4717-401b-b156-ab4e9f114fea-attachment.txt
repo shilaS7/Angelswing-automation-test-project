@@ -1,0 +1,7 @@
+Popup was visible and has been closed.
+Clicked on create content group
+Created Group ID: 65843
+Clicked on create content sub group
+Created Sub Group ID: 65844
+Renamed Group ID 65844 to "gJTAvdBWcT"
+Verified: Group ID 65844 renamed to "gJTAvdBWcT"

@@ -1,0 +1,32 @@
+✅ Token created with UUID: 977e5f7a-980d-4f1b-ae6a-f92a428d155e
+Selecting role: Project Pilot
+Entering email: 977e5f7a-980d-4f1b-ae6a-f92a428d155e@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 977e5f7a-980d-4f1b-ae6a-f92a428d155e@emailhook.site
+Search completed
+No collaborators found for "977e5f7a-980d-4f1b-ae6a-f92a428d155e@emailhook.site"
+Searching for: 977e5f7a-980d-4f1b-ae6a-f92a428d155e@emailhook.site
+Search completed
+Row Cell Text: 977e5f7a-980d-4f1b-ae6a-f92a428d155e@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=977e5f7a-980d-4f1b-ae6a-f92a428d155e%40emailhook.site&organization=Grady+Group
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Trenton
+Entering Last Name: Jacobs
+Selecting Organization: Schumm - Lakin
+Entering Phone Number: +17313549875
+Selecting purpose: Construction
+Selecting country: Saudi Arabia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/xl3VJZaVonD-ntbMaJ5gGw?email=977e5f7a-980d-4f1b-ae6a-f92a428d155e%40emailhook.site
+🗑️  Token 977e5f7a-980d-4f1b-ae6a-f92a428d155e deleted successfully

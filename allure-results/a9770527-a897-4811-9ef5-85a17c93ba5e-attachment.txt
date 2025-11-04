@@ -1,0 +1,4 @@
+✅ Token created with UUID: ceb524ee-d9d1-4af0-bfd4-6ca23aac23d6
+Selecting role: Org Admin
+Entering email: ceb524ee-d9d1-4af0-bfd4-6ca23aac23d6@emailhook.site
+🗑️  Token ceb524ee-d9d1-4af0-bfd4-6ca23aac23d6 deleted successfully

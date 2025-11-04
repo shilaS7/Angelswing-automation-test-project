@@ -1,0 +1,145 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate 360 VSLAM video on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:320:9
+
+# Error details
+
+```
+Error: locator.click: Error: strict mode violation: locator('[data-testid="photo-album-tabs"]+div+div>div>div>div>div+div>div') resolved to 8 elements:
+    1) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_video">…</div> aka locator('div').filter({ hasText: /^360 VSLAM Videos360° VSLAM Videos2 Videos$/ }).nth(1)
+    2) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="threesixty-photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_vslam">…</div> aka locator('div').filter({ hasText: /^360 Vslam Photos360° VSLAM Photos136 Photos$/ }).first()
+    3) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_video">…</div> aka locator('.sc-jvfqPk > div:nth-child(2)').first()
+    4) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="threesixty-photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_vslam">…</div> aka locator('div').filter({ hasText: /^360 Vslam Photos360° VSLAM Photos125 Photos$/ }).first()
+    5) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="threesixty-photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_vslam">…</div> aka locator('div').filter({ hasText: /^360 Vslam Photos360° VSLAM Photos134 Photos$/ }).first()
+    6) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_video">…</div> aka locator('div').filter({ hasText: /^360 VSLAM Videos360° VSLAM Videos3 Videos$/ }).first()
+    7) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="threesixty-photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_vslam">…</div> aka locator('div').filter({ hasText: /^360 Vslam Photos360° VSLAM Photos67 Photos$/ }).first()
+    8) <div class="sc-cVksOY bNkfqr" data-ddm-track-action="photo-album" data-ddm-track-label="btn-folder-photo-album-three_sixty_video">…</div> aka locator('div:nth-child(8) > .sc-jvfqPk > div:nth-child(2)')
+
+Call log:
+  - waiting for locator('[data-testid="photo-album-tabs"]+div+div>div>div>div>div+div>div')
+
+    at PhotoGallery.clickPhotoAlbum (D:\Angelswing_QA\angelswing-automation-test\pages\PhotoGallery.ts:228:108)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:335:33
+```
+
+# Test source
+
+```ts
+  128 |         return await this.page.getByTestId('timelapse-collection-filter-item-integration').textContent();
+  129 |     }
+  130 |     async clickFilterLocationInspection(){
+  131 |         return await this.page.getByTestId('timelapse-collection-filter-item-drone').click();
+  132 |     }
+  133 |     async getFilterTextLocationFilter(){
+  134 |         // return await this.page.getByTestId('timelapse-collection-filter-item-drone').textContent();
+  135 |         return await this.page.locator('[data-testid="photo-album-tabs"]+div>div>div>div>button').textContent();
+  136 |         
+  137 |     }
+  138 |
+  139 |     async clickFilterLocationSource(){
+  140 |         return await this.page.getByTestId('timelapse-collection-filter-item-source').click();
+  141 |     }
+  142 |   
+  143 |     async clickAlbumFilter(){
+  144 |         return await this.page.locator('[data-testid="photo-album-tabs"]+div>div>div>div>button>div').click();
+  145 |     }
+  146 |     async isAlbumFilterShownAsSelected(){
+  147 |         return await this.isTabShownAsSelected('photo-album-collection-filter-item-all');
+  148 |     }
+  149 |     async clickFilterAlbumBirdeye(){
+  150 |         return await this.page.getByTestId('photo-album-collection-filter-item-bird_eye').click();
+  151 |     }
+  152 |     async getFilterTextAlbum(){
+  153 |         return await this.page.locator('[data-testid="photo-album-tabs"]+div>div>div>div>button').textContent();
+  154 |     }
+  155 |     async clickFilterAlbumInspection(){
+  156 |         return await this.page.getByTestId('photo-album-collection-filter-item-inspection').click();
+  157 |     }
+  158 |     async clickFilterAlbumSourcePhoto(){
+  159 |         return await this.page.getByTestId('photo-album-collection-filter-item-source').click();
+  160 |     }
+  161 |     async clickFilterAlbum360Photos(){
+  162 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty').click();
+  163 |     }
+  164 |     async clickFilterAlbum360SourcePhoto(){
+  165 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_source').click();
+  166 |     }
+  167 |     async clickFilterAlbum360StitchedPhotos(){
+  168 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_stitched').click();
+  169 |     }
+  170 |     async clickFilterAlbum360Video(){
+  171 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_video').click();
+  172 |     }
+  173 |     async clickFilterAlbumRequestedPhotos(){
+  174 |         return await this.page.getByTestId('photo-album-collection-filter-item-viewpoint').click();
+  175 |     }
+  176 |     async clickFilterAlbum360VslamPhotos(){
+  177 |         return await this.page.getByTestId('photo-album-collection-filter-item-three_sixty_vslam').click();
+  178 |     }
+  179 |
+  180 |     async clickOnPhoto(){
+  181 |         return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().click();
+  182 |     }
+  183 |
+  184 |     async clickOnPhotoInspection(){
+  185 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  186 |     }
+  187 |     async clickOnPhotoVslam(){
+  188 |         return await this.page.locator('[data-testid="photo-list-root-component"]').first().click();
+  189 |     }
+  190 |     // async isPhotoSelected(){
+  191 |     //     return await this.page.locator('[data-testid="photo-album-tabs"] +div+div>div>div').first().getAttribute('data-selected');
+  192 |     // }  
+  193 |     async  uploadPhotoFromGallery(){
+  194 |         return await this.page.getByTestId('photo-upoload-button').click();
+  195 |     }
+  196 |      async clickonUploadButtonFileChooser(){
+  197 |         return await this.page.locator('[data-testid="popup"]>div>div>div>div>label').click();
+  198 |      }
+  199 |      async clickonUploadButtonPopup(){
+  200 |         return await this.page.getByTestId('upload-popup-confirm-button').click();
+  201 |      }
+  202 |      async isCloseButtonShown(){
+  203 |         return await this.page.locator('[data-testid="popup"] > div>div>div>button').click();
+  204 |      }
+  205 |      async isPhotoSelected(){
+  206 |         return await this.page.locator('[data-testid="selected-text-element"]').textContent();
+  207 |      }
+  208 |
+  209 |      async getSelectedItemsCount(){
+  210 |         const selectedText = await this.isPhotoSelected();
+  211 |         if (!selectedText) return 0;
+  212 |         
+  213 |         // Extract number from text like "1 item selected" or "3 items selected"
+  214 |         const match = selectedText.match(/(\d+)\s+items?\s+selected/);
+  215 |         return match ? parseInt(match[1], 10) : 0;
+  216 |      }
+  217 |
+  218 |      async isAnyPhotoSelected(){
+  219 |         const selectedText = await this.isPhotoSelected();
+  220 |         return selectedText !== null && selectedText.includes('selected');
+  221 |      }
+  222 |
+  223 |      async uploadSuccessMessage(){
+  224 |         return await this.page.locator('[data-testid="popup"]>div>div>p').textContent();
+  225 |      }
+  226 |
+  227 |      async clickPhotoAlbum(){
+> 228 |         return await this.page.locator('[data-testid="photo-album-tabs"]+div+div>div>div>div>div+div>div').click();
+      |                                                                                                            ^ Error: locator.click: Error: strict mode violation: locator('[data-testid="photo-album-tabs"]+div+div>div>div>div>div+div>div') resolved to 8 elements:
+  229 |      }
+  230 |
+  231 |      async clickVslamAlbum(){
+  232 |         return await this.page.locator(' [data-testid="photo-album-tabs"]+div').click();
+  233 |      }
+  234 |     
+  235 |     }
+  236 |     
+```

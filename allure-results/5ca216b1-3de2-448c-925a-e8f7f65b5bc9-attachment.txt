@@ -1,0 +1,15 @@
+Entering Email: ari.braun@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Ari
+Entering Last Name: Braun
+Selecting Organization: Windler and Sons
+Organization input validated: "Windler and Sons"
+Entering Phone Number: +18447396195
+Selecting purpose: Disaster Response
+Selecting country: Italy
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/FXKY1ftQb9ytxyOWG8l-WA?email=ari.braun%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/FXKY1ftQb9ytxyOWG8l-WA?email=ari.braun%40j87bh0xv.mailosaur.net
+Expected Email in URL: ari.braun%40j87bh0xv.mailosaur.net
+Verification email test completed

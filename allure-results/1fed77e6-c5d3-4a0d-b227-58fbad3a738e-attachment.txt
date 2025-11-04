@@ -1,0 +1,4 @@
+Popup was visible and has been closed.
+Clicked on create content group
+Created Group ID: 65838
+Created new Measurement Item at (755.6666666666667, 320)

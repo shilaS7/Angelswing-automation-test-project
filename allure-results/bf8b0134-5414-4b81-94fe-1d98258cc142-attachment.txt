@@ -1,0 +1,32 @@
+✅ Token created with UUID: 2a9cc13c-0207-41d1-95ec-ff71a3acb224
+Selecting role: Project Viewer
+Entering email: 2a9cc13c-0207-41d1-95ec-ff71a3acb224@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 2a9cc13c-0207-41d1-95ec-ff71a3acb224@emailhook.site
+Search completed
+No collaborators found for "2a9cc13c-0207-41d1-95ec-ff71a3acb224@emailhook.site"
+Searching for: 2a9cc13c-0207-41d1-95ec-ff71a3acb224@emailhook.site
+Search completed
+Row Cell Text: 2a9cc13c-0207-41d1-95ec-ff71a3acb224@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=2a9cc13c-0207-41d1-95ec-ff71a3acb224%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Deja
+Entering Last Name: Kilback
+Selecting Organization: DuBuque, Prosacco and Mayert
+Entering Phone Number: +14619424026
+Selecting purpose: Construction
+Selecting country: Haiti
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/jk7gl963Fxp35RYaysEOSA?email=2a9cc13c-0207-41d1-95ec-ff71a3acb224%40emailhook.site
+🗑️  Token 2a9cc13c-0207-41d1-95ec-ff71a3acb224 deleted successfully

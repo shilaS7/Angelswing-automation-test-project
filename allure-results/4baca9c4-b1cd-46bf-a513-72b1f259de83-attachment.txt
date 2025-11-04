@@ -1,0 +1,39 @@
+✅ Token created with UUID: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0
+Selecting role: Admin
+Entering email: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Searching for: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Search completed
+No collaborators found for "bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site"
+Searching for: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Search completed
+Row Cell Text: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=bb7e97ce-7fdd-467e-88ca-113ba2c48cf0%40emailhook.site
+🗑️  All Requests for Token bb7e97ce-7fdd-467e-88ca-113ba2c48cf0 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Nils
+Entering Last Name: Schimmel
+Selecting Organization: Considine LLC
+Organization input validated: "Considine LLC"
+Entering Phone Number: +19956179774
+Selecting purpose: Inspection
+Selecting country: South Georgia and the South Sandwich Islands
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/IV8EGYUgWLXI0wwZGDjIXA?email=bb7e97ce-7fdd-467e-88ca-113ba2c48cf0%40emailhook.site
+Searching for: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Search completed
+Row Cell Text: Nils Schimmelbb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Searching for: bb7e97ce-7fdd-467e-88ca-113ba2c48cf0@emailhook.site
+Search completed
+No data available
+🗑️  Token bb7e97ce-7fdd-467e-88ca-113ba2c48cf0 deleted successfully

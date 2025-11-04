@@ -1,0 +1,142 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Map Tool button tests @smoke @poc >> Should set map to default view after clicking on default tool button
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\mapToolButton.spec.ts:50:9
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\mapToolButton.spec.ts:18:19
+```
+
+# Test source
+
+```ts
+   1 | import { HelperBase } from '../../../pages/HelperBase';
+   2 | import { PageManager } from '../../../pages/PageManager';
+   3 | import { test } from '../../../test-options';
+   4 | import { BrowserContext, expect, Page } from '@playwright/test';
+   5 | import * as fs from 'fs';
+   6 |
+   7 |
+   8 | test.describe('Map Tool button tests @smoke @poc', () => {
+   9 |     let pageManager: PageManager;
+   10 |     let context: BrowserContext;
+   11 |     let page: Page;
+   12 |     let helper: HelperBase;
+   13 |
+   14 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+   15 |
+   16 |
+   17 |     test.beforeAll(async ({ browser }, testInfo) => {
+>  18 |         context = await browser.newContext({
+      |                   ^ Error: Error reading storage state from playwright/.auth/user.json:
+   19 |             recordVideo: {
+   20 |                 dir: testInfo.outputPath('videos'),
+   21 |                 size: {
+   22 |                     width: 1920,
+   23 |                     height: 1080
+   24 |                 }
+   25 |             }
+   26 |         });
+   27 |         page = await context.newPage();
+   28 |         pageManager = new PageManager(page);
+   29 |         helper = new HelperBase(pageManager.getPage());
+   30 |         await pageManager.onLoginPage().openLoginPage();
+   31 |         await pageManager.onDashboardPage().closeReadUserGuidePopUp();
+   32 |         await pageManager.onDashboardPage().openProject(projectTitle);
+   33 |     });
+   34 |
+   35 |     test.afterAll(async ({ }, testInfo) => {
+   36 |         const videoPath = testInfo.outputPath('my-video.webm');
+   37 |         await Promise.all([
+   38 |             page.video()?.saveAs(videoPath),
+   39 |             page.close()
+   40 |         ]);
+   41 |         testInfo.attachments.push({
+   42 |             name: 'video',
+   43 |             path: videoPath,
+   44 |             contentType: 'video/webm'
+   45 |         });
+   46 |         await context.close();
+   47 |     });
+   48 |
+   49 |     // https://app.clickup.com/t/86eru52c3
+   50 |     test('Should set map to default view after clicking on default tool button', async () => {
+   51 |         const mapPage = pageManager.onMapPage;
+   52 |         await mapPage.clickOnTwoScreen();
+   53 |         const twoScreenPage = pageManager.onTwoScreenPage;
+   54 |         expect(await twoScreenPage.getScreenPickerCountForTwoScreen()).toHaveCount(2);
+   55 |
+   56 |         await mapPage.clickOnDefault();
+   57 |         expect(await twoScreenPage.getScreenPickerCountForTwoScreen()).toHaveCount(0);
+   58 |         const fourScreenPage = pageManager.onFourScreenPage;
+   59 |         expect(await fourScreenPage.getScreenPickerCountForFourScreen()).toHaveCount(0);
+   60 |
+   61 |         await mapPage.clickOnFourScreen();
+   62 |         expect(await fourScreenPage.getScreenPickerCountForFourScreen()).toHaveCount(4);
+   63 |
+   64 |         await mapPage.clickOnDefault();
+   65 |         expect(await twoScreenPage.getScreenPickerCountForTwoScreen()).toHaveCount(0);
+   66 |         expect(await fourScreenPage.getScreenPickerCountForFourScreen()).toHaveCount(0);
+   67 |
+   68 |         await mapPage.clickOnSlider();
+   69 |         const sliderPage = pageManager.onSliderScreenPage;
+   70 |         expect(await sliderPage.isSliderVisible()).toBe(true);
+   71 |
+   72 |         await mapPage.clickOnDefault();
+   73 |         expect(await sliderPage.isSliderVisible()).toBe(false);
+   74 |     });
+   75 |
+   76 |     // https://app.clickup.com/t/86eru52w7
+   77 |     test.describe('Split 2/4 - screen test', () => {
+   78 |
+   79 |         test('Should split the view into 2 different screens on click of 2-screen', async () => {
+   80 |             const mapPage = pageManager.onMapPage;
+   81 |             const datasetTitle = await mapPage.getDataSetTitle();
+   82 |
+   83 |             await mapPage.clickOnTwoScreen();
+   84 |
+   85 |             const twoScreenPage = pageManager.onTwoScreenPage;
+   86 |             const datasetTitleTwoScreen = await twoScreenPage.getDataSetTitleFromTwoScreen();
+   87 |
+   88 |             expect(datasetTitle).toEqual(datasetTitleTwoScreen);
+   89 |
+   90 |             expect(await twoScreenPage.getScreenPickerCountForTwoScreen()).toHaveCount(2);
+   91 |
+   92 |             const selectionMessage = await twoScreenPage.getMessageFromSecondDatasetSelectScreen();
+   93 |             console.log(`Dataset selection message: ${selectionMessage}`);
+   94 |             expect(selectionMessage).toEqual('Please select another dataset');
+   95 |
+   96 |             await twoScreenPage.validateOrthoIsSelectedByDefaultOnFirstScreen();
+   97 |             await twoScreenPage.validateDsmAndDtmIsClickableInFirstScreen();
+   98 |             await twoScreenPage.validateOrthoDsmDtmAreDisabledInSecondScreen();
+   99 |
+  100 |             await twoScreenPage.clickAndSelectDataSetOnSecondScreen(datasetTitle as string);
+  101 |         });
+  102 |
+  103 |         test('Should split the view into 4 different screens on click of 4-screen', async () => {
+  104 |             const mapPage = pageManager.onMapPage;
+  105 |             const datasetTitle = await mapPage.getDataSetTitle();
+  106 |
+  107 |             await mapPage.clickOnFourScreen();
+  108 |
+  109 |             const fourScreenPage = pageManager.onFourScreenPage;
+  110 |             const datasetTitleFourScreen = await fourScreenPage.getDataSetTitleFromFourScreen();
+  111 |
+  112 |             expect(datasetTitle).toEqual(datasetTitleFourScreen);
+  113 |
+  114 |             await expect(await fourScreenPage.getScreenPickerCountForFourScreen()).toHaveCount(4);
+  115 |
+  116 |             const selectionMessage = await fourScreenPage.getMessageFromSecondDatasetSelectScreen();
+  117 |             console.log(`Dataset selection message: ${selectionMessage}`);
+  118 |             expect(selectionMessage).toEqual('Please select another dataset');
+```

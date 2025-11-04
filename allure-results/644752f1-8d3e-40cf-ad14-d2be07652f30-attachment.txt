@@ -1,0 +1,5 @@
+All filter elements found: 1
+Element 0: testId="timelapse-collection-filter-icon-inactive", text="", visible=true
+Filter button text: 
+Selected filter text: 
+Expected filter text: Source Photos

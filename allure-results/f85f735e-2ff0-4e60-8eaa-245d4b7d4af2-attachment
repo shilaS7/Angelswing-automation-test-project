@@ -1,0 +1,191 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VSlam Page >> should validate the 360 vslam filter is selected
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:84:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('p').filter({ hasText: 'Menu' }).locator('..').getByText(' My Projects')
+
+    at DashboardPage.clickOnProjectMenu (D:\Angelswing_QA\angelswing-automation-test\pages\DashboardPage.ts:64:99)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:33:34
+```
+
+# Test source
+
+```ts
+   1 | import { Locator, Page, expect } from '@playwright/test';
+   2 |
+   3 | export class DashboardPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+   10 |     private async closePopup(popupLocator: Locator, label: string = 'Popup') {
+   11 |         try {
+   12 |             if (await popupLocator.isVisible({ timeout: 2000 })) {
+   13 |                 await popupLocator.click();
+   14 |                 console.log(`${label} was visible and has been closed.`);
+   15 |             } else {
+   16 |                 console.log(`${label} not visible, skipping close.`);
+   17 |             }
+   18 |         } catch (error) {
+   19 |             console.log(`Error during ${label} close:`, error);
+   20 |         }
+   21 |     }
+   22 |
+   23 |     async closeReadUserGuidePopUp() {
+   24 |         // const popup = this.page.locator('[data-testid="popup-close"]');
+   25 |         // await this.closePopup(popup, 'ReadUserGuide Popup');
+   26 |         this.closeReadUserGuidePopUpOnMobile();
+   27 |     }
+   28 |
+   29 |     async closeReadUserGuidePopUpOnMobile() {
+   30 |         const svgPopup = this.page.locator('[data-testid="popup-close"]');
+   31 |         const fallbackCloseButton = this.page.locator('button:has-text("Close")');
+   32 |
+   33 |         if (await svgPopup.isVisible({ timeout: 2000 })) {
+   34 |             await svgPopup.click();
+   35 |             return;
+   36 |         }
+   37 |
+   38 |         if (await fallbackCloseButton.isVisible({ timeout: 2000 })) {
+   39 |             await fallbackCloseButton.click();
+   40 |             return;
+   41 |         }
+   42 |
+   43 |         console.log('Mobile ReadUserGuide Popup not visible, skipping close.');
+   44 |     }
+   45 |
+   46 |     async openProject(projectId: string = process.env.PROJECT_ID || '1575') {
+   47 |         await this.page.getByTestId(`project-list-card-${projectId}`).click();
+   48 |     }
+   49 |
+   50 |     async verifyLoadingBehavior() {
+   51 |         const loading = this.page.getByTestId('loading-wrapper');
+   52 |         const isVisible = await loading.isVisible({ timeout: 300 });
+   53 |         expect(isVisible).toBe(true);
+   54 |         await expect(loading).toBeHidden({ timeout: 10000 });
+   55 |     }
+   56 |
+   57 |     async isSignOutButtonVisible() {
+   58 |         const signOutButton = this.page.getByRole('button', { name: 'Sign out' });
+   59 |         const isVisible = await signOutButton.isVisible();
+   60 |         return isVisible;
+   61 |     }
+   62 |
+   63 |     async clickOnProjectMenu() {
+>  64 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText(' My Projects').click();
+      |                                                                                                   ^ TimeoutError: locator.click: Timeout 15000ms exceeded.
+   65 |     }
+   66 |
+   67 |     async getLoggedInUserResponse(): Promise<any> {
+   68 |         const response = await this.page.waitForResponse(response =>
+   69 |             response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST',
+   70 |             { timeout: 10000 }
+   71 |         );
+   72 |         const status = response.status();
+   73 |         const body = await response.json();
+   74 |         // console.log(`Response: ${JSON.stringify(body)}`);
+   75 |         console.log(`Status: ${status}`);
+   76 |         return body;
+   77 |     }
+   78 |
+   79 |
+   80 |     async clickOnUserName() {
+   81 |         await this.page.getByTestId('user-profile-button').click();
+   82 |     }
+   83 |
+   84 |     async hoverOnUserName(name: string) {
+   85 |         await this.page.locator(`div:text-is("${name}")`).hover();
+   86 |     }
+   87 |
+   88 |     async getTooltipText() {
+   89 |         const tooltip = this.page.locator('[class="tippy-content"]').textContent();
+   90 |         return tooltip;
+   91 |     }
+   92 |
+   93 |     async clickOnSignOutButton() {
+   94 |         await this.page.getByRole('button', { name: 'Sign out' }).click();
+   95 |
+   96 |     }
+   97 |
+   98 |     async clickOnReleaseNotes() {
+   99 |         await this.page.locator('[data-testid="dashboard-Release Note -0"]').click();
+  100 |     }
+  101 |
+  102 |     async clickOnUserGuide() {
+  103 |         await this.page.locator('[data-testid="dashboard-User Guide-1"]').click();
+  104 |     }
+  105 |
+  106 |     async clickOnOfficialWebsite() {
+  107 |         await this.page.locator('[data-testid="dashboard-Official Website-2"]').click();
+  108 |     }
+  109 |
+  110 |     async clickOnSupport() {
+  111 |         await this.page.locator('div:text-is("Support")').click();
+  112 |     }
+  113 |
+  114 |     async validateURL(expectedUrl: string | RegExp): Promise<void> {
+  115 |         await expect(this.page).toHaveURL(expectedUrl);
+  116 |     }
+  117 |
+  118 |     async validateHeaderText(content: string) {
+  119 |         await expect(this.page.locator('h1, h2').first()).toContainText(content);
+  120 |     }
+  121 |
+  122 |     async clickOnViewProjectToCloseProjectSharedPopup() {
+  123 |         const popup = this.page.getByTestId('popup');
+  124 |         await popup.waitFor({ state: 'visible' });
+  125 |         await popup.getByRole('button', { name: 'View Project' }).first().click();
+  126 |     }
+  127 |
+  128 |     async scrollRecentProjectsSectionHorizontally() {
+  129 |         const recentProjectsSection = this.page.locator('.no-scrollbar');
+  130 |         await recentProjectsSection.hover();
+  131 |         await recentProjectsSection.scrollIntoViewIfNeeded();
+  132 |         await this.page.mouse.wheel(0, 100);
+  133 |
+  134 |         // Optional wait or assertion to confirm scroll occurred
+  135 |         await this.page.waitForTimeout(500);
+  136 |         await this.page.mouse.wheel(0, -100);
+  137 |         await this.page.waitForTimeout(500);
+  138 |     }
+  139 |
+  140 |     async collapseSidebar() {
+  141 |         await this.expandCollapseSideBar();
+  142 |     }
+  143 |
+  144 |     async expandSidebar() {
+  145 |         await this.expandCollapseSideBar();
+  146 |     }
+  147 |
+  148 |     async expandCollapseSideBar() {
+  149 |         const collapseButton = this.page.getByTestId('project-sidebar-collapse-button');
+  150 |         await collapseButton.click({ force: true });
+  151 |     }
+  152 |
+  153 |     async getCollapseButtonText() {
+  154 |         const collapseButton = this.page.getByTestId('project-sidebar-collapse-button');
+  155 |         const collapseButtonText = await collapseButton.textContent();
+  156 |         return collapseButtonText;
+  157 |     }
+  158 |
+  159 |     async clickLinkAndValidateHeaderOfLinkOnNewTab(
+  160 |         clickFn: () => Promise<void>,
+  161 |         expectedUrl: RegExp,
+  162 |         expectedHeader: string
+  163 |     ) {
+  164 |         const [popup] = await Promise.all([
+```

@@ -1,0 +1,39 @@
+✅ Token created with UUID: 6a6224f9-2965-4c4b-a924-5c27806d78d2
+Selecting role: Admin
+Entering email: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Search completed
+No collaborators found for "6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site"
+Searching for: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Search completed
+Row Cell Text: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+1
+✅ Signup link found: https://dev.angelswing.io/signup?email=6a6224f9-2965-4c4b-a924-5c27806d78d2%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+🗑️  All Requests for Token 6a6224f9-2965-4c4b-a924-5c27806d78d2 deleted successfully
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Carli
+Entering Last Name: Price
+Selecting Organization: Wyman Group
+Entering Phone Number: +18788073587
+Selecting purpose: Inspection
+Selecting country: Guam
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+0
+❌ No email received yet.
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+1
+✅ Verify link found: https://dev-api.angelswing.io/v2/confirm-email/Prt0ICAEpV3UKkEwMxJT8g?email=6a6224f9-2965-4c4b-a924-5c27806d78d2%40emailhook.site
+Searching for: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Search completed
+Row Cell Text: Carli Price6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Searching for: 6a6224f9-2965-4c4b-a924-5c27806d78d2@emailhook.site
+Search completed
+No data available
+🗑️  Token 6a6224f9-2965-4c4b-a924-5c27806d78d2 deleted successfully

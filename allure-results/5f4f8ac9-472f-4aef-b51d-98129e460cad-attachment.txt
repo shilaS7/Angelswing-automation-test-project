@@ -1,0 +1,32 @@
+✅ Token created with UUID: 478d68df-83f9-4237-9e70-5ac2ce2c5465
+Selecting role: Admin
+Entering email: 478d68df-83f9-4237-9e70-5ac2ce2c5465@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 478d68df-83f9-4237-9e70-5ac2ce2c5465@emailhook.site
+Search completed
+No collaborators found for "478d68df-83f9-4237-9e70-5ac2ce2c5465@emailhook.site"
+Searching for: 478d68df-83f9-4237-9e70-5ac2ce2c5465@emailhook.site
+Search completed
+Row Cell Text: 478d68df-83f9-4237-9e70-5ac2ce2c5465@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=478d68df-83f9-4237-9e70-5ac2ce2c5465%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Michele
+Entering Last Name: Torphy
+Selecting Organization: Schoen and Sons
+Entering Phone Number: +13287103609
+Selecting purpose: Others
+Selecting country: Libya
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #2: https://dev-api.angelswing.io/v2/confirm-email/GX0tOA7WC5YoO_i4Dfc2sA?email=478d68df-83f9-4237-9e70-5ac2ce2c5465%40emailhook.site
+🗑️  Token 478d68df-83f9-4237-9e70-5ac2ce2c5465 deleted successfully

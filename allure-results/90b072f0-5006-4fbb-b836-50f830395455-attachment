@@ -1,0 +1,57 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: authentication
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\auth.setup.ts:10:6
+
+# Error details
+
+```
+TimeoutError: locator.fill: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('#sign-in-field-email')
+
+    at D:\Angelswing_QA\angelswing-automation-test\tests\auth.setup.ts:13:48
+```
+
+# Page snapshot
+
+```yaml
+- img "Lottie animation":
+  - img
+```
+
+# Test source
+
+```ts
+   1 | import { test as setup, expect } from '@playwright/test';
+   2 | import path from 'path';
+   3 |
+   4 | const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+   5 |
+   6 | const email: string = process.env.EMAIL || '';
+   7 | const password: string = process.env.PASSWORD || '';
+   8 |
+   9 |
+  10 | setup('authentication', async ({ page }) => {
+  11 |
+  12 |     await page.goto('/');
+> 13 |     await page.locator('#sign-in-field-email').fill(email);
+     |                                                ^ TimeoutError: locator.fill: Timeout 5000ms exceeded.
+  14 |     await page.locator('#sign-in-field-password').fill(password);;
+  15 |     await page.getByRole('button', { name: 'Continue with email' }).click();
+  16 |     await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible();
+  17 |     await expect(page).toHaveURL('/project/dashboard');
+  18 |     // await page.waitForTimeout(3000);
+  19 |
+  20 |     await page.context().storageState({ path: authFile });
+  21 | });
+  22 |
+  23 |
+  24 |
+```

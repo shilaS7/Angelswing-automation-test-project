@@ -1,0 +1,65 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the inspection photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:230:9
+
+# Error details
+
+```
+Error: Timed out 30000ms waiting for expect(locator).toBeVisible()
+
+Locator: locator('[id="as-3d-view-wrapper"] canvas[data-engine^="three"]')
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 30000ms
+  - waiting for locator('[id="as-3d-view-wrapper"] canvas[data-engine^="three"]')
+
+    at ThreeDMapPage.verify3DMapIsVisible (D:\Angelswing_QA\angelswing-automation-test\pages\ThreeDMapPage.ts:11:99)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:244:26
+```
+
+# Test source
+
+```ts
+   1 | import { Page, Locator, expect } from '@playwright/test';
+   2 |
+   3 | export class ThreeDMapPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |     async verify3DMapIsVisible() {
+> 11 |         await expect(this.page.locator('[id="as-3d-view-wrapper"] canvas[data-engine^="three"]')).toBeVisible({ timeout: 30000 });
+     |                                                                                                   ^ Error: Timed out 30000ms waiting for expect(locator).toBeVisible()
+  12 |     }
+  13 |
+  14 |     async getMapAttributes() {
+  15 |         const mapWrapper = this.page.locator('[id="as-3d-view-wrapper"]');
+  16 |         const zoomLevel = await mapWrapper.getAttribute('data-zoom-level');
+  17 |         const mapRotation = await mapWrapper.getAttribute('data-camera-rotation');
+  18 |         const mapCameraPosition = await mapWrapper.getAttribute('data-camera-position');
+  19 |
+  20 |         if (!zoomLevel || !mapRotation || !mapCameraPosition) {
+  21 |             throw new Error('One or more map attributes are missing');
+  22 |         }
+  23 |
+  24 |         return {
+  25 |             zoomLevel: parseFloat(zoomLevel),
+  26 |             mapRotation: parseFloat(mapRotation),
+  27 |             mapCameraPosition: mapCameraPosition.split(',').map(Number)
+  28 |         };
+  29 |     }
+  30 |
+  31 |
+  32 | }
+  33 |
+```

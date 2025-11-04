@@ -1,0 +1,11 @@
+Entering Email: emmanuel.becker@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Emmanuel
+Entering Last Name: Becker
+Selecting Organization: Steuber LLC
+Organization input validated: "Steuber LLC"
+Entering Phone Number: +19233661686
+Selecting purpose: Drone Service
+Selecting country: Bhutan
+Selecting language: English

@@ -1,0 +1,15 @@
+Entering Email: concepcion.marks@qk1te4rl.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Concepcion
+Entering Last Name: Marks
+Selecting Organization: West Group
+Organization input validated: "West Group"
+Entering Phone Number: +19219436057
+Selecting purpose: Inspection
+Selecting country: Guernsey
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/hLBaGLBKIhATjmAjCm7FDQ?email=concepcion.marks%40qk1te4rl.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/hLBaGLBKIhATjmAjCm7FDQ?email=concepcion.marks%40qk1te4rl.mailosaur.net
+Expected Email in URL: concepcion.marks%40qk1te4rl.mailosaur.net
+Verification email test completed

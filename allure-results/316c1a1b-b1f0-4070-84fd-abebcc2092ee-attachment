@@ -1,0 +1,91 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Measurement Page Test >> Location E2E Test >> Should create group, Location and validate x, y coordinates and elevation on map and side bar @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:349:13
+
+# Error details
+
+```
+TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator('div').filter({ hasText: 'Production Project id 1548' }).last()
+
+    at DashboardPage.openProject (D:\Angelswing_QA\angelswing-automation-test\pages\DashboardPage.ts:23:23)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:36:45
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 |
+   3 | export class DashboardPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |     async closeReadUserGuidePopUp() {
+  11 |         const popup = this.page.getByTestId('popup-close');
+  12 |         try {
+  13 |             await popup.waitFor({ state: 'visible' });
+  14 |             await popup.click();
+  15 |             console.log('Popup was visible and has been closed.');
+  16 |         } catch (error) {
+  17 |             console.log('Popup not visible, skipping close.');
+  18 |         }
+  19 |     }
+  20 |
+  21 |     async openProject(projectTitle: string) {
+  22 |         const project = this.page.locator('div', { hasText: projectTitle }).last();
+> 23 |         await project.scrollIntoViewIfNeeded();
+     |                       ^ TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 10000ms exceeded.
+  24 |         await project.click();
+  25 |     }
+  26 |
+  27 |     async verifyLoadingBehavior() {
+  28 |         const loading = this.page.getByTestId('loading-wrapper');
+  29 |         const isVisible = await loading.isVisible({ timeout: 300 });
+  30 |         expect(isVisible).toBe(true);
+  31 |         await expect(loading).toBeHidden({ timeout: 10000 });
+  32 |     }
+  33 |
+  34 |     async isSignOutButtonVisible() {
+  35 |         const signOutButton = this.page.getByRole('button', { name: 'Sign out' });
+  36 |         const isVisible = await signOutButton.isVisible();
+  37 |         return isVisible;
+  38 |     }
+  39 |
+  40 |     async clickOnProjectMenu() {
+  41 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText('Projects').click();
+  42 |     }
+  43 |
+  44 |     async getLoggedInUserResponse(): Promise<any> {
+  45 |         const response = await this.page.waitForResponse(response =>
+  46 |             response.url().includes(`/v2/auth/signin`) && response.status() === 201 && response.request().method() === 'POST',
+  47 |             { timeout: 10000 }
+  48 |         );
+  49 |         const status = response.status();
+  50 |         const body = await response.json();
+  51 |         // console.log(`Response: ${JSON.stringify(body)}`);
+  52 |         console.log(`Status: ${status}`);
+  53 |         return body;
+  54 |     }
+  55 |
+  56 |
+  57 |     async clickOnUserName(name: string) {
+  58 |         await this.page.locator('p', { hasText: `${name}` }).click();
+  59 |     }
+  60 |
+  61 |
+  62 |
+  63 | }
+  64 |
+```

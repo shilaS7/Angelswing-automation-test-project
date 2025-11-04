@@ -1,0 +1,32 @@
+✅ Token created with UUID: 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2
+Selecting role: Admin
+Entering email: 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2@emailhook.site
+Search completed
+No collaborators found for "1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2@emailhook.site"
+Searching for: 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2@emailhook.site
+Search completed
+Row Cell Text: 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Tyson
+Entering Last Name: Conn
+Selecting Organization: Zboncak - Hartmann
+Entering Phone Number: +19074004955
+Selecting purpose: Disaster Response
+Selecting country: Mauritania
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/eVo4FUPqUnLwbG5LXBgnjg?email=1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2%40emailhook.site
+🗑️  Token 1b8a53f1-c8d2-4c4c-ab48-61ab81dae5b2 deleted successfully

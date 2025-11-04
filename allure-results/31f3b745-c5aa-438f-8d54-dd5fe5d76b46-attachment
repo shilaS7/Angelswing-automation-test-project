@@ -1,0 +1,208 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite project member to multiple projects
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:707:13
+
+# Error details
+
+```
+Error: page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://dev.angelswing.io/signup?email=0dd14a04-b083-4253-8a2f-257a02c92936%40emailhook.site&organization=Schultz%2C+Armstrong+and+Zboncak", waiting until "load"
+
+    at completeUserSignupFlow (D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:81:25)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:722:31
+```
+
+# Test source
+
+```ts
+   1 | import { faker } from '@faker-js/faker';
+   2 | import { HelperBase } from '../../pages/HelperBase';
+   3 | import { PageManager } from '../../pages/PageManager';
+   4 | import { test, expect } from '../../test-options';
+   5 | import { BrowserContext, Page, request } from '@playwright/test';
+   6 | import { UI_META } from '../../utils/uiMeta';
+   7 | import { countries, purpose } from '../../test-data/signup-test-data';
+   8 | import { createTokenAndGetUuid, deleteRequest, deleteToken, waitForEmailAndExtractLink } from '../../services/fetchEmail.requests';
+   9 |
+   10 | test.use({ storageState: { cookies: [], origins: [] } });
+   11 |
+   12 | test.describe('Organization Page', () => {
+   13 |     let pm: PageManager;
+   14 |     let helper: HelperBase;
+   15 |     let context: BrowserContext;
+   16 |     let page: Page;
+   17 |
+   18 |     let randomPurpose = purpose[Math.floor(Math.random() * purpose.length)];
+   19 |     let randomCountry = countries[Math.floor(Math.random() * countries.length)];
+   20 |
+   21 |     let name: string;
+   22 |     let organizationName: string;
+   23 |     const projectName = ['GLOBAL - QA AWS', '1470 Source photo processing EPSG 5174', 'Automation Update'];
+   24 |
+   25 |     const firstName = faker.person.firstName();
+   26 |     const lastName = faker.person.lastName();
+   27 |     let email: string = '';
+   28 |
+   29 |     const userDetails = {
+   30 |         email: email || faker.internet.email(),
+   31 |         password: 'Test@12345',
+   32 |         firstName: firstName,
+   33 |         lastName: lastName,
+   34 |         phone: faker.phone.number({ style: 'international' }),
+   35 |         organization: faker.company.name(),
+   36 |         country: randomCountry,
+   37 |         purpose: randomPurpose,
+   38 |         language: 'English',
+   39 |     };
+   40 |     const emailDomain = [
+   41 |         "angelswing.io",
+   42 |         "emailhook.site"
+   43 |     ];
+   44 |
+   45 |     const searchValues = UI_META.organizationPage.searchValues;
+   46 |
+   47 |     async function validateAdminUI({
+   48 |         tab,
+   49 |         email,
+   50 |         organizationName,
+   51 |         projectCount,
+   52 |         helper,
+   53 |     }: {
+   54 |         tab: Page,
+   55 |         email: string,
+   56 |         organizationName: string,
+   57 |         projectCount: number,
+   58 |         helper: HelperBase;
+   59 |     }) {
+   60 |         const pageManager = new PageManager(tab);
+   61 |         const orgPage = pageManager.onOrganizationPage;
+   62 |         const dashboard = pageManager.onDashboardPage;
+   63 |
+   64 |         await dashboard.clickOnOrganization();
+   65 |         await orgPage.clickOnAccountsTab();
+   66 |         await orgPage.validateUserIsListedInAccounts(email);
+   67 |         await orgPage.clickOnPendingRequestsTab();
+   68 |         await orgPage.validateUserIsNotListedInPendingRequests(email);
+   69 |         await dashboard.clickOnOrganizationProject(organizationName);
+   70 |         const projectPage = pageManager.onOrganizationProjectPage;
+   71 |         const actualCount = await projectPage.getOrganizationProjectCount();
+   72 |         expect(actualCount).toBe(projectCount);
+   73 |     }
+   74 |
+   75 |     async function completeUserSignupFlow({ request, context, token, userDetails, password }: { request: any, context: BrowserContext, token: string, userDetails: any, password: string; }) {
+   76 |         const signupLink = await waitForEmailAndExtractLink(request, token, 'signup');
+   77 |         expect(signupLink).toContain('signup');
+   78 |
+   79 |         // ---- Open Sign-Up Link in a New Tab ----
+   80 |         const signupTab = await context.newPage();
+>  81 |         await signupTab.goto(signupLink);
+      |                         ^ Error: page.goto: Target page, context or browser has been closed
+   82 |
+   83 |         const signupPM = new PageManager(signupTab);
+   84 |         const onSignUpPage = signupPM.onSignupPage;
+   85 |
+   86 |         await onSignUpPage.clickOnSignUpWithEmail();
+   87 |         await onSignUpPage.enterPassword(password);
+   88 |         await onSignUpPage.enterConfirmPassword(password);
+   89 |         await onSignUpPage.clickOnNextButton();
+   90 |
+   91 |         await onSignUpPage.enterFirstName(userDetails.firstName);
+   92 |         await onSignUpPage.enterLastName(userDetails.lastName);
+   93 |         await onSignUpPage.enterOrganization(userDetails.organization, false);
+   94 |         await onSignUpPage.enterPhoneNumber(userDetails.phone);
+   95 |         await onSignUpPage.selectPurpose(userDetails.purpose);
+   96 |         await onSignUpPage.clickOnNextButton();
+   97 |
+   98 |         await onSignUpPage.selectCountry(userDetails.country);
+   99 |         await onSignUpPage.selectLanguage(userDetails.language);
+  100 |         await onSignUpPage.checkTermsAndConditions();
+  101 |         await onSignUpPage.clickOnCreateAccount();
+  102 |
+  103 |         return signupTab;
+  104 |     }
+  105 |
+  106 |     async function completeEmailVerificationAndLogin({ request, context, token, password }: { request: any, context: BrowserContext, token: string, password: string; }) {
+  107 |         const verificationLink = await waitForEmailAndExtractLink(request, token, 'verify');
+  108 |         expect(verificationLink).toContain('confirm-email');
+  109 |         // ---- Open Verification Link in Another New Tab ----
+  110 |         const verificationTab = await context.newPage();
+  111 |         await verificationTab.goto(verificationLink);
+  112 |
+  113 |         const loginPM = new PageManager(verificationTab);
+  114 |         const onLoginPage = loginPM.onLoginPage;
+  115 |         await onLoginPage.enterPassword(password);
+  116 |         await onLoginPage.clickSignIn();
+  117 |         await expect(verificationTab).toHaveURL(/.*project\/dashboard/);
+  118 |
+  119 |         return verificationTab;
+  120 |     }
+  121 |
+  122 |     async function setupInvitation(organizationPage: any, projectNames: string[], role: string) {
+  123 |         await organizationPage.clickOnAccountsTab();
+  124 |         await organizationPage.clickOnInviteButton();
+  125 |         expect(await organizationPage.getInvitationPageHeader()).toBe(UI_META.organizationPage.popupHeader.invitation);
+  126 |
+  127 |         await organizationPage.clickOnSelectProjects();
+  128 |         for (const project of projectNames) {
+  129 |             await organizationPage.selectProject(project);
+  130 |         }
+  131 |         await organizationPage.selectRole(role);
+  132 |     }
+  133 |
+  134 |     async function setupDashboardAfterLogin(tab: Page, projectCount?: number, viewProjectPosition: number = 0) {
+  135 |         const newUserDashboard = new PageManager(tab).onDashboardPage;
+  136 |         const helper = new HelperBase(tab);
+  137 |
+  138 |         await helper.waitForPageToLoad();
+  139 |         await newUserDashboard.closeReadUserGuidePopUp();
+  140 |         await newUserDashboard.clickOnProjectMenu();
+  141 |
+  142 |         if (projectCount !== undefined) {
+  143 |             const countOfSharedProjects = await newUserDashboard.getCountOfSharedProjects();
+  144 |             expect(countOfSharedProjects).toBe(projectCount + 1);
+  145 |         }
+  146 |
+  147 |         await newUserDashboard.clickOnViewProjectToCloseProjectSharedPopup(viewProjectPosition);
+  148 |         await newUserDashboard.validateURL(/.*content\/map\/.*/);
+  149 |
+  150 |         return { newUserDashboard, helper };
+  151 |     }
+  152 |
+  153 |     async function signoutAndCloseTabs(verificationTab: Page, signupTab: Page, dashboard: any) {
+  154 |         const projectPagePM = new PageManager(verificationTab);
+  155 |         await projectPagePM.onProjectPage.clickOnDashboardMenu();
+  156 |         await dashboard.clickOnSignOutButton();
+  157 |         await verificationTab.close();
+  158 |         await signupTab.close();
+  159 |     }
+  160 |
+  161 |     async function interceptSubscriptionData(page: Page, limit: number, completed: number, start: string, end: string) {
+  162 |         await pm.getPage.waitForTimeout(2000);
+  163 |         await page.route('**/v2/organizations/current', async route => {
+  164 |             const response = await route.fetch();
+  165 |             const json = await response.json();
+  166 |             json.data.currentPlan.sourceProcessingLimit = limit;
+  167 |             json.data.currentPlan.startDate = start;
+  168 |             json.data.currentPlan.endDate = end;
+  169 |
+  170 |             await route.fulfill({
+  171 |                 status: response.status(),
+  172 |                 contentType: response.headers()['content-type'] || 'application/json',
+  173 |                 body: JSON.stringify(json)
+  174 |             });
+  175 |         });
+  176 |
+  177 |         await page.route('**/v2/organizations/7/processings', async route => {
+  178 |             const response = await route.fetch();
+  179 |             const json = await response.json();
+  180 |             json.meta.completed = completed;
+  181 |             await route.fulfill({
+```

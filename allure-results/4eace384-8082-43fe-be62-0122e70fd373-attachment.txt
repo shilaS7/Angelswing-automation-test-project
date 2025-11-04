@@ -1,0 +1,18 @@
+✅ Token created with UUID: 5e039b8f-6f1b-4a0d-8b4d-6d0dee8f363b
+✅ Token created with UUID: 2cfed892-8215-45be-abeb-1b3c7c180eea
+✅ Token created with UUID: a1628572-928d-425c-8287-3a9d8dbcb8d6
+Selecting role: Project Member
+Entering email: a1628572-928d-425c-8287-3a9d8dbcb8d6@emailhook.site
+Selecting role: Project Member
+Entering email: 2cfed892-8215-45be-abeb-1b3c7c180eea@emailhook.site
+Invitation success message: The invitations have been sent.
+pending
+Searching for: a1628572-928d-425c-8287-3a9d8dbcb8d6@emailhook.site
+Search completed
+Row Cell Text: a1628572-928d-425c-8287-3a9d8dbcb8d6@emailhook.site
+Searching for: 2cfed892-8215-45be-abeb-1b3c7c180eea@emailhook.site
+Search completed
+Row Cell Text: 2cfed892-8215-45be-abeb-1b3c7c180eea@emailhook.site
+🗑️  Token 2cfed892-8215-45be-abeb-1b3c7c180eea deleted successfully
+🗑️  Token a1628572-928d-425c-8287-3a9d8dbcb8d6 deleted successfully
+🗑️  Token 5e039b8f-6f1b-4a0d-8b4d-6d0dee8f363b deleted successfully

@@ -1,0 +1,29 @@
+✅ Token created with UUID: bf995194-5ac9-4912-a106-0c924700d8bb
+Selecting role: Org Admin
+Entering email: suraj.anand+8874486182683098@angelswing.io
+Invitation success message: The invitations have been sent.
+Searching for: suraj.anand+8874486182683098@angelswing.io
+Search completed
+No collaborators found for "suraj.anand+8874486182683098@angelswing.io"
+Searching for: suraj.anand+8874486182683098@angelswing.io
+Search completed
+Row Cell Text: suraj.anand+8874486182683098@angelswing.io
+Selecting role: Org Admin
+Entering email: suraj.anand+6079770031057589@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: suraj.anand+6079770031057589@emailhook.site
+Search completed
+No collaborators found for "suraj.anand+6079770031057589@emailhook.site"
+Searching for: suraj.anand+6079770031057589@emailhook.site
+Search completed
+Row Cell Text: suraj.anand+6079770031057589@emailhook.site
+Selecting role: Org Admin
+Entering email: Steve57@hotmail.com
+Invitation success message: The invitations have been sent.
+Searching for: Steve57@hotmail.com
+Search completed
+No collaborators found for "Steve57@hotmail.com"
+Searching for: Steve57@hotmail.com
+Search completed
+Row Cell Text: steve57@hotmail.com
+🗑️  Token bf995194-5ac9-4912-a106-0c924700d8bb deleted successfully

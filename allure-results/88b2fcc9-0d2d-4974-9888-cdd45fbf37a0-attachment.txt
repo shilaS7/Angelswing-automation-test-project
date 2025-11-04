@@ -1,0 +1,15 @@
+Entering Email: gilda.heller@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Gilda
+Entering Last Name: Heller
+Selecting Organization: Jenkins Inc
+Organization input validated: "Jenkins Inc"
+Entering Phone Number: +18862412804
+Selecting purpose: Inspection
+Selecting country: British Indian Ocean Territory
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/9yoRUL3AWeNVZp8kDwN2XQ?email=gilda.heller%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/9yoRUL3AWeNVZp8kDwN2XQ?email=gilda.heller%40j87bh0xv.mailosaur.net
+Expected Email in URL: gilda.heller%40j87bh0xv.mailosaur.net
+Verification email test completed

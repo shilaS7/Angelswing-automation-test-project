@@ -1,0 +1,168 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> email domain list >> should assign employee role regardless of case differences in email domain
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1069:17
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Pending Requests' })
+    - locator resolved to <button data-selected="true" class="sc-czTbhX iDuUHX" data-testid="manage-organization-tabs-Pending Requests-tab">Pending Requests</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - performing click action
+
+    at OrganizationPage.clickOnPendingRequestsTab (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:34:75)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1081:40
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 | import { HelperBase } from './HelperBase';
+   3 | import { BasePage } from './BasePage';
+   4 |
+   5 |
+   6 | export class OrganizationPage extends BasePage {
+   7 |
+   8 |     constructor(page: Page) {
+   9 |         super(page);
+   10 |     }
+   11 |
+   12 |     async getHeaderText() {
+   13 |         return await this.page.locator('section span').first().textContent();
+   14 |     }
+   15 |
+   16 |     async getOrganizationName() {
+   17 |         return await this.page.getByTestId('organization-information-tab-name').locator('div:text-is(" Name") + div').textContent();
+   18 |     }
+   19 |
+   20 |     async getCountryName() {
+   21 |         return await this.page.getByTestId('organization-information-tab-region-country').locator('div:text-is(" Region/Country") + div').textContent();
+   22 |     }
+   23 |
+   24 |     async getIndustryName() {
+   25 |         return await this.page.getByTestId('organization-information-tab-industry').locator('div:text-is(" Industry") + div').textContent();
+   26 |     }
+   27 |
+   28 |     async clickOnAccountsTab() {
+   29 |         await this.page.getByTestId('manage-organization-tabs-Accounts-tab').filter({ hasText: 'Accounts' }).click();
+   30 |         await this.page.waitForLoadState('networkidle');
+   31 |     }
+   32 |
+   33 |     async clickOnPendingRequestsTab() {
+>  34 |         await this.page.getByRole('button', { name: 'Pending Requests' }).click();
+      |                                                                           ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+   35 |         await this.page.waitForTimeout(1000);
+   36 |         await this.page.waitForLoadState('networkidle');
+   37 |         await this.page.locator('tbody tr td').first().waitFor({ state: 'visible', timeout: 5000 });
+   38 |
+   39 |     }
+   40 |
+   41 |     async clickOnDataStorageTab() {
+   42 |         await this.page.getByTestId('manage-organization-tabs-Data Storage-tab').filter({ hasText: 'Data Storage' }).click();
+   43 |     }
+   44 |
+   45 |     async clickOnInformationTab() {
+   46 |         await this.page.getByTestId('manage-organization-tabs-Information-tab').filter({ hasText: 'Information' }).click();
+   47 |     }
+   48 |
+   49 |     async clickOnProjects() {
+   50 |         await this.page.locator('h3', { hasText: 'Projects' }).click();
+   51 |     }
+   52 |
+   53 |     async clickOnAccounts() {
+   54 |         await this.page.locator('h3', { hasText: 'Accounts' }).click();
+   55 |     }
+   56 |
+   57 |     async isAccountsTabShownAsSelected() {
+   58 |         return await this.isTabShownAsSelected('manage-organization-tabs-Accounts-tab');
+   59 |     }
+   60 |
+   61 |     async isDataStorageTabShownAsSelected() {
+   62 |         return await this.isTabShownAsSelected('manage-organization-tabs-Data Storage-tab');
+   63 |     }
+   64 |
+   65 |     async isInformationTabShownAsSelected() {
+   66 |         return await this.isTabShownAsSelected('manage-organization-tabs-Information-tab');
+   67 |     }
+   68 |
+   69 |     async isProjectsTabShownAsSelected() {
+   70 |         return await this.isTabShownAsSelected('manage-organization-tabs-Projects-tab');
+   71 |     }
+   72 |
+   73 |     private async isTabShownAsSelected(tabName: string) {
+   74 |         const isSelected = await this.page.getByTestId(`${tabName}`).getAttribute('data-selected');
+   75 |         return isSelected === 'true';
+   76 |     }
+   77 |
+   78 |     async clickOnProcessing() {
+   79 |         await this.page.locator('h3', { hasText: 'Processing' }).click();
+   80 |     }
+   81 |
+   82 |     async clickOnOrganizationName() {
+   83 |         await this.page.getByTestId('organization-information-tab-name').locator('div:text-is(" Name") + div').click();
+   84 |     }
+   85 |
+   86 |     async clickOnCountry() {
+   87 |         await this.page.getByTestId('organization-information-tab-region-country').locator('div:text-is(" Region/Country") + div').click();
+   88 |     }
+   89 |
+   90 |     async clickOnIndustry() {
+   91 |         await this.page.getByTestId('organization-information-tab-industry').locator('div:text-is(" Industry") + div').click();
+   92 |     }
+   93 |
+   94 |     async getOrganizationPopupHeader() {
+   95 |         return await this.getHeaderOfPopup();
+   96 |     }
+   97 |
+   98 |     async isApplyButtonEnabled() {
+   99 |         return await this.checkIfApplyButtonIsEnabled();
+  100 |     }
+  101 |
+  102 |     async isApplyButtonDisabled() {
+  103 |         return await this.checkIfApplyButtonIsDisabled();
+  104 |     }
+  105 |
+  106 |     async clickOnApply() {
+  107 |         await this.clickOnApplyButton();
+  108 |     }
+  109 |
+  110 |     async clickOnCancel() {
+  111 |         await this.clickOnCancelButton();
+  112 |     }
+  113 |
+  114 |     async clickOnPopUpClose() {
+  115 |         await this.clickOnPopUpCloseButton();
+  116 |     }
+  117 |
+  118 |     async clickOnUpload() {
+  119 |         await this.clickOnUploadButton();
+  120 |     }
+  121 |
+  122 |     async clickOnResetToDefault() {
+  123 |         await this.clickOnResetToDefaultButton();
+  124 |     }
+  125 |
+  126 |     async isImageUploaded() {
+  127 |         return await this.checkIfImageUploaded();
+  128 |     }
+  129 |
+  130 |     async isImageResetToDefault() {
+  131 |         return await this.checkIfImageResetToDefault();
+  132 |     }
+  133 |
+  134 |     async isImageDisplayedOnProfilePage() {
+```

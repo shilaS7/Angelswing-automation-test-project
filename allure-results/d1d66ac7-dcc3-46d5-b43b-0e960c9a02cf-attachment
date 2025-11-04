@@ -1,0 +1,252 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should validate the source photo on the gallery page is selected when user click on it
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:358:9
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for locator('[id="2d-3d-toggle-button"]').locator('span').filter({ hasText: '3D' }).first()
+    - locator resolved to <span class="sc-dmFgzo kTZzLN">3D</span>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div class="sc-hRDjxv cpPshk">…</div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div class="sc-hRDjxv cpPshk">…</div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    9 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div class="sc-hRDjxv cpPshk">…</div> from <div>…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+
+    at MapPage.switchMapView (D:\Angelswing_QA\angelswing-automation-test\pages\MapPage.ts:188:111)
+    at MapPage.clickOn3D (D:\Angelswing_QA\angelswing-automation-test\pages\MapPage.ts:181:20)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:381:28
+```
+
+# Test source
+
+```ts
+   88 |     }
+   89 |
+   90 |     async clickOnDefaultButton() {
+   91 |         await this.page.locator('[data-ddm-track-label="btn-2d-view-normal"]').click();
+   92 |     }
+   93 |
+   94 |     /**
+   95 |      *  clicking map-center-btn works, but clicking map-zoom-in-btn does nothing, Does map-zoom-in-btn does  have a direct click handler, like the map-center-btn does.
+   96 |      */
+   97 |     async clickOnZoomInButton(timeout: number = 500) {
+   98 |         await this.page.getByTestId('map-zoom-in-btn').hover();
+   99 |         await this.clickAndHoldOnMap();
+  100 |         await this.page.waitForTimeout(timeout);
+  101 |         await this.releaseTheMouse();
+  102 |     }
+  103 |
+  104 |     async clickOnZoomOutButton(timeout: number = 500) {
+  105 |         await this.page.getByTestId('map-zoom-out-btn').hover();
+  106 |         await this.clickAndHoldOnMap();
+  107 |         await this.page.waitForTimeout(timeout);
+  108 |         await this.releaseTheMouse();
+  109 |     }
+  110 |
+  111 |     private async zoomMap(zoomIn: boolean, pixel: number) {
+  112 |         const zoomValue = zoomIn ? -pixel : pixel;
+  113 |         await this.page.mouse.wheel(0, zoomValue);
+  114 |     }
+  115 |
+  116 |     async selectMapLayer(mapLayer: string) {
+  117 |         await this.page.getByTestId('content-selection-box').filter({ hasText: mapLayer }).click();
+  118 |     }
+  119 |
+  120 |     async selectTerrainView() {
+  121 |         await this.selectMapLayer('Terrain');
+  122 |     }
+  123 |
+  124 |     async select3DMeshModelView() {
+  125 |         await this.selectMapLayer('3D Mesh Model');
+  126 |     }
+  127 |
+  128 |     async get2DOrthomosaicIsSelectionState() {
+  129 |         const orthoCheckbox = this.page.getByTestId('content-checkbox-orthophoto');
+  130 |         const isSelected = await orthoCheckbox.getAttribute('data-state');
+  131 |         return isSelected;
+  132 |     }
+  133 |
+  134 |     async toggleHillshade() {
+  135 |         const toggleButton = this.page.getByTestId('btn-toggle-hillshade');
+  136 |         await toggleButton.click();
+  137 |         console.log('✅ Hillshade toggle button clicked.');
+  138 |     }
+  139 |
+  140 |     async getHillshadeToggleAttributeValue() {
+  141 |         const toggleButton = this.page.getByTestId('btn-toggle-hillshade');
+  142 |         return await toggleButton.getAttribute('data-selected');
+  143 |     }
+  144 |
+  145 |     async clickOnDefault() {
+  146 |         await this.page.locator('[data-ddm-track-label="btn-2d-view-normal"]').click();
+  147 |     }
+  148 |
+  149 |     async clickOnTwoScreen() {
+  150 |         await this.page.locator('[data-ddm-track-label="btn-2d-view-comparison2"]').click();
+  151 |         const screenPickers = this.page.locator('[data-testid="comparisontwodisplay-screen-picker-wrapper"]');
+  152 |         await expect(screenPickers).toHaveCount(2);
+  153 |     }
+  154 |
+  155 |     async clickOnFourScreen() {
+  156 |         await this.page.locator('[data-ddm-track-label="btn-2d-view-comparison4"]').click();
+  157 |     }
+  158 |
+  159 |     async clickOnSlider() {
+  160 |         await this.page.locator('[data-ddm-track-label="btn-2d-view-slider"]').click();
+  161 |     }
+  162 |
+  163 |     async clickOnScreenCapture() {
+  164 |         await this.page.locator('[data-testid="map-screen-capture-btn"]').click();
+  165 |     }
+  166 |
+  167 |     async getDataSetTitle() {
+  168 |         const dataSetTitle = this.page.getByTestId('sidebar-wrapper').locator('+ div').locator('p');
+  169 |         return await dataSetTitle.textContent();
+  170 |     }
+  171 |
+  172 |     async ensureBackgroundIsNotDisplayed() {
+  173 |         const toggle = this.page.getByTestId('basemap-toggle-button');
+  174 |         const currentState = await toggle.getAttribute('data-ddm-track-label');
+  175 |         if (currentState !== 'btn-toggle-basemap-off') {
+  176 |             await toggle.click();
+  177 |         }
+  178 |     }
+  179 |
+  180 |     async clickOn3D() {
+  181 |         await this.switchMapView('3D');
+  182 |     }
+  183 |     async clickOn2D() {
+  184 |         await this.switchMapView('2D');
+  185 |     }
+  186 |
+  187 |     private async switchMapView(view: string) {
+> 188 |         await this.page.locator('[id="2d-3d-toggle-button"]').locator('span', { hasText: `${view}` }).first().click();
+      |                                                                                                               ^ TimeoutError: locator.click: Timeout 5000ms exceeded.
+  189 |     }
+  190 |
+  191 |     async expectMapViewToBe(mode: string) {
+  192 |         const expectedLabel = mode === '2D' ? 'btn-toggle-display-3d' : 'btn-toggle-display-2d';
+  193 |         await expect(this.page.locator('[id="2d-3d-toggle-button"]').first()).toHaveAttribute('data-ddm-track-label', expectedLabel);
+  194 |     }
+  195 |
+  196 |     async getMapLayerCheckboxState(mapLayer: string): Promise<string> {
+  197 |         const mapLayerElement = this.page.getByTestId('content-selection-box').filter({ hasText: mapLayer });
+  198 |         await mapLayerElement.waitFor({ state: 'visible' });
+  199 |         await mapLayerElement.scrollIntoViewIfNeeded();
+  200 |         const checkboxState = await mapLayerElement.locator('div[data-ddm-track-label*="btn-contents-list-checkbox"]').getAttribute('data-state');
+  201 |         if (checkboxState === null) {
+  202 |             throw new Error(`Checkbox state attribute not found for map layer: ${mapLayer}`);
+  203 |         }
+  204 |         return checkboxState;
+  205 |     }
+  206 |
+  207 |     async validateMapLayerIsChecked(mapLayer: string): Promise<void> {
+  208 |         const checkboxState = await this.getMapLayerCheckboxState(mapLayer);
+  209 |         console.log(`✅ Validating checkbox state for "${mapLayer}": ${checkboxState}`);
+  210 |         expect(checkboxState).toBe('checked');
+  211 |     }
+  212 |
+  213 |     async selectAndVerifyMapLayer(mapLayer: string, shouldClick = true): Promise<void> {
+  214 |         const mapLayerElement = this.page.getByTestId('content-selection-box').filter({ hasText: mapLayer });
+  215 |         await mapLayerElement.waitFor({ state: 'visible' });
+  216 |         await mapLayerElement.scrollIntoViewIfNeeded();
+  217 |         if (shouldClick) {
+  218 |             await mapLayerElement.click();
+  219 |         }
+  220 |         const checkboxState = await this.getMapLayerCheckboxState(mapLayer);
+  221 |         console.log(`✅ Verifying checkbox state for "${mapLayer}": ${checkboxState}`);
+  222 |         expect(checkboxState).toBe('checked');
+  223 |         if (mapLayer === 'Terrain' && shouldClick) {
+  224 |             await mapLayerElement.click();
+  225 |         }
+  226 |     }
+  227 |
+  228 |     async clickOnLocationMarker() {
+  229 |         await this.page.locator('[data-ddm-track-label="btn-create-marker-2d"]').click();
+  230 |     }
+  231 |     async clickOnLength() {
+  232 |         await this.page.locator('[data-ddm-track-label="btn-create-length-2d"]').click();
+  233 |     }
+  234 |
+  235 |     async clickOnBasicVolume() {
+  236 |         await this.clickOnVolumeOption('Basic Volume');
+  237 |     }
+  238 |
+  239 |     async clickOn3dDesignSurface() {
+  240 |         await this.clickOnVolumeOption('3D Design Surface');
+  241 |     }
+  242 |
+  243 |     async clickOnCompareSurvey() {
+  244 |         await this.clickOnVolumeOption('Compare Survey');
+  245 |     }
+  246 |
+  247 |     private async clickOnVolumeOption(optionText: string) {
+  248 |         const volumeIcon = this.page.locator('ul._cancellable li').nth(4);
+  249 |         const option = this.page.getByText(optionText);
+  250 |
+  251 |         await volumeIcon.hover();
+  252 |         await option.click();
+  253 |     }
+  254 |
+  255 |     async checkCalculateTheTotalCutFillVolumeOfTheDesign() {
+  256 |         await this.page.getByText('Calculate the total cut/fill volume of the design.').click();
+  257 |     }
+  258 |
+  259 |     async clickOnCalculateButton() {
+  260 |         await this.page.getByRole('button', { name: 'Calculate' }).click();
+  261 |     }
+  262 |
+  263 |     async clickOn2DOrthomosaicCheckbox() {
+  264 |         const orthoCheckbox = this.page.getByTestId('content-checkbox-orthophoto');
+  265 |         await orthoCheckbox.click();
+  266 |     }
+  267 |
+  268 |     async get2DOrthomosaicCheckboxState() {
+  269 |         const orthoCheckbox = this.page.getByTestId('content-checkbox-orthophoto');
+  270 |         return await orthoCheckbox.getAttribute('data-state');
+  271 |     }
+  272 |
+  273 |     async clickOnTerrainCheckbox() {
+  274 |         const terrainCheckbox = this.page.getByTestId('content-checkbox-dsm');
+  275 |         await terrainCheckbox.click();
+  276 |     }
+  277 |
+  278 |     async getTerrainCheckboxState() {
+  279 |         const terrainCheckbox = this.page.getByTestId('content-checkbox-dsm');
+  280 |         return await terrainCheckbox.getAttribute('data-state');
+  281 |     }
+  282 |
+  283 |     async clickOn3dOrthomosaicCheckbox() {
+  284 |         const orthoCheckbox = this.page.getByTestId('content-checkbox-terrain');
+  285 |         await orthoCheckbox.click();
+  286 |     }
+  287 |
+  288 |     async get3dOrthomosaicCheckboxState() {
+```

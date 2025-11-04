@@ -1,0 +1,146 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: authentication
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\auth.setup.ts:10:6
+
+# Error details
+
+```
+Error: Timed out 15000ms waiting for expect(locator).toBeVisible()
+
+Locator: getByRole('button', { name: 'Sign out' })
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 15000ms
+  - waiting for getByRole('button', { name: 'Sign out' })
+
+    at D:\Angelswing_QA\angelswing-automation-test\tests\auth.setup.ts:16:66
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications Alt+T"
+- img
+- img
+- paragraph: 안녕하세요, Angelswing AdminShila님
+- paragraph: 엔젤스윙의 플랫폼을 더욱 잘 활용하기 위한 방법
+- paragraph: 지금 바로 유저가이드를 읽어보세요.
+- button "유저가이드 보기":
+  - img
+  - text: 유저가이드 보기
+- checkbox
+- img
+- text: 다음 로그인부터 이 팝업을 보지 않습니다.
+- button:
+  - img
+- navigation:
+  - img
+  - paragraph: Digital twin
+  - paragraph: 메뉴
+  - img
+  - text: 대시보드
+  - img "project"
+  - img
+  - text: 내 프로젝트
+  - img
+  - text: Organization A update 프로젝트
+  - img
+  - text: 드론 스테이션
+  - img
+  - text: 조직 설정
+  - paragraph: Others
+  - img
+  - text: 유저 가이드
+  - img
+  - navigation
+  - img
+  - text: Admin Shila Organization A update admin
+- main:
+  - heading "안녕하세요, Shila 님" [level=1]
+  - button "로그아웃":
+    - img
+    - text: 로그아웃
+  - text: 도움말 & 고객 지원
+  - img
+  - img
+  - text: 출시 노트
+  - img
+  - img
+  - text: 유저 가이드
+  - img
+  - img
+  - text: 공식 사이트 최근 프로젝트
+  - list:
+    - img
+    - text: "15"
+    - button:
+      - img
+    - img "Site Image"
+    - text: "Clone_1480 (VSLAM Specific) 건설 생성일 : 2025-06-26 내가 열어봄 : 28분 전"
+    - img
+    - text: "3"
+    - button:
+      - img
+    - img "Site Image"
+    - text: "Drone Harmony - QA Setup 건설 생성일 : 2025-08-18 내가 열어봄 : 6일 전"
+    - img
+    - text: "33"
+    - button:
+      - img
+    - img "Site Image"
+    - text: Cloned contents from production (EPSG:5186 only)
+    - img
+    - text: "건설 안전 관리 생성일 : 2023-10-07 내가 열어봄 : 6일 전"
+    - img
+    - text: "15"
+    - button:
+      - img
+    - img "Site Image"
+    - text: "Clone 1603-Latest_update 건설 생성일 : 2025-07-14 내가 열어봄 : 7일 전"
+    - img
+    - text: "7"
+    - button:
+      - img
+    - img "Site Image"
+    - text: Indoor Test Project (Prod 1480)
+    - img
+    - text: "건설 생성일 : 2025-08-15 내가 열어봄 : 7일 전"
+```
+
+# Test source
+
+```ts
+   1 | import { test as setup, expect } from '@playwright/test';
+   2 | import path from 'path';
+   3 |
+   4 | const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+   5 |
+   6 | const email: string = process.env.EMAIL || '';
+   7 | const password: string = process.env.PASSWORD || '';
+   8 |
+   9 |
+  10 | setup('authentication', async ({ page }) => {
+  11 |
+  12 |     await page.goto('/');
+  13 |     await page.locator('#sign-in-field-email').fill(email);
+  14 |     await page.locator('#sign-in-field-password').fill(password);;
+  15 |     await page.getByRole('button', { name: 'Continue with email' }).click();
+> 16 |     await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible();
+     |                                                                  ^ Error: Timed out 15000ms waiting for expect(locator).toBeVisible()
+  17 |     await expect(page).toHaveURL('/project/dashboard');
+  18 |     // await page.waitForTimeout(3000);
+  19 |
+  20 |     await page.context().storageState({ path: authFile });
+  21 | });
+  22 |
+  23 |
+  24 |
+```

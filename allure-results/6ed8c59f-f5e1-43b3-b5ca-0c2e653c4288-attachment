@@ -1,0 +1,174 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Measurement Page Test >> Sub Group E2E Test @poc >> Should fold/unfold sub group folder when fold/unfold folder is toggled
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:502:13
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+
+Locator: locator('[type="marker"]').filter({ hasText: 'Location 184' })
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 5000ms
+  - waiting for locator('[type="marker"]').filter({ hasText: 'Location 184' })
+
+    at MeasurementPage.validateLocationMarkerIsDisplayedOnMap (D:\Angelswing_QA\angelswing-automation-test\pages\MeasurementPage.ts:360:95)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\measurement.spec.ts:516:35
+```
+
+# Test source
+
+```ts
+  260 |         console.log(`Toggled details visibility for measurement Item ID: ${measurementItemId}`);
+  261 |     }
+  262 |
+  263 |     async getMeasurementItemDetailsDataSelectedAttributeValue(measurementItemId: string) {
+  264 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  265 |         const detailsDataSelectedAttributeValue = await measurementItem.getAttribute('data-selected');
+  266 |         return detailsDataSelectedAttributeValue;
+  267 |     }
+  268 |
+  269 |     async getMeasurementItemDetailsDataStateAttributeValue(measurementItemId: string) {
+  270 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  271 |         const detailsDataStateAttributeValue = await measurementItem.getAttribute('data-state');
+  272 |         return detailsDataStateAttributeValue;
+  273 |     }
+  274 |
+  275 |     async getMeasurementItemDetailsDataStateAttributeCount(measurementItemId: string) {
+  276 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  277 |         const detailsDataStateAttributeCount = await measurementItem.count();
+  278 |         return detailsDataStateAttributeCount;
+  279 |     }
+  280 |
+  281 |
+  282 |
+  283 |     async getMeasurementItemDetailsDataPinnedAttributeValue(measurementItemId: string) {
+  284 |         const measurementItem = this.page.locator(`[id="contentid-${measurementItemId}"]`);
+  285 |         const detailsDataPinnedAttributeValue = await measurementItem.getAttribute('data-pinned');
+  286 |         return detailsDataPinnedAttributeValue;
+  287 |     }
+  288 |
+  289 |     // ! No attribute found for Show Hide Details , although dynamic class is visible -- Discuss with the developer
+  290 |
+  291 |     private async performRightClickAction(selector: string, actionName: string) {
+  292 |         const element = this.page.locator(selector);
+  293 |         await element.click({ button: "right" });
+  294 |         await this.page.getByRole('button', { name: actionName }).click();
+  295 |     }
+  296 |
+  297 |     private async verifyDeletion(endpoint: string): Promise<boolean> {
+  298 |         const response = await this.page.waitForResponse(res =>
+  299 |             res.url().includes(endpoint) && res.request().method() === 'DELETE'
+  300 |         );
+  301 |         const isSuccess = response.status() === 204;
+  302 |         console.log(`Deletion API Status: ${response.status()} (Success: ${isSuccess})`);
+  303 |         return isSuccess;
+  304 |     }
+  305 |
+  306 |
+  307 |     async createNewLength(xStart: number, yStart: number) {
+  308 |         await this.page.mouse.click(xStart + 120, yStart + 120);
+  309 |         await this.page.mouse.click(xStart + 200, yStart + 200);
+  310 |         await this.page.mouse.click(xStart + 200, yStart + 200);
+  311 |         console.log(`Created new Length at (${xStart + 120}, ${yStart + 120}) and (${xStart + 200}, ${yStart + 200})`);
+  312 |     }
+  313 |
+  314 |
+  315 |     async getValueOfYCoordinate() {
+  316 |         const yCoordinate = await this.page.locator('[id="marker-pinpointer-y-text"] > p').textContent();
+  317 |         return yCoordinate;
+  318 |     }
+  319 |
+  320 |     async getValueOfXCoordinate() {
+  321 |         const xCoordinate = await this.page.locator('[id="marker-pinpointer-x-text"] > p').textContent();
+  322 |         return xCoordinate;
+  323 |     }
+  324 |
+  325 |     async getValueOfYFromSideBar(measurementItemId: string) {
+  326 |         const yCoordinate = await this.page.locator(`li#contentid-${measurementItemId} p`).nth(1).textContent();
+  327 |         return yCoordinate;
+  328 |     }
+  329 |
+  330 |     async getValueOfXFromSideBar(measurementItemId: string) {
+  331 |         const xCoordinate = await this.page.locator(`li#contentid-${measurementItemId} p`).last().textContent();
+  332 |         return xCoordinate;
+  333 |     }
+  334 |
+  335 |     async getElevationValueFromSideBar(measurementItemId: string) {
+  336 |         const elevationValue = await this.page.locator(`li#contentid-${measurementItemId}`).locator('span:text-is("Elev.") + span').textContent();
+  337 |         return elevationValue;
+  338 |     }
+  339 |
+  340 |     async hoverOverMeasurementItemInMap(measurementItemTitle: string) {
+  341 |         await this.page.waitForTimeout(500);
+  342 |         await this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle }).hover({ force: true });
+  343 |         await this.page.waitForTimeout(500);
+  344 |     }
+  345 |
+  346 |     async getYXValueFromMap() {
+  347 |         const xyValue = await this.page.locator(`[type="marker"]`).locator('div:text-is("Y, X")').locator('+ div').textContent();
+  348 |         if (!xyValue) throw new Error('XY Value not found');
+  349 |         const [yCoordinate, xCoordinate] = xyValue!.split(',');
+  350 |         return { y: yCoordinate.trim(), x: xCoordinate.trim() };
+  351 |     }
+  352 |
+  353 |     async getElevationValueFromMap() {
+  354 |         const elevationValue = await this.page.locator(`[type="marker"]`).locator('div:text-is("Elev")').locator('+ div').textContent();
+  355 |         if (!elevationValue) throw new Error('Elevation Value not found');
+  356 |         return elevationValue.trim();
+  357 |     }
+  358 |
+  359 |     async validateLocationMarkerIsDisplayedOnMap(measurementItemTitle: string) {
+> 360 |         await expect(this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle })).toBeVisible({ timeout: 5000 });
+      |                                                                                               ^ Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+  361 |     }
+  362 |
+  363 |     async validateLocationMarkerIsNotDisplayedOnMap(measurementItemTitle: string) {
+  364 |         await expect(this.page.locator(`[type="marker"]`, { hasText: measurementItemTitle })).toBeHidden();
+  365 |     }
+  366 |
+  367 |     async deleteAllGroups() {
+  368 |         const groupLocator = this.page.locator('[data-testid^="open-space-group"]');
+  369 |         const totalGroups = await groupLocator.count();
+  370 |         console.log(`Total Groups: ${totalGroups}`);
+  371 |
+  372 |         for (let i = 0; i < totalGroups; i++) {
+  373 |             console.log(`Deleting group ${i + 1} of ${totalGroups}`);
+  374 |             const currentGroup = groupLocator.first(); // TODO: Check if the group is already selected
+  375 |             await currentGroup.locator('> div').first().click();
+  376 |             await currentGroup.click({ button: 'right' });
+  377 |             try {
+  378 |                 await this.page.getByRole('button', { name: 'Delete' }).click({ timeout: 2000 });
+  379 |             } catch (error) {
+  380 |                 if ((error as Error).name === 'TimeoutError') {
+  381 |                     console.log('Delete button click timed out, trying to toggle show/hide folder and retry');
+  382 |                     await this.page.getByRole('button', { name: 'Show / Hide folder' }).click();
+  383 |                     await currentGroup.click({ button: 'right' });
+  384 |                     await this.page.getByRole('button', { name: 'Delete' }).click();
+  385 |                 } else {
+  386 |                     throw error;
+  387 |                 }
+  388 |             }
+  389 |             await this.page.getByTestId('warning-button').filter({ hasText: 'Delete' }).click();
+  390 |             await this.page.waitForTimeout(1000);
+  391 |         }
+  392 |     }
+  393 |
+  394 |     async validateNewGroupForOpenSpaceIsCreated() {
+  395 |         const groupLocator = this.page.locator('[data-testid^="open-space-group"]');
+  396 |         await expect(groupLocator).toHaveCount(1);
+  397 |         console.log('One group created successfully');
+  398 |     }
+  399 |
+  400 | }
+  401 |
+```

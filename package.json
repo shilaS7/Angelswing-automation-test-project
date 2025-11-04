@@ -1,0 +1,32 @@
+{
+  "name": "angelswing-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Automated tests for Angelswing using Playwright and TypeScript.",
+  "scripts": {
+    "delete:reports": "rimraf playwright-report/* allure-results/* allure-report/*",
+    "prereport": "npm run delete:reports",
+    "allure:report": "allure generate allure-results --clean --single-file",
+    "auth": "npx playwright test --project=setup",
+    "test": "npm run auth && playwright test",
+    "test:frontend": "npm run auth && playwright test tests/frontend-tests --project=chromium",
+    "update:snapshots": "npm run auth && playwright test tests/frontend-tests/map-tests --update-snapshots",
+    "test:api": "npm run auth && playwright test tests/api-tests --project=chromium",
+    "test:mapOperations": "npm run prereport && npm run auth && npx playwright test tests/frontend-tests/map-tests --project=chromium",
+    "test:all:serial": "npx playwright test --workers=1 --project=chromium --project=smartDevice-samsung-s24-s25 --project=smartDevice-samsung-s24-s25-landscape-chromium --project=smartDevice-Pixel-7 --project=smartDevice-Pixel-7-landscape-chromium --project=smartDevice-Galaxy-Tab-S4 --project=smartDevice-Galaxy-Tab-S4-landscape-chromium --project=smartDevice-iPhone-15-Pro-Max --project=smartDevice-iPhone-15-Pro-Max-landscape-chromium --project=smartDevice-iPad-Pro-11-chromium --project=smartDevice-iPad-Pro-11-landscape-chromium "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.2",
+    "allure-playwright": "^3.2.1",
+    "dotenv": "^16.4.7",
+    "mailosaur": "^8.8.1",
+    "rimraf": "6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

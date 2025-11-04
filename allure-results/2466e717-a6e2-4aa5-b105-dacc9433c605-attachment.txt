@@ -1,0 +1,2 @@
+Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3MSwiZXhwIjoxNzU4MDE3MjQzLCJqdGkiOiI3NTZmMGQ5OC1hMzllLTRhMmEtOWFlZS01OTdmMmI1MmUxN2UifQ.T1YYsakdJ3lmRllOBgfgueheHruPHTHR4FEVWpgp65k
+Get Elevation Response: {"status":200,"unit":"m","value":75.47}

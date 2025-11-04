@@ -1,0 +1,32 @@
+✅ Token created with UUID: f7230c7c-bba7-4009-bd94-4a8ef651efef
+Selecting role: Admin
+Entering email: f7230c7c-bba7-4009-bd94-4a8ef651efef@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: f7230c7c-bba7-4009-bd94-4a8ef651efef@emailhook.site
+Search completed
+No collaborators found for "f7230c7c-bba7-4009-bd94-4a8ef651efef@emailhook.site"
+Searching for: f7230c7c-bba7-4009-bd94-4a8ef651efef@emailhook.site
+Search completed
+Row Cell Text: f7230c7c-bba7-4009-bd94-4a8ef651efef@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=f7230c7c-bba7-4009-bd94-4a8ef651efef%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Lincoln
+Entering Last Name: Skiles
+Selecting Organization: Erdman, Greenfelder and Gulgowski
+Entering Phone Number: +19172183802
+Selecting purpose: Survey
+Selecting country: Croatia
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/mbEcSOkTPU03hWkcwJm3pQ?email=f7230c7c-bba7-4009-bd94-4a8ef651efef%40emailhook.site
+🗑️  Token f7230c7c-bba7-4009-bd94-4a8ef651efef deleted successfully

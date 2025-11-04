@@ -1,0 +1,122 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Terrain Map test @smoke @poc >> Should enable/disable Hillshade in terrain view @poc
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\map-tests\enableHillShade.spec.ts:43:9
+
+# Error details
+
+```
+Error: Error reading storage state from playwright/.auth/user.json:
+ENOENT: no such file or directory, open 'D:\Angelswing_QA\angelswing-automation-test\playwright\.auth\user.json'
+```
+
+# Test source
+
+```ts
+   1 | import { HelperBase } from '../../../pages/HelperBase';
+   2 | import { PageManager } from '../../../pages/PageManager';
+   3 | import { test } from '../../../test-options';
+   4 | import { expect } from '@playwright/test';
+   5 |
+   6 | test.describe('Terrain Map test @smoke @poc', () => {
+   7 |     let pageManager: PageManager;
+   8 |     let helper: HelperBase;
+   9 |
+  10 |     const projectTitle: string = process.env.PROJECT_TITLE || '';
+  11 |     const email: string = process.env.EMAIL || '';
+  12 |     const password: string = process.env.PASSWORD || '';
+  13 |
+  14 |     test.beforeEach(async ({ page }) => {
+  15 |         pageManager = new PageManager(page);
+  16 |         helper = new HelperBase(pageManager.getPage());
+  17 |         await pageManager.onLoginPage().openLoginPage();
+  18 |         await pageManager.onDashboardPage().closeReadUserGuidePopUp();
+  19 |         await pageManager.onDashboardPage().openProject(projectTitle);
+  20 |     });
+  21 |
+  22 |     test.fixme('Should select and verify map selection', async () => {
+  23 |         await pageManager.getPage().waitForTimeout(2000);
+  24 |         await pageManager.onMapPage.selectAndVerifyMapLayer('2D Orthomosaic', false);
+  25 |         await pageManager.onMapPage.selectAndVerifyMapLayer('Terrain');
+  26 |         await pageManager.onMapPage.selectAndVerifyMapLayer('3D Mesh Model');
+  27 |
+  28 |         await pageManager.onMapPage.verifyMapIsVisible();
+  29 |         await helper.waitForNumberOfSeconds(3);
+  30 |     });
+  31 |
+  32 |     //https://app.clickup.com/t/86erh8uan
+  33 |     test('Should verify 2D Orthomosaic is selected by default @poc', async () => {
+  34 |
+  35 |         await pageManager.onMapPage.verifyMapIsVisible();
+  36 |         await helper.waitForNumberOfSeconds(1);
+  37 |         const isSelected = await pageManager.onMapPage.get2DOrthomosaicIsSelectionState();
+  38 |         expect(isSelected).toEqual('checked');
+  39 |         await pageManager.onMapPage.selectAndVerifyMapLayer('2D Orthomosaic', false);
+  40 |     });
+  41 |
+  42 |     // https://app.clickup.com/t/86erh8x4t
+> 43 |     test('Should enable/disable Hillshade in terrain view @poc', async () => {
+     |         ^ Error: Error reading storage state from playwright/.auth/user.json:
+  44 |         await helper.waitForNumberOfSeconds(1);
+  45 |         await pageManager.onMapPage.selectTerrainView();
+  46 |         await pageManager.onMapPage.verifyMapIsVisible();
+  47 |         await helper.waitForNumberOfSeconds(1);
+  48 |         await pageManager.onMapPage.toggleHillshade();
+  49 |         console.log(`Hillshade is enabled`);
+  50 |         // Add assertion to verify the toggle action
+  51 |         const toggleClassAfterEnable = await pageManager.onMapPage.getHillshadeToggleAttributeValue();
+  52 |         console.log(`Checking the value of toggle class after enable: ${toggleClassAfterEnable}`);
+  53 |         expect(toggleClassAfterEnable).toEqual('true');
+  54 |         await pageManager.onMapPage.toggleHillshade();
+  55 |         console.log(`Hillshade is disabled`);
+  56 |         const toggleClassAfterDisable = await pageManager.onMapPage.getHillshadeToggleAttributeValue();
+  57 |         console.log(`Checking the value of toggle class after disable: ${toggleClassAfterDisable}`);
+  58 |         expect(toggleClassAfterDisable).toEqual('false');
+  59 |         await pageManager.onMapPage.selectTerrainView();
+  60 |     });
+  61 |
+  62 |     // https://app.clickup.com/t/86erh8x3d
+  63 |     // ! This test is not working as expected, the DSM is shown by default but the attribute is false
+  64 |     // ! Also the value of attribute is not updated when the DSM is selected manually
+  65 |     test('Should verify DSM is selected by default on Terrain selection', async () => {
+  66 |         await pageManager.onMapPage.selectTerrainView();
+  67 |         await pageManager.onMapPage.verifyMapIsVisible();
+  68 |         const defaultDsmClassAttribute = await pageManager.onTerrainMapPage.getTerrainDsmAttribute();
+  69 |         console.log(`Checking the value of DSM default ${defaultDsmClassAttribute}`);
+  70 |         // expect(defaultDsmClassAttribute).toEqual('false'); //! This is a bug, it should be true
+  71 |         // expect(await pageManager.onTerrainMapPage.getTerrainDtmAttribute()).toContain('true'); //! This is a bug, it should be false
+  72 |     });
+  73 |
+  74 |     // https://app.clickup.com/t/86erh8x8k
+  75 |     test('Should select DTM and verify DTM is selected', async () => {
+  76 |         await pageManager.onMapPage.selectTerrainView();
+  77 |         await pageManager.onMapPage.verifyMapIsVisible();
+  78 |
+  79 |         const onTerrain = pageManager.onTerrainMapPage;
+  80 |
+  81 |         await onTerrain.clickOnDsm();
+  82 |         const dsmMinValue = await onTerrain.getElevationMinValue();
+  83 |         const dsmMaxValue = await onTerrain.getElevationMaxValue();
+  84 |         console.log(`Checking the value of DSM default ${dsmMinValue} ${dsmMaxValue}`);
+  85 |
+  86 |         await onTerrain.clickOnDtm();
+  87 |         const dtmClassAttribute = await pageManager.onTerrainMapPage.getTerrainDtmAttribute();
+  88 |         console.log(`Checking the value of DTM default ${dtmClassAttribute}`);
+  89 |         expect(dtmClassAttribute).toEqual('true');
+  90 |         expect(await pageManager.onTerrainMapPage.getTerrainDsmAttribute()).toEqual('false');
+  91 |
+  92 |         const dtmMinValue = await onTerrain.getElevationMinValue();
+  93 |         const dtmMaxValue = await onTerrain.getElevationMaxValue();
+  94 |         console.log(`Checking the value of DTM default ${dtmMinValue} ${dtmMaxValue}`);
+  95 |         expect(dsmMinValue).not.toEqual(dtmMinValue);
+  96 |         expect(dsmMaxValue).not.toEqual(dtmMaxValue);
+  97 |     });
+  98 | });
+  99 |
+```

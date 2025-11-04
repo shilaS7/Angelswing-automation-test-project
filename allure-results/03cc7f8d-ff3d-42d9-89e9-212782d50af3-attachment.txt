@@ -1,0 +1,9 @@
+Clicked on create content group
+Total Groups: 5
+Deleting group 1 of 5
+Deleting group 2 of 5
+Deleting group 3 of 5
+Deleting group 4 of 5
+Delete button click timed out, trying to toggle show/hide folder and retry
+Deleting group 5 of 5
+One group created successfully

@@ -1,0 +1,8 @@
+Popup was visible and has been closed.
+Starting test: Should switch between 2D and 3D map views and validate selected map layers and visibility
+Should verify background is not displayed
+Clicking and validating Map Layer : 3D Mesh Model
+✅ Validating checkbox state for "3D Mesh Model": map-view-off
+Clicking and validating Map Layer : 2D Orthomosaic
+✅ Validating checkbox state for "2D Orthomosaic": map-view-off
+Ending test: Should switch between 2D and 3D map views and validate selected map layers and visibility

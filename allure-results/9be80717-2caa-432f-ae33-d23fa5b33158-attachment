@@ -1,0 +1,85 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VCM Test >> should return 200 and the correct data for a valid VCM Area request
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:34:10
+
+# Error details
+
+```
+Error: apiRequestContext.post: Request timed out after 5000ms
+Call log:
+  - → POST https://volume-dev.angelswing.io/contents/69794
+    - user-agent: Playwright/1.51.1 (x64; windows 10.0) node/22.13
+    - accept: */*
+    - accept-encoding: gzip,deflate,br
+    - Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3MSwiZXhwIjoxNzU4MDIwOTc4LCJqdGkiOiIxMTk1NjZiYi0yMTBhLTQ5NjUtOTNjMS1kODRlZmJjOGQ3MjYifQ.-gj30We1LvvrO0bFEvfcywnDG5wIBkbbV6x_9X2B8UQ
+    - Content-Type: application/json
+    - Host: volume-dev.angelswing.io
+    - Content-Length: 382
+    - cookie: ph_phc_YszxDglpytcZzkWD3Hv5Ptgczoj3KT6QhXRunc1n4PK_posthog=%7B%22distinct_id%22%3A%22971%22%2C%22%24sesid%22%3A%5B1757389748224%2C%2201992c97-7800-7151-8447-5335867d08f7%22%2C1757389748224%5D%2C%22%24epp%22%3Atrue%7D
+
+    at area (D:\Angelswing_QA\angelswing-automation-test\services\vcm.request.ts:18:36)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\api-tests\vcm-test\vcm.spec.ts:35:40
+```
+
+# Test source
+
+```ts
+   1 | import { expect, APIResponse } from '@playwright/test';
+   2 | import { ENDPOINTS } from '../utils/endpoints';
+   3 |
+   4 | export async function elevationProfile(request: any, token: string, contentId: string, lon: string, lat: string): Promise<APIResponse> {
+   5 |
+   6 |     const response = await request.post(`${process.env.VCM_ELEVATION}/elev/${contentId}?lon=${lon}&lat=${lat}`, {
+   7 |        
+   8 |         headers: {
+   9 |             'Authorization': `Bearer ${token}`,
+  10 |             'content-type': 'application/json',
+  11 |         },
+  12 |     });
+  13 |     return response;
+  14 | }
+  15 | // http://volume-dev.angelswing.io/elev/69794?lon=127.12995962492273&lat=37.1378049701908
+  16 | export async function area(request: any, token: string, contentId: string): Promise<APIResponse> {
+  17 |
+> 18 |     const response = await request.post(`https://volume-dev.angelswing.io/contents/${contentId}`, {
+     |                                    ^ Error: apiRequestContext.post: Request timed out after 5000ms
+  19 |       
+  20 |         headers: {
+  21 |             'Authorization': `Bearer ${token}`,
+  22 |             'Content-Type': 'application/json',
+  23 |             'Host': 'volume-dev.angelswing.io',
+  24 |             'Content-Length': '382',
+  25 |
+  26 |         },
+  27 |         body:{
+  28 |             "type": "surface",
+  29 |             "locations": [
+  30 |                 [
+  31 |                     127.13051222511723,
+  32 |                     37.138802886939885
+  33 |                 ],
+  34 |                 [
+  35 |                     127.13084848249892,
+  36 |                     37.13865610166822
+  37 |                 ],
+  38 |                 [
+  39 |                     127.1307933154436,
+  40 |                     37.13847366813137
+  41 |                 ],
+  42 |                 [
+  43 |                     127.13040451766564,
+  44 |                     37.13865819858036
+  45 |                 ]
+  46 |             ]
+  47 |         }
+  48 |     });
+  49 |     return response;
+  50 | }
+```

@@ -1,0 +1,14 @@
+Entering Email: zola.o'kon@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Zola
+Entering Last Name: O'Kon
+Selecting Organization: Hudson, Kreiger and Hilpert
+Organization input validated: "Hudson, Kreiger and Hilpert"
+Entering Phone Number: +15293154549
+Selecting purpose: Construction
+Selecting country: Liberia
+Selecting language: English
+https://dev-api.angelswing.io/v2/confirm-email/_nOWy2Lt0pqXcUfpNZWJIA?email=zola.o%27kon%40j87bh0xv.mailosaur.net
+Current URL: https://dev-api.angelswing.io/v2/confirm-email/_nOWy2Lt0pqXcUfpNZWJIA?email=zola.o%27kon%40j87bh0xv.mailosaur.net
+Expected Email in URL: zola.o'kon%40j87bh0xv.mailosaur.net

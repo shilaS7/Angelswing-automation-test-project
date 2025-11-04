@@ -1,0 +1,96 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Sign Up Functionality >> Should invite user to the project by existing user
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\Shila_signUp.spec.ts:381:9
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at ProjectPage.validatePopUpIsVisible (D:\Angelswing_QA\angelswing-automation-test\pages\ProjectPage.ts:49:27)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\angelswing3\Shila_signUp.spec.ts:384:9
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 |
+   3 | export class ProjectPage {
+   4 |     readonly page: Page;
+   5 |
+   6 |     constructor(page: Page) {
+   7 |         this.page = page;
+   8 |     }
+   9 |
+  10 |
+  11 |     async openProject(projectTitle: string) {
+  12 |         await this.page.locator('h3', { hasText: projectTitle }).click();
+  13 |     }
+  14 |
+  15 |     async verifyLoadingBehavior() {
+  16 |         const loading = this.page.getByTestId('loading-wrapper');
+  17 |         const isVisible = await loading.isVisible({ timeout: 300 });
+  18 |         expect(isVisible).toBe(true);
+  19 |         await expect(loading).toBeHidden({ timeout: 10000 });
+  20 |     }
+  21 |
+  22 |     async isAddProjectButtonVisible() {
+  23 |         const addProjectButton = this.page.getByRole('button', { name: 'Add Project' });
+  24 |         const isVisible = await addProjectButton.isVisible();
+  25 |         return isVisible;
+  26 |     }
+  27 |
+  28 |     async clickOnDashboardMenu() {
+  29 |         await this.page.locator('p', { hasText: 'Menu' }).locator('..').getByText('Dashboard').click();
+  30 |     }
+  31 |
+  32 |     async clickOnThreeDotsMenuOfProject(projectTitle: string) {
+  33 |         const project = this.page.locator('div', { hasText: projectTitle }).last();
+  34 |         await project.scrollIntoViewIfNeeded();
+  35 |         await project.locator('..').locator('button svg').click();
+  36 |     }
+  37 |
+  38 |     async clickOnProjectSettings() {
+  39 |         await this.page.getByRole('button', { name: 'Project Setting' }).last().click();
+  40 |     }
+  41 |
+  42 |     async clickOnAddButton() {
+  43 |         await this.page.getByRole('button', { name: 'Add' }).click();
+  44 |     }
+  45 |
+  46 |     async validatePopUpIsVisible() {
+  47 |         const popUp = this.page.getByTestId('popup');
+  48 |         const isVisible = await popUp.isVisible();
+> 49 |         expect(isVisible).toBe(true);
+     |                           ^ Error: expect(received).toBe(expected) // Object.is equality
+  50 |     }
+  51 |
+  52 |     // ! This is not working as expected as the button is disabled but the test is failing
+  53 |     async validateInviteButtonIsDisabled() {
+  54 |         const inviteButton = this.page.getByTestId('popup').locator('button').nth(1);
+  55 |         const isDisabled = await inviteButton.isDisabled();
+  56 |         expect(isDisabled).toBe(true);
+  57 |     }
+  58 |
+  59 |     async enterEmailOfNewTeamMember(email: string) {
+  60 |         await this.page.locator('input[type="text"]').fill(email);
+  61 |     }
+  62 |
+  63 |
+  64 |     async clickOnInviteButton() {
+  65 |         await this.page.getByTestId('popup').locator('button').nth(1).click();
+  66 |     }
+  67 |
+  68 | }
+  69 |
+```

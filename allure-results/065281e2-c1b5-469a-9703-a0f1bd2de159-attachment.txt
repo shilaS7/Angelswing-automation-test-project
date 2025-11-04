@@ -1,0 +1,29 @@
+✅ Token created with UUID: 7a63bc3c-921c-4249-b62f-011ff78e1c0e
+Selecting role: Project Member
+Entering email: 7a63bc3c-921c-4249-b62f-011ff78e1c0e@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 7a63bc3c-921c-4249-b62f-011ff78e1c0e@emailhook.site
+Search completed
+Row Cell Text: 7a63bc3c-921c-4249-b62f-011ff78e1c0e@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=7a63bc3c-921c-4249-b62f-011ff78e1c0e%40emailhook.site&organization=Grady+Group
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Deontae
+Entering Last Name: McClure
+Selecting Organization: Reichert and Sons
+Entering Phone Number: +18963947615
+Selecting purpose: Others
+Selecting country: Pakistan
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/6DUrx7aY4z2igRp5PGb47Q?email=7a63bc3c-921c-4249-b62f-011ff78e1c0e%40emailhook.site
+🗑️  Token 7a63bc3c-921c-4249-b62f-011ff78e1c0e deleted successfully

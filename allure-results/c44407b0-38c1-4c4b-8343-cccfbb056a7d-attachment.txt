@@ -1,0 +1,2 @@
+✅ Token created with UUID: 702b018f-7913-497c-9fb5-d470ed0b306a
+🗑️  Token 702b018f-7913-497c-9fb5-d470ed0b306a deleted successfully

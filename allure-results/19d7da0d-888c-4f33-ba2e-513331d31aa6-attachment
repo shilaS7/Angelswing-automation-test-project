@@ -1,0 +1,137 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Photo Gallery Page >> should able to upload the photo from the gallery
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:222:9
+
+# Error details
+
+```
+TimeoutError: page.waitForEvent: Timeout 5000ms exceeded while waiting for event "filechooser"
+=========================== logs ===========================
+waiting for event "filechooser"
+============================================================
+    at PhotoGallery.UploadPhotoFromGallery (D:\Angelswing_QA\angelswing-automation-test\pages\BasePage.ts:107:46)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\photoGallery.spec.ts:234:9
+```
+
+# Test source
+
+```ts
+   7 |         this.page = page;
+   8 |     }
+   9 |
+   10 |     async getHeaderOfPopup() {
+   11 |         return await this.page.getByTestId('popup-title').textContent();
+   12 |     }
+   13 |
+   14 |     async checkIfApplyButtonIsEnabled(text = 'Apply') {
+   15 |         return await this.page.getByRole('button', { name: text }).isEnabled();
+   16 |     }
+   17 |
+   18 |     async checkIfApplyButtonIsDisabled(text = 'Apply') {
+   19 |         return await this.page.getByRole('button', { name: text }).isDisabled();
+   20 |     }
+   21 |
+   22 |     async clickOnApplyButton(text = 'Apply') {
+   23 |         await this.page.getByRole('button', { name: text }).click();
+   24 |         await this.page.waitForTimeout(1000);
+   25 |     }
+   26 |
+   27 |     async clickOnCancelButton() {
+   28 |         return await this.page.getByRole('button', { name: 'Cancel' }).click();
+   29 |     }
+   30 |
+   31 |     async clickOnPopUpCloseButton() {
+   32 |         return await this.page.getByTestId('popup').locator('header div svg').click();
+   33 |     }
+   34 |
+   35 |     async clickOnUploadButton() {
+   36 |         return await this.page.getByRole('button', { name: 'Upload' }).click();
+   37 |     }
+   38 |
+   39 |     async clickOnResetToDefaultButton() {
+   40 |         return await this.page.getByRole('button', { name: 'Reset to Default' }).click();
+   41 |     }
+   42 |
+   43 |     async checkIfImageUploaded() {
+   44 |         return await this.page.getByTestId('change-profile-image').locator('img').isVisible();
+   45 |     }
+   46 |
+   47 |     async checkIfImageResetToDefault() {
+   48 |         return await this.page.getByTestId('change-profile-image').locator('img').isHidden();
+   49 |     }
+   50 |
+   51 |     async checkIfImageDisplayedOnProfilePage() {
+   52 |         return await this.page.getByTestId('my-page-account-profile-title-container').locator('img').isVisible();
+   53 |     }
+   54 |
+   55 |     async selectCountry(country: any) {
+   56 |         console.log(`Selecting country: ${country}`);
+   57 |         const countryDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]').nth(0);
+   58 |         await countryDropdown.click();
+   59 |         await this.page.locator(`text=${country.trim()}`).first().click();
+   60 |         await expect(countryDropdown).toHaveText(country);
+   61 |     }
+   62 |
+   63 |     async selectPurpose(purpose: string,) {
+   64 |         console.log(`Selecting purpose: ${purpose}`);
+   65 |         const purposeDropdown = this.page.locator('button[data-testid="dropdown-mainbutton"]');
+   66 |         await purposeDropdown.click();
+   67 |         await this.page.locator(`text=${purpose}`).last().click();
+   68 |         await expect(purposeDropdown).toHaveText(purpose);
+   69 |     }
+   70 |
+   71 |
+   72 |     async waitForPostResponse(partialUrl: string): Promise<any> {
+   73 |         const response = await this.page.waitForResponse(response =>
+   74 |             response.url().includes(partialUrl) && response.request().method() === 'POST',
+   75 |             { timeout: 10000 }
+   76 |         );
+   77 |         const status = response.status();
+   78 |         console.log(`Status: ${status}, URL: ${response.url()}`);
+   79 |
+   80 |         if (status >= 200 && status < 300) {
+   81 |             const body = await response.json();
+   82 |             // console.log(`Response: ${JSON.stringify(body)}`);
+   83 |             return body;
+   84 |         } else {
+   85 |             const text = await response.text();
+   86 |             console.error(`Non-JSON response body:\n${text}`);
+   87 |             throw new Error(`Expected JSON response but got: ${status}`);
+   88 |         }
+   89 |     }
+   90 |
+   91 |     async getProjectCount() {
+   92 |         const projectCount = await this.page.locator('[data-testid="organization-project-list"] >div').count();
+   93 |         return projectCount;
+   94 |     }
+   95 |
+   96 |     async getFirstRowCellText(columnIndex: number): Promise<string | null> {
+   97 |         const row = this.page.locator('tbody tr').first();
+   98 |         const cells = row.locator('td');
+   99 |         return await cells.nth(columnIndex).textContent();
+  100 |     }
+  101 |
+  102 |     async UploadPhotoFromGallery(folderPath: string) {
+  103 |         console.log(`Uploading photo from gallery: ${folderPath}`);
+  104 |         const { readdirSync } = await import('fs');
+  105 |         const { join } = await import('path');
+  106 |         
+> 107 |         const fileChooserPromise = this.page.waitForEvent('filechooser');
+      |                                              ^ TimeoutError: page.waitForEvent: Timeout 5000ms exceeded while waiting for event "filechooser"
+  108 |         
+  109 |         const fileChooser = await fileChooserPromise;
+  110 |         
+  111 |         const imageFiles = readdirSync(folderPath);
+  112 |         const imagePaths = imageFiles.map((file: string) => join(folderPath, file));
+  113 |         await fileChooser.setFiles(imagePaths);
+  114 |     }
+  115 | }
+  116 |
+```

@@ -1,0 +1,227 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> email domain list >> should display correct account type as per email domain configuration of organization in case of single email invitation
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1007:17
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "Managed External"
+Received: "managed external"
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:1028:50
+```
+
+# Test source
+
+```ts
+   928 |
+   929 |             await helper.waitForNumberOfSeconds(1);
+   930 |             await organizationPage.clickOnPendingRequestsTab();
+   931 |             await organizationPage.searchByValueAndValidateResultInPendingRequests(memberEmail2);
+   932 |             await organizationPage.searchByValueAndValidateResultInPendingRequests(memberEmail1);
+   933 |
+   934 |             // await pm.onProjectPage.clickOnDashboardMenu();
+   935 |             // await pm.onDashboardPage.clickOnSignOutButton();
+   936 |
+   937 |             // for (const { token, email, isAdmin, projectCount } of [
+   938 |             //     { token: firstToken, email: memberEmail1, isAdmin: false, projectCount: 2 },
+   939 |             //     { token: secondToken, email: memberEmail2, isAdmin: false, projectCount: 3 },
+   940 |             // ]) {
+   941 |
+   942 |             //     console.log(`Starting test for ${token} and ${email}`);
+   943 |             //     const signupTab = await completeUserSignupFlow({ request, context, token, userDetails, password: userDetails.password });
+   944 |             //     const verificationTab = await completeEmailVerificationAndLogin({ request, context, token, password: userDetails.password });
+   945 |             //     const { newUserDashboard } = await setupDashboardAfterLogin(verificationTab, projectCount, 1);
+   946 |             //     //await validate2DOrthomosaicIsSelected(verificationTab);
+   947 |             //     const workspaceNavPM = new PageManager(verificationTab);
+   948 |             //     await workspaceNavPM.navigateTo.workspacePage();
+   949 |
+   950 |             //     if (isAdmin) {
+   951 |             //         await validateAdminUI({ tab: verificationTab, email, organizationName, projectCount, helper });
+   952 |             //     } else {
+   953 |             //         const isOrganizationSideBarVisible = await newUserDashboard.isOrganizationSideBarVisible();
+   954 |             //         expect(isOrganizationSideBarVisible).toBe(false);
+   955 |             //     }
+   956 |             //     await signoutAndCloseTabs(verificationTab, signupTab, newUserDashboard);
+   957 |             // }
+   958 |             await deleteToken(request, firstToken);
+   959 |             await deleteToken(request, secondToken);
+   960 |         });
+   961 |
+   962 |         test('should display error if the API returns 400 or 500 status code after clicking Pending Requests tab', async ({ }) => {
+   963 |             const organizationPage = pm.onOrganizationPage;
+   964 |             const pendingAccountData = {
+   965 |                 "data": [
+   966 |                     {
+   967 |                         "id": 215,
+   968 |                         "organizationId": 7,
+   969 |                         "userId": 1654,
+   970 |                         "avatar": null,
+   971 |                         "avatarThumbnail": null,
+   972 |                         "lastName": "WelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelchWelch",
+   973 |                         "firstName": "TrishaTrishaTrishaTrishaTrishaTrishaTrishaTrishaTrishaTrishaTrishaTrisha TrishaTrishaTrishaTrishaTrishaTrisha",
+   974 |                         "email": "4a78fc02-18f7-4d51-b42e-a69b9d115sfsafsf6a6@emailhook.site",
+   975 |                         "role": "member",
+   976 |                         "accountType": null,
+   977 |                         "team": null,
+   978 |                         "createdAt": "2025-07-07T22:25:47.358+09:00",
+   979 |                         "updatedAt": "2025-07-07T22:25:47.358+09:00",
+   980 |                         "status": "pending"
+   981 |                     }
+   982 |                 ]
+   983 |             };
+   984 |
+   985 |             await pm.getPage.route('**/v2/organizations/*/organization_users?status=pending', async (route) => {
+   986 |                 await route.fulfill({ body: JSON.stringify(pendingAccountData) });
+   987 |             });
+   988 |             await organizationPage.clickOnPendingRequestsTab();
+   989 |         });
+   990 |
+   991 |         test.fixme('should display error if the API returns 500 status code after clicking Pending Requests tab', async ({ }) => {
+   992 |             const organizationPage = pm.onOrganizationPage;
+   993 |
+   994 |             await pm.getPage.route('**/v2/organizations/*/organization_users?status=pending', async route => {
+   995 |                 console.log('Mocked 500 error for pending requests API');
+   996 |                 await route.fulfill({
+   997 |                     status: 500,
+   998 |                     contentType: 'application/json',
+   999 |                     body: JSON.stringify({ message: 'Internal Server Error' }),
+  1000 |                 });
+  1001 |             });
+  1002 |             await organizationPage.clickOnPendingRequestsTab();
+  1003 |         });
+  1004 |
+  1005 |         test.describe('email domain list', () => {
+  1006 |
+  1007 |             test('should display correct account type as per email domain configuration of organization in case of single email invitation', async ({ request, context }) => {
+  1008 |
+  1009 |                 const emails = [`suraj.anand+${faker.number.int()}@angelswing.io`, `suraj.anand+${faker.number.int()}@emailhook.site`, `${faker.internet.email()}`];
+  1010 |                 const organizationPage = pm.onOrganizationPage;
+  1011 |
+  1012 |                 for (const email of emails) {
+  1013 |                     userDetails.email = email;
+  1014 |                     await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  1015 |                     await organizationPage.enterEmail(userDetails.email);
+  1016 |                     await organizationPage.clickAddButton();
+  1017 |                     expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  1018 |                     await organizationPage.sendInvitation();
+  1019 |                     await organizationPage.validateUserIsNotListedInAccounts(userDetails.email);
+  1020 |
+  1021 |                     await organizationPage.clickOnPendingRequestsTab();
+  1022 |                     await organizationPage.validateUserIsInvitedAndListedInPendingRequests(userDetails.email);
+  1023 |
+  1024 |                     const accountType = await organizationPage.getAccountTypeCellText();
+  1025 |                     if (userDetails.email.includes(emailDomain[0]) || userDetails.email.includes(emailDomain[1])) {
+  1026 |                         expect.soft(accountType).toBe(UI_META.organizationPage.accountType.employee);
+  1027 |                     } else {
+> 1028 |                         expect.soft(accountType).toBe(UI_META.organizationPage.accountType.managedExternal);
+       |                                                  ^ Error: expect(received).toBe(expected) // Object.is equality
+  1029 |                     }
+  1030 |                 }
+  1031 |             });
+  1032 |
+  1033 |             test('should display correct account type as per email domain configuration of organization in case of multiple emails invitation', async ({ request, context }) => {
+  1034 |                 const emailDomain = [
+  1035 |                     "angelswing.io",
+  1036 |                     "emailhook.site"
+  1037 |                 ];
+  1038 |
+  1039 |                 const email1 = `suraj.anand+${faker.number.int()}@angelswing.io`;
+  1040 |                 const email2 = `${token}@${process.env.EMAIL_HOOK_URL}`;
+  1041 |                 const email3 = `${faker.internet.email()}`;
+  1042 |                 const multipleEmails = `${email1}, ${email2}, ${email3}`;
+  1043 |
+  1044 |                 const organizationPage = pm.onOrganizationPage;
+  1045 |                 await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  1046 |                 await organizationPage.enterEmail(multipleEmails);
+  1047 |                 await organizationPage.clickAddButton();
+  1048 |                 expect(await organizationPage.getCountOfInvitedAccounts()).toBe(3);
+  1049 |                 await organizationPage.sendInvitation();
+  1050 |
+  1051 |                 const multipleEmailsArray = [email1, email2, email3];
+  1052 |                 for (const email of multipleEmailsArray) {
+  1053 |
+  1054 |                     await organizationPage.validateUserIsNotListedInAccounts(email);
+  1055 |
+  1056 |                     await organizationPage.clickOnPendingRequestsTab();
+  1057 |                     await organizationPage.validateUserIsInvitedAndListedInPendingRequests(email);
+  1058 |
+  1059 |                     const accountType = await organizationPage.getAccountTypeCellText();
+  1060 |                     if (email.includes(emailDomain[0]) || email.includes(emailDomain[1])) {
+  1061 |                         expect.soft(accountType).toBe(UI_META.organizationPage.accountType.employee);
+  1062 |                     } else {
+  1063 |                         expect.soft(accountType).toBe(UI_META.organizationPage.accountType.managedExternal);
+  1064 |                     }
+  1065 |                     await organizationPage.clickOnAccountsTab();
+  1066 |                 }
+  1067 |             });
+  1068 |
+  1069 |             test('should assign employee role regardless of case differences in email domain', async ({ }) => {
+  1070 |                 // Precondition: backend has domain list containing mixed case domain, e.g., "Angelswing.IO"
+  1071 |                 const testEmail = `suraj.anand+${faker.number.int()}@angelswing.io`;
+  1072 |
+  1073 |                 const organizationPage = pm.onOrganizationPage;
+  1074 |                 await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  1075 |
+  1076 |                 await organizationPage.enterEmail(testEmail);
+  1077 |                 await organizationPage.clickAddButton();
+  1078 |                 expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  1079 |                 await organizationPage.sendInvitation();
+  1080 |
+  1081 |                 await organizationPage.clickOnPendingRequestsTab();
+  1082 |                 await organizationPage.validateUserIsInvitedAndListedInPendingRequests(testEmail);
+  1083 |
+  1084 |                 const accountType = await organizationPage.getAccountTypeCellText();
+  1085 |                 expect(accountType).toBe(UI_META.organizationPage.accountType.employee);
+  1086 |             });
+  1087 |
+  1088 |             test('should handle empty or whitespace email domain list gracefully during invitation', async ({ }) => {
+  1089 |
+  1090 |                 // Precondition: backend has domain list containing mixed case domain, e.g., "Angelswing.IO    "
+  1091 |                 const testEmail = `suraj.anand+${faker.number.int()}@angelswing.io`;
+  1092 |
+  1093 |                 const organizationPage = pm.onOrganizationPage;
+  1094 |                 await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  1095 |
+  1096 |                 await organizationPage.enterEmail(testEmail);
+  1097 |                 await organizationPage.clickAddButton();
+  1098 |                 expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  1099 |                 await organizationPage.sendInvitation();
+  1100 |
+  1101 |                 await organizationPage.clickOnPendingRequestsTab();
+  1102 |                 await organizationPage.validateUserIsInvitedAndListedInPendingRequests(testEmail);
+  1103 |
+  1104 |                 const accountType = await organizationPage.getAccountTypeCellText();
+  1105 |                 expect(accountType).toBe(UI_META.organizationPage.accountType.employee);
+  1106 |             });
+  1107 |
+  1108 |             test('should assign roles correctly for subdomains and substring domains', async ({ }) => {
+  1109 |
+  1110 |                 const emails = [
+  1111 |                     `suraj.anand+${faker.number.int()}@mail.angelswing.io`,
+  1112 |                     `suraj.anand+${faker.number.int()}@notangelswing.io`,
+  1113 |                 ];
+  1114 |
+  1115 |                 const organizationPage = pm.onOrganizationPage;
+  1116 |
+  1117 |                 for (const email of emails) {
+  1118 |                     await setupInvitation(organizationPage, [projectName[0]], UI_META.organizationPage.role.admin);
+  1119 |                     await organizationPage.enterEmail(email);
+  1120 |                     await organizationPage.clickAddButton();
+  1121 |                     expect(await organizationPage.getCountOfInvitedAccounts()).toBe(1);
+  1122 |                     await organizationPage.sendInvitation();
+  1123 |
+  1124 |                     await organizationPage.clickOnPendingRequestsTab();
+  1125 |                     await organizationPage.validateUserIsInvitedAndListedInPendingRequests(email);
+  1126 |
+  1127 |                     const accountType = await organizationPage.getAccountTypeCellText();
+  1128 |
+```

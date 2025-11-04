@@ -1,0 +1,11 @@
+Entering Email: claud.hills@j87bh0xv.mailosaur.net
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Claud
+Entering Last Name: Hills
+Selecting Organization: Koelpin, Walsh and Muller
+Organization input validated: "Koelpin, Walsh and Muller"
+Entering Phone Number: +15208708848
+Selecting purpose: Others
+Selecting country: Malawi
+Selecting language: English

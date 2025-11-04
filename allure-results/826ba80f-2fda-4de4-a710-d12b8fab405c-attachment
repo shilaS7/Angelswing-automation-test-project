@@ -1,0 +1,89 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: VSlam Page >> should redirect to the photo album page
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:45:9
+
+# Error details
+
+```
+TimeoutError: locator.textContent: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('section span').first()
+
+    at VSlamPage.getHeaderText (D:\Angelswing_QA\angelswing-automation-test\pages\VSlamPage.ts:17:64)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\vslam.spec.ts:48:33
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications Alt+T"
+- img "Slide"
+- complementary:
+  - img
+  - img
+  - img
+  - img
+  - img
+  - img
+  - text: BETA
+  - img
+  - img
+- text: 2D 3D
+- button:
+  - img
+- text: Photo Gallery
+- img
+- button "Timeline"
+- button "Location"
+- button "Album"
+- button "All":
+  - button:
+    - img
+  - text: All
+- text: June 2025 Wed, 25 June, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 77 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 1 Videos Mon, 16 June, 2025
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 122 Photos
+- img
+- text: 360 Vslam Photos 360° VSLAM Photos 129 Photos
+- img
+- text: 360 VSLAM Videos 360° VSLAM Videos 2 Videos 2025
+- button:
+  - img
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from '@playwright/test';
+   2 | import { HelperBase } from './HelperBase';
+   3 | import { BasePage } from './BasePage';
+   4 |
+   5 | export class VSlamPage extends BasePage {
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         super(page);
+   9 |     }
+  10 |
+  11 |     async photoAlbumPage() {
+  12 |         await this.page.getByTestId('tab-btn-photo').click();
+  13 |         
+  14 |     }
+  15 |
+  16 |     async getHeaderText() {
+> 17 |         return await this.page.locator('section span').first().textContent();
+     |                                                                ^ TimeoutError: locator.textContent: Timeout 15000ms exceeded.
+  18 |     }
+  19 |
+  20 | }
+```

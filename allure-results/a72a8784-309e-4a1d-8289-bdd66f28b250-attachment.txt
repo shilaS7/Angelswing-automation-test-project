@@ -1,0 +1,35 @@
+✅ Token created with UUID: 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2
+Selecting role: Admin
+Entering email: 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2@emailhook.site
+Invitation success message: The invitations have been sent.
+Searching for: 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2@emailhook.site
+Search completed
+No collaborators found for "39c74e07-5cf9-4919-a0ab-978f1cbb3cd2@emailhook.site"
+Searching for: 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2@emailhook.site
+Search completed
+Row Cell Text: 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2@emailhook.site
+🔄 [SIGNUP] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+✅ Signup link found in email #1: https://dev.angelswing.io/signup?email=39c74e07-5cf9-4919-a0ab-978f1cbb3cd2%40emailhook.site&organization=Bashirian%2C+Hagenes+and+Raynor
+Entering Password: Test@12345
+Entering Confirm Password: Test@12345
+Entering First Name: Rosamond
+Entering Last Name: Muller
+Selecting Organization: Price Inc
+Entering Phone Number: +17166257585
+Selecting purpose: Construction
+Selecting country: Mauritania
+Selecting language: English
+🔄 [VERIFY] Checking inbox (Attempt 1/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 2/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 3/5)...
+Fetched 1 emails
+❌ No verify link found in any email. Retrying...
+🔄 [VERIFY] Checking inbox (Attempt 4/5)...
+Fetched 2 emails
+✅ Verify link found in email #1: https://dev-api.angelswing.io/v2/confirm-email/xJn_1xm8wVu9Aw5Xd-nGzA?email=39c74e07-5cf9-4919-a0ab-978f1cbb3cd2%40emailhook.site
+🗑️  Token 39c74e07-5cf9-4919-a0ab-978f1cbb3cd2 deleted successfully

@@ -1,0 +1,233 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Organization Page >> Invitation tests >> should invite an admin to an organization and validate the invitation page after signup and login from new user/admin @smoke
+- Location: D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:428:13
+
+# Error details
+
+```
+TimeoutError: locator.pressSequentially: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByPlaceholder('Search accounts')
+    - locator resolved to <input value="" class="sc-fqCpun fIeJkV" placeholder="Search accounts" data-testid="search-input-text"/>
+  - elementHandle.type("d06950e2-47c6-4435-af48-b7c3d7a412c9@emailhook.site")
+
+    at OrganizationPage.enterValueInSearch (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:163:46)
+    at OrganizationPage.enterAndWaitForSearchToComplete (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:223:9)
+    at OrganizationPage.validateUserIsNotListed (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:254:9)
+    at OrganizationPage.validateUserIsNotListedInAccounts (D:\Angelswing_QA\angelswing-automation-test\pages\OrganizationPage.ts:214:9)
+    at D:\Angelswing_QA\angelswing-automation-test\tests\frontend-tests\organization.spec.ts:435:13
+```
+
+# Test source
+
+```ts
+   63 |     }
+   64 |
+   65 |     async isInformationTabShownAsSelected() {
+   66 |         return await this.isTabShownAsSelected('manage-organization-tabs-Information-tab');
+   67 |     }
+   68 |
+   69 |     async isProjectsTabShownAsSelected() {
+   70 |         return await this.isTabShownAsSelected('manage-organization-tabs-Projects-tab');
+   71 |     }
+   72 |
+   73 |     private async isTabShownAsSelected(tabName: string) {
+   74 |         const isSelected = await this.page.getByTestId(`${tabName}`).getAttribute('data-selected');
+   75 |         return isSelected === 'true';
+   76 |     }
+   77 |
+   78 |     async clickOnProcessing() {
+   79 |         await this.page.locator('h3', { hasText: 'Processing' }).click();
+   80 |     }
+   81 |
+   82 |     async clickOnOrganizationName() {
+   83 |         await this.page.getByTestId('organization-information-tab-name').locator('div:text-is(" Name") + div').click();
+   84 |     }
+   85 |
+   86 |     async clickOnCountry() {
+   87 |         await this.page.getByTestId('organization-information-tab-region-country').locator('div:text-is(" Region/Country") + div').click();
+   88 |     }
+   89 |
+   90 |     async clickOnIndustry() {
+   91 |         await this.page.getByTestId('organization-information-tab-industry').locator('div:text-is(" Industry") + div').click();
+   92 |     }
+   93 |
+   94 |     async getOrganizationPopupHeader() {
+   95 |         return await this.getHeaderOfPopup();
+   96 |     }
+   97 |
+   98 |     async isApplyButtonEnabled() {
+   99 |         return await this.checkIfApplyButtonIsEnabled();
+  100 |     }
+  101 |
+  102 |     async isApplyButtonDisabled() {
+  103 |         return await this.checkIfApplyButtonIsDisabled();
+  104 |     }
+  105 |
+  106 |     async clickOnApply() {
+  107 |         await this.clickOnApplyButton();
+  108 |     }
+  109 |
+  110 |     async clickOnCancel() {
+  111 |         await this.clickOnCancelButton();
+  112 |     }
+  113 |
+  114 |     async clickOnPopUpClose() {
+  115 |         await this.clickOnPopUpCloseButton();
+  116 |     }
+  117 |
+  118 |     async clickOnUpload() {
+  119 |         await this.clickOnUploadButton();
+  120 |     }
+  121 |
+  122 |     async clickOnResetToDefault() {
+  123 |         await this.clickOnResetToDefaultButton();
+  124 |     }
+  125 |
+  126 |     async isImageUploaded() {
+  127 |         return await this.checkIfImageUploaded();
+  128 |     }
+  129 |
+  130 |     async isImageResetToDefault() {
+  131 |         return await this.checkIfImageResetToDefault();
+  132 |     }
+  133 |
+  134 |     async isImageDisplayedOnProfilePage() {
+  135 |         return await this.checkIfImageDisplayedOnProfilePage();
+  136 |     }
+  137 |
+  138 |     async enterOrganizationName(organizationName: string) {
+  139 |         const organizationNameInput = this.page.getByPlaceholder('Organization Name');
+  140 |         await organizationNameInput.clear();
+  141 |         await organizationNameInput.pressSequentially(organizationName);
+  142 |     }
+  143 |
+  144 |     async enterCountry(country: string) {
+  145 |         await this.selectCountry(country);
+  146 |     }
+  147 |
+  148 |     async enterIndustry(industry: string) {
+  149 |         await this.selectPurpose(industry);
+  150 |     }
+  151 |
+  152 |     async enterValueInSearch(value: string) {
+  153 |         const searchInputAccounts = this.page.getByPlaceholder('Search collaborators');
+  154 |         const searchInputPendingRequests = this.page.getByPlaceholder('Search accounts');
+  155 |
+  156 |         if (await searchInputAccounts.isVisible()) {
+  157 |             await searchInputAccounts.clear();
+  158 |             await searchInputAccounts.pressSequentially(value, { delay: 50 });
+  159 |             return;
+  160 |         }
+  161 |         if (await searchInputPendingRequests.isVisible()) {
+  162 |             await searchInputPendingRequests.clear();
+> 163 |             await searchInputPendingRequests.pressSequentially(value, { delay: 50 });
+      |                                              ^ TimeoutError: locator.pressSequentially: Timeout 5000ms exceeded.
+  164 |             return;
+  165 |         }
+  166 |     }
+  167 |
+  168 |
+  169 |     async searchByValueAndValidateResult(searchTerm: string) {
+  170 |         await this.enterValueInSearch(searchTerm);
+  171 |         const rows = this.page.locator('tbody tr');
+  172 |         await this.page.waitForLoadState('networkidle');
+  173 |         const rowCount = await rows.count();
+  174 |
+  175 |         if (rowCount === 0) {
+  176 |             await this.assertEmptyStateMessage(`No collaborators found for "${searchTerm.trim()}"`);
+  177 |         } else {
+  178 |             for (const row of await rows.all()) {
+  179 |                 const cells = row.locator('td');
+  180 |                 const cellText = await cells.nth(1).textContent();
+  181 |                 console.log(`Row Cell Text: ${cellText}`);
+  182 |                 expect(cellText?.toLowerCase()).toContain(searchTerm.toLowerCase());
+  183 |             }
+  184 |         }
+  185 |     }
+  186 |
+  187 |     async searchByValueAndValidateResultInPendingRequests(searchTerm: string) {
+  188 |         await this.enterAndWaitForSearchToComplete(searchTerm);
+  189 |         const rows = this.page.locator('tbody tr');
+  190 |         const dataRows = this.page.locator('tbody tr td');
+  191 |         const rowCount = await dataRows.count();
+  192 |
+  193 |         if (rowCount === 1) {
+  194 |             await this.assertEmptyStateMessage(`No data available`);
+  195 |         } else {
+  196 |             for (const row of await rows.all()) {
+  197 |                 const cells = row.locator('td');
+  198 |                 const cellText = await cells.nth(2).textContent();
+  199 |                 console.log(`Row Cell Text: ${cellText}`);
+  200 |                 expect.soft(cellText?.toLowerCase()).toContain(searchTerm.toLowerCase());
+  201 |             }
+  202 |         }
+  203 |     }
+  204 |
+  205 |     async validateUserIsListedInAccounts(email: string) {
+  206 |         await this.validateUserIsListed(email, 1);
+  207 |     }
+  208 |
+  209 |     async validateUserIsInvitedAndListedInPendingRequests(email: string) {
+  210 |         await this.validateUserIsListed(email, 2);
+  211 |     }
+  212 |
+  213 |     async validateUserIsNotListedInAccounts(email: string) {
+  214 |         await this.validateUserIsNotListed(email, `No collaborators found for "${email.trim()}"`);
+  215 |     }
+  216 |
+  217 |     async validateUserIsNotListedInPendingRequests(email: string) {
+  218 |         await this.validateUserIsNotListed(email, `No data available`);
+  219 |     }
+  220 |
+  221 |     private async enterAndWaitForSearchToComplete(value: string) {
+  222 |         console.log(`Searching for: ${value}`);
+  223 |         await this.enterValueInSearch(value);
+  224 |         await this.page.waitForLoadState('networkidle');
+  225 |         // await this.page.waitForTimeout(1000);
+  226 |         console.log(`Search completed`);
+  227 |     }
+  228 |
+  229 |     private async getFirstRowCellText(columnIndex: number): Promise<string | null> {
+  230 |         const row = this.page.locator('tbody tr').first();
+  231 |         const cells = row.locator('td');
+  232 |         return await cells.nth(columnIndex).textContent();
+  233 |     }
+  234 |
+  235 |     async getAccountTypeCellText(): Promise<string | null> {
+  236 |         return await this.getFirstRowCellText(3);
+  237 |     }
+  238 |
+  239 |     private async assertEmptyStateMessage(expectedText: string) {
+  240 |         const emptyStateMessage = this.page.locator('p', { hasText: expectedText });
+  241 |         await expect(emptyStateMessage).toBeVisible();
+  242 |         await expect(emptyStateMessage).toHaveText(expectedText);
+  243 |         console.log(expectedText);
+  244 |     }
+  245 |
+  246 |     private async validateUserIsListed(email: string, columnIndex: number) {
+  247 |         await this.enterAndWaitForSearchToComplete(email);
+  248 |         const cellText = await this.getFirstRowCellText(columnIndex);
+  249 |         console.log(`Row Cell Text: ${cellText}`);
+  250 |         expect.soft(cellText?.toLowerCase()).toContain(email.toLowerCase());
+  251 |     }
+  252 |
+  253 |     private async validateUserIsNotListed(email: string, expectedEmptyText: string) {
+  254 |         await this.enterAndWaitForSearchToComplete(email);
+  255 |         await this.assertEmptyStateMessage(expectedEmptyText);
+  256 |     }
+  257 |
+  258 |
+  259 |     async clickOnDatePicker() {
+  260 |         await this.page.getByRole('button', { name: 'Pick a period' }).click();
+  261 |     }
+  262 |     async clickOnStartYear() {
+  263 |         await this.clickDatePickerButton('Start date', 'first');
+```
