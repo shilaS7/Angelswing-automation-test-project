@@ -720,7 +720,7 @@ test.describe('Photo Gallery Page', () => {
 
         //Select the apply button
         await photoGalleryPage.clickOnProceedButton();
-        console.log("proceed button is clicked");
+        
         
         
     })
