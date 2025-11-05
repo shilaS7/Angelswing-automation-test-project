@@ -1,0 +1,6 @@
+Clicked on create content group
+Total Groups: 3
+Deleting group 1 of 3
+Deleting group 2 of 3
+Deleting group 3 of 3
+One group created successfully

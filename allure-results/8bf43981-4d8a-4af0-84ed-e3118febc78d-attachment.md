@@ -1,0 +1,217 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications Alt+T"
+  - generic [ref=e3]:
+    - generic:
+      - generic:
+        - img "Slide"
+    - generic [ref=e5]:
+      - button "Show / Hide folder" [ref=e6] [cursor=pointer]:
+        - generic [ref=e8]: Show / Hide folder
+      - button "Rename" [ref=e11] [cursor=pointer]:
+        - generic [ref=e13]: Rename
+      - button "Delete" [disabled]:
+        - generic: Delete
+      - button "Fold / Unfold folder" [ref=e16] [cursor=pointer]:
+        - generic [ref=e18]: Fold / Unfold folder
+      - button "Show on maps for all dates" [ref=e20] [cursor=pointer]:
+        - generic [ref=e22]: Show on maps for all dates
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - complementary [ref=e27]:
+          - img [ref=e29] [cursor=pointer]
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - img [ref=e35] [cursor=pointer]
+              - generic [ref=e37] [cursor=pointer]:
+                - text: BETA
+                - img [ref=e38]
+              - img [ref=e41] [cursor=pointer]
+              - img [ref=e46] [cursor=pointer]
+              - img [ref=e49] [cursor=pointer]
+              - img [ref=e52] [cursor=pointer]
+              - generic [ref=e57] [cursor=pointer]:
+                - text: BETA
+                - img [ref=e58]
+              - generic [ref=e63] [cursor=pointer]:
+                - text: BETA
+                - img [ref=e64]
+            - img [ref=e68] [cursor=pointer]
+        - generic [ref=e74]:
+          - generic [ref=e76]:
+            - img [ref=e78]
+            - generic [ref=e80] [cursor=pointer]:
+              - generic [ref=e81]: Thu, Jun 26, 2025
+              - img [ref=e82]
+            - img [ref=e87]
+          - list [ref=e91]:
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - img [ref=e96] [cursor=pointer]
+                - generic [ref=e100]: Personal space
+                - img [ref=e103] [cursor=pointer]
+              - generic [ref=e107]:
+                - img [ref=e109]
+                - textbox "Search personal measurements" [ref=e112]
+                - button [ref=e115] [cursor=pointer]:
+                  - img [ref=e116]
+              - generic [ref=e119]:
+                - generic [ref=e120] [cursor=pointer]:
+                  - img [ref=e123]
+                  - img [ref=e128]
+                  - paragraph [ref=e134]: Group Title
+                  - img [ref=e136]
+                  - img [ref=e139]
+                - generic [ref=e141]:
+                  - listitem [ref=e143]:
+                    - generic [ref=e144] [cursor=pointer]:
+                      - img [ref=e148]
+                      - img [ref=e154]
+                      - paragraph [ref=e162]: Distance 2
+                      - img [ref=e165]
+                  - listitem [ref=e168]:
+                    - generic [ref=e169] [cursor=pointer]:
+                      - img [ref=e173]
+                      - img [ref=e179]
+                      - paragraph [ref=e185]: Circle 5
+                      - img [ref=e188]
+                  - listitem [ref=e191]:
+                    - generic [ref=e192] [cursor=pointer]:
+                      - img [ref=e196]
+                      - img [ref=e202]
+                      - paragraph [ref=e210]: Distance 3
+                      - img [ref=e213]
+                  - listitem [ref=e216]:
+                    - generic [ref=e217] [cursor=pointer]:
+                      - img [ref=e221]
+                      - img [ref=e227]
+                      - paragraph [ref=e235]: Distance 4
+                      - img [ref=e238]
+                  - listitem [ref=e241]:
+                    - generic [ref=e242] [cursor=pointer]:
+                      - img [ref=e246]
+                      - img [ref=e252]
+                      - paragraph [ref=e258]: Circle 2
+                      - img [ref=e261]
+                  - listitem [ref=e264]:
+                    - generic [ref=e265] [cursor=pointer]:
+                      - img [ref=e269]
+                      - img [ref=e275]
+                      - paragraph [ref=e281]: Circle 4
+                      - img [ref=e284]
+              - generic [ref=e287]:
+                - img [ref=e289] [cursor=pointer]
+                - generic [ref=e293]: Open space
+                - img [ref=e297] [cursor=pointer]
+                - img [ref=e304] [cursor=pointer]
+              - generic [ref=e310]:
+                - img [ref=e312]
+                - textbox "Search open measurements" [ref=e315]
+                - button [ref=e318] [cursor=pointer]:
+                  - img [ref=e319]
+              - generic [active] [ref=e323] [cursor=pointer]:
+                - img [ref=e326]
+                - img [ref=e329]
+                - paragraph [ref=e333]: Group Title 2
+                - img [ref=e335]
+                - img [ref=e338]
+              - generic [ref=e341]:
+                - generic [ref=e342] [cursor=pointer]:
+                  - img [ref=e345]
+                  - img [ref=e350]
+                  - paragraph [ref=e355]: Group Title
+                  - img [ref=e357]
+                  - img [ref=e360]
+                - generic [ref=e362]:
+                  - listitem [ref=e364]:
+                    - generic [ref=e365] [cursor=pointer]:
+                      - img [ref=e369]
+                      - img [ref=e373]
+                      - paragraph [ref=e385]: Area
+                      - img [ref=e388]
+                  - listitem [ref=e391]:
+                    - generic [ref=e392] [cursor=pointer]:
+                      - img [ref=e396]
+                      - img [ref=e402]
+                      - paragraph [ref=e410]: Distance
+                      - img [ref=e413]
+                  - listitem [ref=e416]:
+                    - generic [ref=e417] [cursor=pointer]:
+                      - img [ref=e421]
+                      - img [ref=e427]
+                      - paragraph [ref=e433]: Circle
+                      - img [ref=e436]
+                  - listitem [ref=e439]:
+                    - generic [ref=e440] [cursor=pointer]:
+                      - img [ref=e444]
+                      - img [ref=e450]
+                      - paragraph [ref=e456]: Volume
+                      - img [ref=e459]
+              - generic [ref=e469] [cursor=pointer]:
+                - img [ref=e472]
+                - img [ref=e475]
+                - paragraph [ref=e479]: Group Title
+                - img [ref=e481]
+                - img [ref=e484]
+      - button [ref=e487] [cursor=pointer]:
+        - img [ref=e488]
+    - generic [ref=e491]:
+      - paragraph [ref=e495]: New Data Set-abda
+      - generic [ref=e496]:
+        - button [ref=e499] [cursor=pointer]:
+          - img [ref=e500]
+        - button [ref=e504] [cursor=pointer]:
+          - img [ref=e505]
+        - button [ref=e510] [cursor=pointer]:
+          - img [ref=e511]
+        - button [ref=e516] [cursor=pointer]:
+          - img [ref=e517]
+        - button [ref=e522] [cursor=pointer]:
+          - img [ref=e523]
+        - button [ref=e528] [cursor=pointer]:
+          - img [ref=e529]
+        - button [ref=e535] [cursor=pointer]:
+          - img [ref=e536]
+    - generic [ref=e538]:
+      - generic [ref=e540]:
+        - img [ref=e541]
+        - text: Korea2000/Central Belt 2010 - EPSG:5186
+      - generic [ref=e543]:
+        - img [ref=e547] [cursor=pointer]
+        - img [ref=e552] [cursor=pointer]
+        - img [ref=e557] [cursor=pointer]
+        - img [ref=e562] [cursor=pointer]
+      - list [ref=e565]:
+        - listitem [ref=e566] [cursor=pointer]:
+          - img [ref=e569]
+        - listitem [ref=e571] [cursor=pointer]:
+          - img [ref=e574]
+        - listitem [ref=e576] [cursor=pointer]:
+          - img [ref=e579]
+        - listitem [ref=e581] [cursor=pointer]:
+          - img [ref=e584]
+        - listitem [ref=e586] [cursor=pointer]:
+          - img [ref=e587]
+        - listitem [ref=e589] [cursor=pointer]:
+          - img [ref=e592]
+        - listitem [ref=e596] [cursor=pointer]:
+          - img [ref=e600]
+      - generic [ref=e606] [cursor=pointer]:
+        - generic [ref=e609]: 2D
+        - generic [ref=e612]: 3D
+    - button "Presentation" [ref=e615] [cursor=pointer]:
+      - generic [ref=e616]: Presentation
+      - img [ref=e617]
+    - generic [ref=e627]:
+      - img [ref=e633] [cursor=pointer]
+      - img [ref=e642] [cursor=pointer]
+      - generic [ref=e644] [cursor=pointer]:
+        - img [ref=e648]
+        - img [ref=e653]
+      - img [ref=e659] [cursor=pointer]
+      - button [ref=e663] [cursor=pointer]:
+        - img [ref=e666]
+      - img [ref=e671] [cursor=pointer]
+```
