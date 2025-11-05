@@ -32,7 +32,7 @@ jobs:
           run: npx playwright install --with-deps
 
         - name: Run Playwright tests
-          run : npx playwright test --reporter=html
+          run : npx playwright test tests/angelswing3/login.spec.ts --reporter=html
 
    #Upload the playwright report as an artifact
         - name: Upload Playwright Report Artifact
