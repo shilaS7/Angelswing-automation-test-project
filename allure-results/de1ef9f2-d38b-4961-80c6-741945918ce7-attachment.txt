@@ -1,0 +1,23 @@
+Clicked on create content group
+Created new Volume
+Status: 201, URL: https://dev-api.angelswing.io/v2/projects/1575/contents
+Status: 200, URL: https://volume-dev.angelswing.io/sbvc/67908
+Created Volume ID: 71325
+Expected Cut Value: 156
+Expected Fill Value: 136
+Expected Total Value: 20
+Cut Value From Side Bar: 156.00,
+Fill Value From Side Bar: -136.00
+Cut Value From Below Side Bar: 156
+Fill Value From Below Side Bar: 136
+Total Value From Below Side Bar: 20
+Cut Value From Map: 156
+Fill Value From Map: 136
+Total Value From Map: 20
+Toggled visibility for measurement Item ID: 71325
+Toggled visibility for measurement Item ID: 71325
+Renamed Measurement Item ID 71325 to "RvkpKSSwsN"
+Centered on Measurement Item ID: 71325
+Toggled details visibility for measurement Item ID: 71325
+Delete Group response status: 204
+Verified: Group ID 71324 is not displayed
