@@ -5,7 +5,9 @@
   "description": "Automated tests for Angelswing using Playwright and TypeScript.",
   "scripts": {
     "auth": "npx playwright test --project=setup",
-    "test": "npm playwright test tests/angelswing3/login.spec.ts --project=chromium"
+    "test": "npx playwright test tests/angelswing3/login.spec.ts --project=chromium",
+    "test:mapOperations": "npm run prereport && npm run auth && npx playwright test tests/frontend-tests/map-tests --project=chromium",
+    "test:all:serial": "npx playwright test --workers=1 --project=chromium --project=smartDevice-samsung-s24-s25 --project=smartDevice-samsung-s24-s25-landscape-chromium --project=smartDevice-Pixel-7 --project=smartDevice-Pixel-7-landscape-chromium --project=smartDevice-Galaxy-Tab-S4 --project=smartDevice-Galaxy-Tab-S4-landscape-chromium --project=smartDevice-iPhone-15-Pro-Max --project=smartDevice-iPhone-15-Pro-Max-landscape-chromium --project=smartDevice-iPad-Pro-11-chromium --project=smartDevice-iPad-Pro-11-landscape-chromium "
   },
   "keywords": [],
   "author": "",
