@@ -8,7 +8,7 @@
     "prereport": "npm run delete:reports",
     "allure:report": "allure generate allure-results --clean --single-file",
     "auth": "npx playwright test --project=setup",
-    "test": "npm run auth && playwright test",
+    "test": "npx playwright test tests/angelswing3/login.spec.ts",
     "test:frontend": "npm run auth && playwright test tests/frontend-tests --project=chromium",
     "update:snapshots": "npm run auth && playwright test tests/frontend-tests/map-tests --update-snapshots",
     "test:api": "npm run auth && playwright test tests/api-tests --project=chromium",

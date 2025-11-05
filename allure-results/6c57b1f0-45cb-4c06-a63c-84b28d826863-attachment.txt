@@ -1,0 +1,75 @@
+Clicked on create content group
+Created new Volume
+Status: 201, URL: https://dev-api.angelswing.io/v2/projects/1575/contents
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Created Volume ID: 71329
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Expected Cut Value: 0
+Expected Fill Value: 0
+Expected Total Value: 0
+Cut Value From Side Bar: 0.00,
+Fill Value From Side Bar: 0.00
+Cut Value From Below Side Bar: 0
+Fill Value From Below Side Bar: 0
+Total Value From Below Side Bar: 0
+Cut Value From Map: 0
+Fill Value From Map: 0
+Total Value From Map: 0
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Expected Cut Value: 1
+Expected Fill Value: 0
+Expected Total Value: 1
+Cut Value From Side Bar: 1.00,
+Fill Value From Side Bar: 0.00
+Cut Value From Below Side Bar: 1
+Fill Value From Below Side Bar: 0
+Total Value From Below Side Bar: 1
+Cut Value From Map: 1
+Fill Value From Map: 0
+Total Value From Map: 1
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Expected Cut Value: 0
+Expected Fill Value: 1
+Expected Total Value: 1
+Cut Value From Side Bar: 0.00,
+Fill Value From Side Bar: -1.00
+Cut Value From Below Side Bar: 0
+Fill Value From Below Side Bar: 1
+Total Value From Below Side Bar: 1
+Cut Value From Map: 0
+Fill Value From Map: 1
+Total Value From Map: 1
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Expected Cut Value: 0
+Expected Fill Value: 0
+Expected Total Value: 0
+Cut Value From Side Bar: 0.00,
+Fill Value From Side Bar: 0.00
+Cut Value From Below Side Bar: 0
+Fill Value From Below Side Bar: 0
+Total Value From Below Side Bar: 0
+Cut Value From Map: 0
+Fill Value From Map: 0
+Total Value From Map: 0
+Status: 200, URL: https://volume-dev.angelswing.io/vc/67908
+Expected Cut Value: 465
+Expected Fill Value: 0
+Expected Total Value: 465
+Cut Value From Side Bar: 465.00,
+Fill Value From Side Bar: 0.00
+Cut Value From Below Side Bar: 465
+Fill Value From Below Side Bar: 0
+Total Value From Below Side Bar: 465
+Cut Value From Map: 465
+Fill Value From Map: 0
+Total Value From Map: 465
+Toggled visibility for measurement Item ID: 71329
+Toggled visibility for measurement Item ID: 71329
+Renamed Measurement Item ID 71329 to "RvkpKSSwsN"
+Centered on Measurement Item ID: 71329
+Toggled details visibility for measurement Item ID: 71329
+Delete Group response status: 204
+Verified: Group ID 71328 is not displayed
+Total Groups: 1
+Deleting group 1 of 1
+One group created successfully
