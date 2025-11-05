@@ -5,8 +5,7 @@
   "description": "Automated tests for Angelswing using Playwright and TypeScript.",
   "scripts": {
     "auth": "npx playwright test --project=setup",
-    "test": "npx playwright test tests/angelswing3/login.spec.ts --project=chromium",
-    "test:mapOperations": "npm run prereport && npm run auth && npx playwright test tests/frontend-tests/map-tests --project=chromium"
+    "test": "npm playwright test tests/angelswing3/login.spec.ts --project=chromium"
   },
   "keywords": [],
   "author": "",
