@@ -15,6 +15,7 @@ jobs:
        BASE_URL: https://dev.angelswing.io
        API_KEY: 'MySecretKey@123'
        NODE_ENV: Staging
+       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
     steps:
         - name: Checkout code
@@ -42,3 +43,13 @@ jobs:
             name: playwright-report
             path: playwright-report/
             retention-days: 30
+
+        - name: Slack Notification
+          if: always()
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
+            SLACK_ICON: https://github.com/rtCamp.png?size=48
+            SLACK_MESSAGE: 'Test Automation Report: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+            SLACK_TITLE: Automation Test Result
+            SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK }}
