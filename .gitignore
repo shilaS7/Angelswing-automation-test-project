@@ -18,4 +18,4 @@ playwright/.auth
 /test-options.ts
 /test-data.ts
 /test-data.ts
-.github*
+.github*.env
