@@ -56,9 +56,5 @@ jobs:
              *Workflow:* ${{ github.workflow }}
              *Branch:* ${{ github.ref_name }}
              *Run:* https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-             *Test Results:*
-             ✅ Passed: ${{ env.PASSED }}
-             ❌ Failed: ${{ env.FAILED }}
-             ⚪ Skipped: ${{ env.SKIPPED }}
              *Status:* ${{ job.status }}
             SLACK_COLOR: ${{ job.status == 'success' && 'good' || (job.status == 'failure' && 'danger' || 'warning') }}
