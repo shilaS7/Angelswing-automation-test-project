@@ -52,5 +52,3 @@ jobs:
             SLACK_MESSAGE: 'Test Automation Report: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
             SLACK_TITLE: Automation Test Notification
             SLACK_WEBHOOK: ${{ secrets.AUTOMATION_NOTIFICATION_SLACK }}
-
-

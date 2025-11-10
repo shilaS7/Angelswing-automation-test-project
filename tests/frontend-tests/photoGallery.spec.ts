@@ -704,10 +704,12 @@ test.describe('Photo Gallery Page', () => {
         await photoGalleryPage.clickOnPhoto();
         // Assert the photo is selected 
         expect(await photoGalleryPage.isAnyPhotoSelected()).toBe(true);
+        console.log("photo is selected");
 
         //Select the album button
         await photoGalleryPage.clickAddToAlbumButton();
         expect(await photoGalleryPage.isAddToAlbumButtonShown()).toBe(true);
+
         //select the create album button
         await photoGalleryPage.clickCreateAlbumButton();
         await photoGalleryPage.isAlbumPlaceholderClicked();
@@ -718,6 +720,7 @@ test.describe('Photo Gallery Page', () => {
 
         //Select the apply button
         await photoGalleryPage.clickOnProceedButton();
+        
     })
 
     test.afterAll(async ({ browser }) => {
