@@ -15,7 +15,6 @@ jobs:
        BASE_URL: https://dev.angelswing.io
        API_KEY: 'MySecretKey@123'
        NODE_ENV: Staging
-       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
     steps:
         - name: Checkout code
