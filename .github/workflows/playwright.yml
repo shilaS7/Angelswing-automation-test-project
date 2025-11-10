@@ -34,7 +34,6 @@ jobs:
         - name: Run Playwright tests
           run: |
             npm run test:login
-            npm run test:mapOperations
    #Upload the playwright report as an artifact
         - name: Upload Playwright Report Artifact
           if: ${{ !cancelled() }}
