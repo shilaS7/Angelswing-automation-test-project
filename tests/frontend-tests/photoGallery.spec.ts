@@ -721,8 +721,6 @@ test.describe('Photo Gallery Page', () => {
         //Select the apply button
         await photoGalleryPage.clickOnProceedButton();
         
-        
-        
     })
 
     test.afterAll(async ({ browser }) => {
